@@ -10,9 +10,12 @@
 
 :root {
     /* colors */
-    --color-white: #FFFFFF;
+    --color-white: #FFF;
+    --color-black: #000;
 
-    --color-front: #000000;
+    --color-blue: #27AEDB;
+
+    --color-front: var(--color-black);
 }
 
 /*------------------------------------*\
@@ -54,14 +57,14 @@ html {
 
 ::-moz-selection {
     
-    background-color: var(--color-accent);
+    background-color: var(--color-blue);
     color: var(--color-white);
     text-shadow: none;
 }
 
 ::selection {
     
-    background-color: var(--color-accent);
+    background-color: var(--color-blue);
     color: var(--color-white);
     text-shadow: none;
 }
