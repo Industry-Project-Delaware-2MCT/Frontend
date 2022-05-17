@@ -11,6 +11,7 @@
 :root {
     /* colors */
     --color-white: #FFF;
+    --color-gray: #747474;
     --color-black: #000;
 
     --color-blue: #27AEDB;
@@ -129,6 +130,7 @@ table,
 address,
 figure {
     margin: 0 0 16px;
+    color: var(--color-gray);
 }
 
 ul,
