@@ -474,6 +474,17 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
+.c-button {
+    text-decoration: none;
+    color: var(--color-white);
+    background-color: var(--color-blue);
+    border-radius: 5px;
+    padding: 10px 25px 10px 25px;
+    margin: 0 5px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
 /*
     Component: Footer
     ---
@@ -484,12 +495,23 @@ input::placeholder {
     position: absolute;
     bottom: 0;
     right: 0;
-    z-index: -1000;
+    z-index: -1;
 }
 
 /*------------------------------------*\
   #UTILITIES
 \*------------------------------------*/
+
+/*
+    Utilities: text
+    ---
+    Utility classes to put layout on text
+*/
+
+.u-button--text {
+    font-weight: 400;
+    color: var(--color-white);
+}
 
 /*
     Utilities: spacing
@@ -567,7 +589,7 @@ input::placeholder {
 }
 
 .u-1-of-2 {
-    flex-basis: calc(100% / 2) !important;
+    flex-basis: calc((100% / 2) - 10px) !important;
 }
 
 .u-1-of-3 {
