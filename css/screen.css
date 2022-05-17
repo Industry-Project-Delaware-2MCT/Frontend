@@ -201,19 +201,6 @@ input::placeholder {
     text-align: center;
 }
 
-
-.o-mgtop {
-    margin-top: 24px;
-}
-
-.o-scroll {
-    max-height: 80vh;
-    overflow: auto;
-
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
 .o-scroll::-webkit-scrollbar {
     display: none;
 }
@@ -230,19 +217,6 @@ input::placeholder {
 .o-row {
     padding: 0 48px 0;
     display: flow-root;
-}
-
-.o-background--white {
-    background-color:var(--color-back);
-    border-radius: 15px;
-    padding-left: 48px;
-}
-
-.o-revert-color {
-    background-color:var(--color-front);
-    color: var(--color-back) !important;
-    border-radius: 15px;
-    padding: 20px;
 }
 
 /* size modifiers */
