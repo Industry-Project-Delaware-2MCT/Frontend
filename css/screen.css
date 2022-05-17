@@ -94,21 +94,19 @@ h3 {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 30px;
     line-height: 48px;
     margin: 0 0 16px;;
 }
 
 h2 {
-    font-size: 32px;
+    font-size: 24px;
     line-height: 40px;
     margin: 0 0 24px;
 }
 
 h3 {
-    font-size: 26px;
-    line-height: 32px;
-    margin: 0 0 24px;
+    font-size: 20px;
 }
 
 h4,
@@ -338,6 +336,7 @@ input::placeholder {
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .o-layout__item {
@@ -496,12 +495,18 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
-
 /*
-    Component: App
+    Component: Footer
     ---
-    Main app wrapper
+    Main app footer
 */
+
+.c-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1000;
+}
 
 /*------------------------------------*\
   #UTILITIES
