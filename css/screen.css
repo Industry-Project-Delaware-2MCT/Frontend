@@ -10,9 +10,13 @@
 
 :root {
     /* colors */
-    --color-white: #FFFFFF;
+    --color-white: #FFF;
+    --color-gray: #747474;
+    --color-black: #000;
 
-    --color-front: #000000;
+    --color-blue: #27AEDB;
+
+    --color-front: var(--color-black);
 }
 
 /*------------------------------------*\
@@ -30,7 +34,7 @@ html {
     height : 100%;
     font-size: 16px;
     line-height: 1.5;
-    font-family: "Work Sans", Helvetica, arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: var(--color-front);
     overflow: hidden;
     box-sizing: border-box;
@@ -54,14 +58,14 @@ html {
 
 ::-moz-selection {
     
-    background-color: var(--color-accent);
+    background-color: var(--color-blue);
     color: var(--color-white);
     text-shadow: none;
 }
 
 ::selection {
     
-    background-color: var(--color-accent);
+    background-color: var(--color-blue);
     color: var(--color-white);
     text-shadow: none;
 }
@@ -88,27 +92,25 @@ img {
 */
 
 h1,
-h2,
-h3 {
+h2{
     font-weight: 700;
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 30px;
     line-height: 48px;
-    margin: 0 0 24px;;
+    margin: 0 0 16px;;
 }
 
 h2 {
-    font-size: 32px;
+    font-size: 24px;
     line-height: 40px;
     margin: 0 0 24px;
 }
 
 h3 {
-    font-size: 26px;
-    line-height: 32px;
-    margin: 0 0 24px;
+    font-weight: 400;
+    font-size: 20px;
 }
 
 h4,
@@ -127,7 +129,8 @@ dl,
 table,
 address,
 figure {
-    margin: 0 0 24px;
+    margin: 0 0 16px;
+    color: var(--color-gray);
 }
 
 ul,
@@ -203,19 +206,6 @@ input::placeholder {
     text-align: center;
 }
 
-
-.o-mgtop {
-    margin-top: 24px;
-}
-
-.o-scroll {
-    max-height: 80vh;
-    overflow: auto;
-
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
 .o-scroll::-webkit-scrollbar {
     display: none;
 }
@@ -230,21 +220,8 @@ input::placeholder {
 */
 
 .o-row {
-    padding: 48px 48px 0;
+    padding: 0 48px 0;
     display: flow-root;
-}
-
-.o-background--white {
-    background-color:var(--color-back);
-    border-radius: 15px;
-    padding-left: 48px;
-}
-
-.o-revert-color {
-    background-color:var(--color-front);
-    color: var(--color-back) !important;
-    border-radius: 15px;
-    padding: 20px;
 }
 
 /* size modifiers */
@@ -293,7 +270,8 @@ input::placeholder {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    max-width: 88.8888888em; /* 90 * 18px = 1600px */
+    max-width: 500px;
+    height: 100%;
 }
 
 
@@ -337,11 +315,12 @@ input::placeholder {
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
-    .o-layout__item {
-        flex-basis: 100%;
-    }
+.o-layout__item {
+    flex-basis: 100%;
+}
 
 /* gutter modifiers, these affect o-layout__item too */
 
@@ -367,6 +346,11 @@ input::placeholder {
 
 .o-layout--gutter-lg > .o-layout__item {
     padding: 0px 24px;
+}
+
+/* Vertical row modifier */
+.o-layout--column {
+    flex-direction: column;
 }
 
 /* reverse horizontal row modifier */
@@ -490,16 +474,44 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
+.c-button {
+    text-decoration: none;
+    color: var(--color-white);
+    background-color: var(--color-blue);
+    border-radius: 5px;
+    padding: 10px 25px 10px 25px;
+    margin: 0 5px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+    border: none;
+}
 
 /*
-    Component: App
+    Component: Footer
     ---
-    Main app wrapper
+    Main app footer
 */
+
+.c-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
 
 /*------------------------------------*\
   #UTILITIES
 \*------------------------------------*/
+
+/*
+    Utilities: text
+    ---
+    Utility classes to put layout on text
+*/
+
+.u-button--text {
+    font-weight: 400;
+    color: var(--color-white);
+}
 
 /*
     Utilities: spacing
@@ -577,7 +589,7 @@ input::placeholder {
 }
 
 .u-1-of-2 {
-    flex-basis: calc(100% / 2) !important;
+    flex-basis: calc((100% / 2) - 10px) !important;
 }
 
 .u-1-of-3 {
@@ -620,149 +632,6 @@ input::placeholder {
     flex-basis: calc(100% / 6 * 5) !important;
 }
 
-@media (min-width: 576px) {
-    .u-1-of-2-bp1 {
-        flex-basis: calc(100% / 2) !important;
-    }
-    .u-1-of-3-bp1 {
-        flex-basis: calc(100% / 3) !important;
-    }
-    .u-2-of-3-bp1 {
-        flex-basis: calc(100% / 3 * 2) !important;
-    }
-    .u-1-of-4-bp1 {
-        flex-basis: calc(100% / 4) !important;
-    }
-    .u-3-of-4-bp1 {
-        flex-basis: calc(100% / 4 * 3) !important;
-    }
-    .u-1-of-5-bp1 {
-        flex-basis: calc(100% / 5) !important;
-    }
-    .u-2-of-5-bp1 {
-        flex-basis: calc(100% / 5 * 2) !important;
-    }
-    .u-3-of-5-bp1 {
-        flex-basis: calc(100% / 5 * 3) !important;
-    }
-    .u-4-of-5-bp1 {
-        flex-basis: calc(100% / 5 * 4) !important;
-    }
-    .u-1-of-6-bp1 {
-        flex-basis: calc(100% / 6) !important;
-    }
-    .u-5-of-6-bp1 {
-        flex-basis: calc(100% / 6 * 5) !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .u-1-of-2-bp2 {
-        flex-basis: calc(100% / 2) !important;
-    }
-    .u-1-of-3-bp2 {
-        flex-basis: calc(100% / 3) !important;
-    }
-    .u-2-of-3-bp2 {
-        flex-basis: calc(100% / 3 * 2) !important;
-    }
-    .u-1-of-4-bp2 {
-        flex-basis: calc(100% / 4) !important;
-    }
-    .u-3-of-4-bp2 {
-        flex-basis: calc(100% / 4 * 3) !important;
-    }
-    .u-1-of-5-bp2 {
-        flex-basis: calc(100% / 5) !important;
-    }
-    .u-2-of-5-bp2 {
-        flex-basis: calc(100% / 5 * 2) !important;
-    }
-    .u-3-of-5-bp2 {
-        flex-basis: calc(100% / 5 * 3) !important;
-    }
-    .u-4-of-5-bp2 {
-        flex-basis: calc(100% / 5 * 4) !important;
-    }
-    .u-1-of-6-bp2 {
-        flex-basis: calc(100% / 6) !important;
-    }
-    .u-5-of-6-bp2 {
-        flex-basis: calc(100% / 6 * 5) !important;
-    }
-}
-
-@media (min-width: 992px) {
-    .u-1-of-2-bp3 {
-        flex-basis: calc(100% / 2) !important;
-    }
-    .u-1-of-3-bp3 {
-        flex-basis: calc(100% / 3) !important;
-    }
-    .u-2-of-3-bp3 {
-        flex-basis: calc(100% / 3 * 2) !important;
-    }
-    .u-1-of-4-bp3 {
-        flex-basis: calc(100% / 4) !important;
-    }
-    .u-3-of-4-bp3 {
-        flex-basis: calc(100% / 4 * 3) !important;
-    }
-    .u-1-of-5-bp3 {
-        flex-basis: calc(100% / 5) !important;
-    }
-    .u-2-of-5-bp3 {
-        flex-basis: calc(100% / 5 * 2) !important;
-    }
-    .u-3-of-5-bp3 {
-        flex-basis: calc(100% / 5 * 3) !important;
-    }
-    .u-4-of-5-bp3 {
-        flex-basis: calc(100% / 5 * 4) !important;
-    }
-    .u-1-of-6-bp3 {
-        flex-basis: calc(100% / 6) !important;
-    }
-    .u-5-of-6-bp3 {
-        flex-basis: calc(100% / 6 * 5) !important;
-    }
-}
-
-@media (min-width: 1200px) {
-    .u-1-of-2-bp4 {
-        flex-basis: calc(100% / 2) !important;
-    }
-    .u-1-of-3-bp4 {
-        flex-basis: calc(100% / 3) !important;
-    }
-    .u-2-of-3-bp4 {
-        flex-basis: calc(100% / 3 * 2) !important;
-    }
-    .u-1-of-4-bp4 {
-        flex-basis: calc(100% / 4) !important;
-    }
-    .u-3-of-4-bp4 {
-        flex-basis: calc(100% / 4 * 3) !important;
-    }
-    .u-1-of-5-bp4 {
-        flex-basis: calc(100% / 5) !important;
-    }
-    .u-2-of-5-bp4 {
-        flex-basis: calc(100% / 5 * 2) !important;
-    }
-    .u-3-of-5-bp4 {
-        flex-basis: calc(100% / 5 * 3) !important;
-    }
-    .u-4-of-5-bp4 {
-        flex-basis: calc(100% / 5 * 4) !important;
-    }
-    .u-1-of-6-bp4 {
-        flex-basis: calc(100% / 6) !important;
-    }
-    .u-5-of-6-bp4 {
-        flex-basis: calc(100% / 6 * 5) !important;
-    }
-}
 
 /*------------------------------------*\
 #MEDIA
