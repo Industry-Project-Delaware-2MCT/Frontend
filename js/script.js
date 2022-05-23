@@ -47,12 +47,12 @@ const checkLogin = (json) => {
     if(json.status == 200) {
         console.log("login succes");
         console.log(window.location.href);
-        //window.location.href = "http://localhost:5500/Frontend/index.html";
+        window.location.href = "http://localhost:5500/Frontend/index.html";
     } else {
         console.log("login failed");
         console.log(json.status);
-        firstName.classList.add('c-empty_input');
-        lastName.classList.add('c-empty_input');
+        /*firstName.classList.add('c-empty_input');
+        lastName.classList.add('c-empty_input');*/
     }
 
 }
