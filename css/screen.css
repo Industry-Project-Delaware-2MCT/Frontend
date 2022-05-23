@@ -505,7 +505,7 @@ input::placeholder {
     height: 40px;
     border: none;
     border-bottom: 1px solid var(--color-dark-blue);
-    background-color: #27AEDB10;
+    background-color: rgba(0, 0, 0, 0);
     padding: 10px;
 }
 
