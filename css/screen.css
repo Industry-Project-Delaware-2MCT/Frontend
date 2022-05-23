@@ -509,6 +509,11 @@ input::placeholder {
     padding: 10px;
 }
 
+.c-input:focus {
+    outline: none;
+    border-bottom: 2px solid var(--color-dark-blue);
+}
+
 /*
     Component: Footer
     ---
