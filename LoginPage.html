@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/screen.css">
+
+    <script src="/js/loginpage.js"></script>
 </head>
 <body class="o-container o-layout o-layout--justify-space-evenly o-layout--column">
     <div class="o-row">
@@ -17,16 +19,17 @@
         <p>Voor je kan beginnen met medicatie te scannen moet je even je indentiteit verifiëren.</p>
     </div>
     <div class="o-row">
+        <div></div>
         <h4>Voornaam<span style="color:red;">*</span></h4>
-        <input class="c-input" type="text" placeholder="John"/>
+        <input class="c-input js-firstname" type="text" placeholder="John"/>
         <br />
         <br />
         <h4>Achternaam<span style="color:red;">*</span></h4>
-        <input class="c-input" type="text" placeholder="Doe"/>
+        <input class="c-input js-lastname" type="text" placeholder="Doe"/>
     </div>
     <div class="o-row">
         <div></div>
-        <a href="#" class="u-1-of-2 c-button o-layout o-layout--justify-center">
+        <a onclick="Login()" class="u-1-of-2 c-button o-layout o-layout--justify-center">
             <div class="u-button--text">Login</div>
         </a>
     </div>  

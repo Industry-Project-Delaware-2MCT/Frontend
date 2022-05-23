@@ -17,6 +17,8 @@
     --color-blue: #27AEDB;
     --color-dark-blue: #0880A8;
 
+    --color-red: #F76363;
+
     --color-front: var(--color-black);
 }
 
@@ -512,6 +514,10 @@ input::placeholder {
 .c-input:focus {
     outline: none;
     border-bottom: 2px solid var(--color-dark-blue);
+}
+
+.c-empty_input {
+    border-bottom: 1px solid var(--color-red);
 }
 
 /*
