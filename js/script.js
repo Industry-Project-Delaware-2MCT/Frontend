@@ -99,6 +99,9 @@ const checkLogin = (response, method) => {
         console.log(response.status);
         errorText.innerHTML = "Login niet gelukt, foute credentials";
         errorText.style.color = 'red';
+        if(window.location.href.includes("NFCpage.html")) {
+            rfid.classList.remove('c-rfid-animate-green');
+        }
     }
 
     return response.json();
