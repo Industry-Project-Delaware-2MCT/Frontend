@@ -47,7 +47,12 @@ const authenticate = async (firstname, lastname) => {
         body: JSON.stringify(data),
     })
     .then(response => checkLogin(response))
-    .then(result => console.log(result))
+    .then(data => {
+        console.log(data);
+        localStorage.setItem("firstName", data.first_name);
+        localStorage.setItem("nfcSerial", data.nfc_serialnumber);
+        localStorage.setItem("apiToken", data.api_token);
+    })
     .catch(error => console.log('error', error));
 }
 
@@ -77,7 +82,7 @@ const authenticateByNFC = async (nfcSerialNumber) => {
 
 
 
-const checkLogin = (response) => {
+const checkLogin = (response, method) => {
     console.log(response);
 
     if(response.status == 200) {
