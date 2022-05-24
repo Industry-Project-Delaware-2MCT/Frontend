@@ -26,10 +26,6 @@ const Login = async () => {
     
     if(checkInputs()) {
         authenticate(firstName.value, lastName.value);
-        if(firstName.value.length != 0) {
-            localStorage.setItem("firstname", firstName.value);
-        }
-        
     }
 };
 
@@ -55,14 +51,14 @@ const authenticate = async (firstname, lastname) => {
     .catch(error => console.log('error', error));
 }
 
-const authenticateById = async (id) => {
+const authenticateByNFC = async (nfcSerialNumber) => {
     var data = {
-        id: id
+        nfc_serialnumber: nfcSerialNumber
     };
 
     console.log("fetching");
 
-    fetch("https://industryprojectapi.azurewebsites.net/api/authenticatie/id", {
+    fetch("https://industryprojectapi.azurewebsites.net/api/authenticatie/nfc", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -70,33 +66,41 @@ const authenticateById = async (id) => {
         body: JSON.stringify(data),
     })
     .then(response => checkLogin(response))
-    .then(result => console.log(result))
+    .then(data => {
+        console.log(data);
+        localStorage.setItem("firstName", data.first_name);
+        localStorage.setItem("nfcSerial", data.nfc_serialnumber);
+        localStorage.setItem("apiToken", data.api_token);
+    })
     .catch(error => console.log('error', error));
 }
 
 
 
-const checkLogin = (json) => {
-    console.log(json);
+const checkLogin = (response) => {
+    console.log(response);
 
-    if(json.status == 200) {
+    if(response.status == 200) {
         console.log("login succes");
         console.log(window.location.href);
         window.location.href = window.location.origin + "/Frontend/PatientPage.html";
+       
         
     } else {
         console.log("login failed");
-        console.log(json.status);
+        console.log(response.status);
         firstName.classList.add('c-empty_input');
         lastName.classList.add('c-empty_input');
     }
+
+    return response.json();
 
 }
 
 
 
 const showPatientName = () => {
-    nurseName = localStorage.getItem("firstname");
+    nurseName = localStorage.getItem("firstName");
     greeting.innerHTML = "Hey " + nurseName;
     console.log(nurseName);
 }
@@ -137,7 +141,7 @@ const scan = async () => {
       });
   
       ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        authenticateById(serialNumber);
+        authenticateByNFC(serialNumber);
         console.log(`Serial Number: ${serialNumber}`);
         console.log(`Records: (${message.records.length})`);
         console.log(`Records: (${message.records})`);
