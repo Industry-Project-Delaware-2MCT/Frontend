@@ -16,7 +16,8 @@ const init = () => {
         greeting = document.querySelector('.js-greeting');
         showPatientName();
     } else if(window.location.href.includes("NFCpage.html")) {
-        errorMessage = document.querySelector(".js-error");
+        text = document.querySelector(".js-text");
+        title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
         scan();
     }
@@ -137,24 +138,28 @@ const checkInputs = () => {
 
 const scan = async () => {
     try {
-      const ndef = new NDEFReader();
-      await ndef.scan();
-      console.log("Scanning");
-      rfid.classList.add('c-rfid-animate');
-  
-      ndef.addEventListener("readingerror", () => {
-        console.log("Argh! Cannot read data from the NFC tag. Try another one?");
-        errorMessage.innerHTML = "Scan niet gelukt, probeer opnieuw of log manueel in";
-      });
-  
-      ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        rfid.classList.add('c-rfid-animate-green');
-        authenticateByNFC(serialNumber);
-        console.log(`Serial Number: ${serialNumber}`);
-      });
+        const ndef = new NDEFReader();
+        await ndef.scan();
+        console.log("Scanning");
+        rfid.classList.add('c-rfid-animate');
+        
+        ndef.addEventListener("readingerror", () => {
+            console.log("Argh! Cannot read data from the NFC tag. Try another one?");
+            text.innerHTML = "Scan niet gelukt, probeer opnieuw of log manueel in";
+            text.style.color = 'red';
+        });
+        
+        ndef.addEventListener("reading", ({ message, serialNumber }) => {
+            rfid.classList.add('c-rfid-animate-green');
+            authenticateByNFC(serialNumber);
+            console.log(`Serial Number: ${serialNumber}`);
+        });
     } catch (error) {
-      console.log("Argh! " + error);
-      errorMessage.innerHTML = "Er is iets fout gegaan, probeer opnieuw of log manueel in";
+        console.log("Argh! " + error);
+        rfid.classList.add('c-rfid-error');
+        text.innerHTML = "Er is geen NFC reader gevonden, probeer opnieuw of log manueel in";     
+        text.style.color = 'red';
+        title.innerHTML = "NFC niet gevonden";
     }
   };
 
