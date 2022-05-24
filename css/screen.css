@@ -497,6 +497,10 @@ input::placeholder {
     border: none;
 }
 
+.c-button {
+    background-color: var(--color-red);
+}
+
 .c-button-margin {
     margin: 0 5px;
 }
