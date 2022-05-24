@@ -160,9 +160,7 @@ const scan = async () => {
         
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
             rfid.classList.add('c-rfid-animate-green');
-            // Garenteed to fail to test errormessage if the nurse doesn't exist
-            authenticateByNFC("86:6a:0f:d2");
-            // authenticateByNFC(serialNumber);
+            authenticateByNFC(serialNumber);
             console.log(`Serial Number: ${serialNumber}`);
         });
     } catch (error) {
