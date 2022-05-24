@@ -60,7 +60,7 @@ const checkLogin = (json) => {
     if(json.status == 200) {
         console.log("login succes");
         console.log(window.location.href);
-        window.location.href = window.location.origin + "/PatientPage.html";
+        window.location.href = window.location.origin + "/Frontend/PatientPage.html";
         
     } else {
         console.log("login failed");
