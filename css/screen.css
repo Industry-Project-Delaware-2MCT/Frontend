@@ -497,7 +497,7 @@ input::placeholder {
     border: none;
 }
 
-.c-button {
+.c-button-red {
     background-color: var(--color-red);
 }
 
