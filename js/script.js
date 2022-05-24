@@ -15,7 +15,7 @@ const init = () => {
     }else if(window.location.href.includes("PatientPage.html")) {
         greeting = document.querySelector('.js-greeting');
         showPatientName();
-    } else if(window.location.href.includes("ScanPage.html")) {
+    } else if(window.location.href.includes("NFCpage.html")) {
         errorMessage = document.querySelector(".js-error");
         scan();
     }
