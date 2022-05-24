@@ -17,6 +17,7 @@ const init = () => {
         showPatientName();
     } else if(window.location.href.includes("NFCpage.html")) {
         errorMessage = document.querySelector(".js-error");
+        rfid = document.querySelector(".js-rfid");
         scan();
     }
 }
@@ -139,6 +140,7 @@ const scan = async () => {
       const ndef = new NDEFReader();
       await ndef.scan();
       console.log("Scanning");
+      rfid.classList.add('c-rfid-animate');
   
       ndef.addEventListener("readingerror", () => {
         console.log("Argh! Cannot read data from the NFC tag. Try another one?");
@@ -146,10 +148,9 @@ const scan = async () => {
       });
   
       ndef.addEventListener("reading", ({ message, serialNumber }) => {
+        rfid.classList.add('c-rfid-animate-green');
         authenticateByNFC(serialNumber);
         console.log(`Serial Number: ${serialNumber}`);
-        console.log(`Records: (${message.records.length})`);
-        console.log(`Records: (${message.records})`);
       });
     } catch (error) {
       console.log("Argh! " + error);
