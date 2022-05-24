@@ -3,11 +3,13 @@ let nurseName = "test";
 const init = () => {
     console.log("init");
     
-
     if(window.location.href.includes("LoginPage.html")) {
         firstName = document.querySelector('.js-firstname');
 	    lastName = document.querySelector('.js-lastname'); 
+        firstNameErrormessage = document.querySelector('.js-firstNameErrormessage');
+        lastNameErrormessage = document.querySelector('.js-lastNameErrormessage');
         loginForm = document.querySelector('.js-login');
+        errorText = document.querySelector(".js-errormessage");
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             Login();
@@ -16,7 +18,7 @@ const init = () => {
         greeting = document.querySelector('.js-greeting');
         showPatientName();
     } else if(window.location.href.includes("NFCpage.html")) {
-        text = document.querySelector(".js-text");
+        errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
         scan();
@@ -86,18 +88,17 @@ const authenticateByNFC = async (nfcSerialNumber) => {
 
 const checkLogin = (response, method) => {
     console.log(response);
-
+    
     if(response.status == 200) {
         console.log("login succes");
         console.log(window.location.href);
         window.location.href = window.location.origin + "/Frontend/PatientPage.html";
-       
         
     } else {
         console.log("login failed");
         console.log(response.status);
-        firstName.classList.add('c-empty_input');
-        lastName.classList.add('c-empty_input');
+        errorText.innerHTML = "Login niet gelukt, foute credentials";
+        errorText.style.color = 'red';
     }
 
     return response.json();
@@ -116,6 +117,8 @@ const showPatientName = () => {
 const removeWrongInput = () => {
     firstName.classList.remove('c-empty_input');
     lastName.classList.remove('c-empty_input');
+    firstNameErrormessage.innerHTML = ""
+    lastNameErrormessage.innerHTML = ""
 }
 
 const checkInputs = () => {    
@@ -125,11 +128,13 @@ const checkInputs = () => {
     
     if (firstName.value.length == 0){
         check = false;
+        firstNameErrormessage.innerHTML = "Voornaam mag niet leeg zijn"
         firstName.classList.add('c-empty_input');
     }
 
     if(lastName.value.length == 0) {
         check = false;
+        lastNameErrormessage.innerHTML = "Achternaam mag niet leeg zijn"
         lastName.classList.add('c-empty_input');
     }
     
@@ -146,8 +151,8 @@ const scan = async () => {
         
         ndef.addEventListener("readingerror", () => {
             console.log("Argh! Cannot read data from the NFC tag. Try another one?");
-            text.innerHTML = "Scan niet gelukt, probeer opnieuw of log manueel in";
-            text.style.color = 'red';
+            errorText.innerHTML = "Scan niet gelukt, probeer opnieuw of log manueel in";
+            errorText.style.color = 'red';
         });
         
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
@@ -158,8 +163,8 @@ const scan = async () => {
     } catch (error) {
         console.log("Argh! " + error);
         rfid.classList.add('c-rfid-error');
-        text.innerHTML = "Er is geen NFC reader gevonden, probeer opnieuw of log manueel in";     
-        text.style.color = 'red';
+        errorText.innerHTML = "Er is geen NFC reader gevonden, probeer opnieuw of log manueel in";     
+        errorText.style.color = 'red';
         title.innerHTML = "NFC niet gevonden";
     }
   };
