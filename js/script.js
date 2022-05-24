@@ -141,6 +141,7 @@ const scan = async () => {
         const ndef = new NDEFReader();
         await ndef.scan();
         console.log("Scanning");
+        rfid.classList.remove('c-rfid-error');
         rfid.classList.add('c-rfid-animate');
         
         ndef.addEventListener("readingerror", () => {
