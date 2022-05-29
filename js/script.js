@@ -3,7 +3,10 @@ let nurseName = "test";
 const init = () => {
     console.log("init");
     
-    if(window.location.href.includes("LoginPage.html")) {
+    if(window.location.href.includes("index.html")) {
+        warmup();
+    }
+    else if(window.location.href.includes("LoginPage.html")) {
         firstName = document.querySelector('.js-firstname');
 	    lastName = document.querySelector('.js-lastname'); 
         firstNameErrormessage = document.querySelector('.js-firstNameErrormessage');
@@ -32,6 +35,12 @@ const Login = async () => {
         authenticate(firstName.value, lastName.value);
     }
 };
+
+const warmup = async () => {
+    console.log("fetching");
+    //'Hello World' api call to warm up the server (= start up server after being idle for a while)
+    await fetch("https://industryprojectapi.azurewebsites.net/")
+}
 
 const authenticate = async (firstname, lastname) => {
     var data = {
