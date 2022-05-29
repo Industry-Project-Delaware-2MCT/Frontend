@@ -339,7 +339,7 @@ input::placeholder {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     width: 100%;
 }
 
