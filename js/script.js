@@ -163,7 +163,7 @@ const convertToBase64 = (image) => {
     reader.onloadend = function() {            
         //split reader.result on "," and keep text after ","
         
-        console.log( reader.result);
+        //console.log( reader.result);
         let readFile = reader.result;
         let base64 = readFile.split(",")[1];
         //console.log(base64);
