@@ -24,7 +24,8 @@ const init = () => {
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
-        scan();
+        scanButton = document.querySelector(".js-scanButton");
+        checkNFCPermissions();
     }
 }
 
@@ -153,6 +154,36 @@ const checkInputs = () => {
     return check;
 }
 
+const checkNFCPermissions = async () => {
+    try{
+        const ndef = new NDEFReader();
+        const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
+        if (nfcPermissionStatus.state === "granted") {
+          // NFC access was previously granted, so we can start NFC scanning now.
+          scan();
+        } else {
+            scanButton.classList.remove('u-hide');
+            title.classList.add("u-hide");
+            errorText.classList.add("u-hide");
+            scanButton.onclick = async () => { 
+                scanButton.classList.add('u-hide');
+                title.classList.remove("u-hide");
+                errorText.classList.remove("u-hide");
+                scan();
+            };
+        }
+    } 
+    catch (error) {
+        console.log("Argh! " + error);
+        rfid.classList.add('c-rfid-error');
+        errorText.innerHTML = "Er is geen NFC reader gevonden, probeer opnieuw of log manueel in";     
+        errorText.style.color = 'red';
+        title.innerHTML = "NFC niet gevonden";
+    }
+
+
+}
+
 const scan = async () => {
     try {
         const ndef = new NDEFReader();
@@ -172,12 +203,13 @@ const scan = async () => {
             authenticateByNFC(serialNumber);
             console.log(`Serial Number: ${serialNumber}`);
         });
-    } catch (error) {
+    }
+    catch (error) {
         console.log("Argh! " + error);
         rfid.classList.add('c-rfid-error');
-        errorText.innerHTML = "Er is geen NFC reader gevonden, probeer opnieuw of log manueel in";     
+        errorText.innerHTML = "NFC staat niet aan, probeer opnieuw of log manueel in";     
         errorText.style.color = 'red';
-        title.innerHTML = "NFC niet gevonden";
+        title.innerHTML = "NFC staat niet aan";
     }
   };
 
