@@ -112,6 +112,10 @@ const checkLogin = (response, method) => {
         if(window.location.href.includes("NFCpage.html")) {
             rfid.classList.remove('c-rfid-animate-green');
         }
+        if(window.location.href.includes("LoginPage.html")) {
+            firstName.value = "";
+            lastName.value = "";
+        }
     }
 
     return response.json();
