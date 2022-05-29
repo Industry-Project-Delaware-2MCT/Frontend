@@ -331,6 +331,9 @@ input::placeholder {
     contains the basic structural elements, but classes should be complemented
     with width utilities
 */
+#cameraFileInput {
+    display: none;
+}
 
 .o-layout {
     display: -webkit-flex;
