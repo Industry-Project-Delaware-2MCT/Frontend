@@ -614,6 +614,10 @@ input::placeholder {
     Utility classes to put layout on text
 */
 
+.u-hide {
+    visibility: hidden;
+}
+
 .u-button--text {
     font-weight: 400;
     color: var(--color-white);
@@ -627,6 +631,10 @@ input::placeholder {
 
 .u-pt-clear {
     padding-top: 0 !important;
+}
+
+.u-mt-xl {
+    margin-top: 56px !important;
 }
 
 .u-mb-clear {
@@ -652,6 +660,7 @@ input::placeholder {
 .u-mb-xl {
     margin-bottom: 48px !important;
 }
+
 
 /*
     Utilities: max-width
