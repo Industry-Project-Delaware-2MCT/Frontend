@@ -15,17 +15,31 @@
     <div class="c-image-placeholder">image placeholder</div>
     <div class="o-container o-container-with-image o-layout o-layout--column o-layout--justify-space-between o-row--lg">
         <div class="o-row">
-            <h2 class="js-greeting">Hey "firstname"</h2>
-            <p>Welke patient moet medicatie ontvangen? Open de camera en scan de barcode op de armband.</p>
+            <h2>Medicatie</h2>
+            <p>Welke medicatie moet de patient ontvangen? Open de camera en scan de medicatie</p>
+        </div>
+        <div class="o-row">
+            <span class="js-errormessage"></span><br />
+            <h4>Patient</h4>
+            <div class="js-patientName">Voornaam: John<br />Naam: Doe</div>
+        </div>
+        <div class="o-row">
+            <h4>Te ontvangen medicatie</h4>
+            <div class="js-medication"></div>
         </div>
         <div class="o-row o-row--lg">
-            <a class="u-1-of-2 c-button o-layout o-layout--justify-center js-cameraButton">
-                <div class="u-button--text">Open Camera</div>
-            </a>
-        </div>  
+            <label for="cameraFileInput" class="c-button o-layout o-layout--justify-center">
+                <span class="u-button--text js-camera">Open camera</span>
+                <input
+                    id="cameraFileInput"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                />
+                </label>
+        </div>
     </div>
     <img class="c-footer" src="assets/footer.svg" width="100%">
-
     <script src="./js/script.js"></script>
 </body>
 </html>

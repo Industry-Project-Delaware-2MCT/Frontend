@@ -20,12 +20,30 @@ const init = () => {
     }else if(window.location.href.includes("PatientPage.html")) {
         greeting = document.querySelector('.js-greeting');
         showPatientName();
+        cameraButton = document.querySelector('.js-cameraButton');
+        cameraButton.addEventListener('click', function(e) {
+            localStorage.setItem("patientId", "628740081b56900e34fbe029");
+            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+            
+        });
     } else if(window.location.href.includes("NFCpage.html")) {
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
         scanButton = document.querySelector(".js-scanButton");
         checkNFCPermissions();
+    }else if(window.location.href.includes("MedicationPage.html")) {
+        getPatientInfo();
+        
+        input = document.getElementById("cameraFileInput");
+        input.addEventListener("change", function () {
+            convertToBase64(input);
+        });
+        errorText = document.querySelector(".js-errormessage");
+        patientName = document.querySelector(".js-patientName");
+        patientMedication = document.querySelector(".js-medication");
+        
+
     }
 }
 
@@ -158,6 +176,22 @@ const checkInputs = () => {
     return check;
 }
 
+const convertToBase64 = (image) => {
+    var file = image.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {            
+        //split reader.result on "," and keep text after ","
+        
+        //console.log( reader.result);
+        let readFile = reader.result;
+        let base64 = readFile.split(",")[1];
+        //console.log(base64);
+        getPatientData(base64);
+
+    }
+    reader.readAsDataURL(file);
+}
+
 const checkNFCPermissions = async () => {
     try{
         const ndef = new NDEFReader();
@@ -184,8 +218,6 @@ const checkNFCPermissions = async () => {
         errorText.style.color = 'red';
         title.innerHTML = "NFC niet gevonden";
     }
-
-
 }
 
 const scan = async () => {
@@ -217,6 +249,85 @@ const scan = async () => {
     }
   };
 
+  const getPatientData = async (base64image) => {
+    var data = {
+        base64String: base64image
+    };
+
+    
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => showPatientData(response))
+    .then(data => {
+        console.log(data);
+        console.log("result" , data.result);
+    })
+    .catch(error => console.log('error', error));
+}
+
+const getPatientInfo = async () => {
+
+ 
+    
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/patient/" + localStorage.getItem("patientId"), {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => showPatientInfo(response))
+    .then(data => {
+        console.log(data);
+        setMedicationData(data.first_name, data.last_name, data.medication);
+
+    })
+    .catch(error => console.log('error', error));
+}
+    
+function setMedicationData(firstName, lastName, medication) {
+    patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
+    medication.forEach(item => {
+        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
+    });
+}
+
+function showPatientData(response) {
+    if(response.status == 200) {
+        console.log("patient data succes");
+        //localStorage.setItem("patientData", JSON.stringify(response.json()));
+        return response.json();
+    } else {
+        console.log("patient data failed");
+        console.log(response.status);
+        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        errorText.style.color = 'red';
+    }
+}
+
+
+function showPatientInfo(response) {
+    if(response.status == 200) {
+        console.log("patient info succes");
+        return response.json();
+    } else {
+        console.log("patient info failed");
+        console.log(response.status);
+        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        errorText.style.color = 'red';
+    }
+}
 document.addEventListener('DOMContentLoaded', async function () {
     init();
 });
