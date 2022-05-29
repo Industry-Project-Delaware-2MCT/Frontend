@@ -26,7 +26,6 @@ const init = () => {
             window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
             
         });
-
     } else if(window.location.href.includes("NFCpage.html")) {
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
