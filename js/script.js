@@ -39,7 +39,6 @@ const init = () => {
             convertToBase64(input);
         });
         patientName = document.querySelector(".js-patientName");
-        patientLastName = document.querySelector(".js-patientLastName");
         patientMedication = document.querySelector(".js-medication");
         
 
@@ -256,10 +255,6 @@ const getPatientInfo = async () => {
     .then(response => showPatientInfo(response))
     .then(data => {
         console.log(data);
-        console.log("first_name" , data.first_name);
-        console.log("last_name" , data.last_name);
-        console.log("barcode" , data.barcode);
-        console.log("medication" , data.medication);
         setMedicationData(data.first_name, data.last_name, data.medication);
 
     })
@@ -267,16 +262,10 @@ const getPatientInfo = async () => {
 }
     
 function setMedicationData(firstName, lastName, medication) {
-    patientName.innerHTML = "Naam: " + firstName;
-    patientLastName.innerHTML = "Achternaam: " + lastName;
+    patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
     medication.forEach(item => {
         patientMedication.innerHTML += `<p>${item.medication_name} ${item.dosis} </p>`
     });
-    
-
-    
-
-
 }
 
 function showPatientData(response) {
