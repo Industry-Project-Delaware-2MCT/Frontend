@@ -38,6 +38,7 @@ const init = () => {
         input.addEventListener("change", function () {
             convertToBase64(input);
         });
+        errorText = document.querySelector(".js-errormessage");
         patientName = document.querySelector(".js-patientName");
         patientMedication = document.querySelector(".js-medication");
         

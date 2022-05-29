@@ -19,6 +19,7 @@
             <p>Welke medicatie moet de patient ontvangen? Open de camera en scan de medicatie</p>
         </div>
         <div class="o-row">
+            <span class="js-errormessage"></span><br />
             <h4>Patient</h4>
             <div class="js-patientName">Voornaam: John<br />Naam: Doe</div>
         </div>
@@ -27,17 +28,15 @@
             <div class="js-medication"></div>
         </div>
         <div class="o-row o-row--lg">
-            <!-- <a href="#" class="u-1-of-2 c-button o-layout o-layout--justify-center"> -->
-                <label for="cameraFileInput" class="c-button o-layout o-layout--justify-center">
-                    <span class="u-button--text js-camera">Open camera</span>
-                    <input
-                      id="cameraFileInput"
-                      type="file"
-                      accept="image/*"
-                      capture="environment"
-                    />
-                  </label>
-            <!-- </a> -->
+            <label for="cameraFileInput" class="c-button o-layout o-layout--justify-center">
+                <span class="u-button--text js-camera">Open camera</span>
+                <input
+                    id="cameraFileInput"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                />
+                </label>
         </div>
     </div>
     <img class="c-footer" src="assets/footer.svg" width="100%">
