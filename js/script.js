@@ -171,26 +171,11 @@ const Login = async () => {
         authenticate(firstName.value, lastName.value);
     }
 };
+
 const warmup = async () => {
-
-
-    
-
     console.log("fetching");
-
-    fetch("https://industryprojectapi.azurewebsites.net/", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: "",
-    })
-    .then(response => checkLogin(response))
-    .then(data => {
-        console.log(data);
-        
-    })
-    .catch(error => console.log('error', error));
+    //'Hello World' api call to warm up the server (= start up server after being idle for a while)
+    await fetch("https://industryprojectapi.azurewebsites.net/")
 }
 
 const authenticate = async (firstname, lastname) => {
