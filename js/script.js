@@ -185,23 +185,32 @@ const checkNFCPermissions = async () => {
 }
 
 const scan = async () => {
-    const ndef = new NDEFReader();
-    await ndef.scan();
-    console.log("Scanning");
-    rfid.classList.remove('c-rfid-error');
-    rfid.classList.add('c-rfid-animate');
-    
-    ndef.addEventListener("readingerror", () => {
-        console.log("Argh! Cannot read data from the NFC tag. Try another one?");
-        errorText.innerHTML = "Scan niet gelukt, probeer opnieuw of log manueel in";
+    try {
+        const ndef = new NDEFReader();
+        await ndef.scan();
+        console.log("Scanning");
+        rfid.classList.remove('c-rfid-error');
+        rfid.classList.add('c-rfid-animate');
+        
+        ndef.addEventListener("readingerror", () => {
+            console.log("Argh! Cannot read data from the NFC tag. Try another one?");
+            errorText.innerHTML = "Scan niet gelukt, probeer opnieuw of log manueel in";
+            errorText.style.color = 'red';
+        });
+        
+        ndef.addEventListener("reading", ({ message, serialNumber }) => {
+            rfid.classList.add('c-rfid-animate-green');
+            authenticateByNFC(serialNumber);
+            console.log(`Serial Number: ${serialNumber}`);
+        });
+    }
+    catch (error) {
+        console.log("Argh! " + error);
+        rfid.classList.add('c-rfid-error');
+        errorText.innerHTML = "NFC staat niet aan, probeer opnieuw of log manueel in";     
         errorText.style.color = 'red';
-    });
-    
-    ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        rfid.classList.add('c-rfid-animate-green');
-        authenticateByNFC(serialNumber);
-        console.log(`Serial Number: ${serialNumber}`);
-    });
+        title.innerHTML = "NFC staat niet aan";
+    }
   };
 
 document.addEventListener('DOMContentLoaded', async function () {
