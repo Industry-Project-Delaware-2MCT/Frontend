@@ -19,16 +19,31 @@ const init = () => {
         });
     }else if(window.location.href.includes("PatientPage.html")) {
         greeting = document.querySelector('.js-greeting');
-        input = document.getElementById("cameraFileInput");
         showPatientName();
-        input.addEventListener("change", function () {
-            convertToBase64(input);
+        cameraButton = document.querySelector('.js-cameraButton');
+        cameraButton.addEventListener('click', function(e) {
+            localStorage.setItem("patientId", "628740081b56900e34fbe029");
+            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+            
         });
+
     } else if(window.location.href.includes("NFCpage.html")) {
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
         scan();
+    }else if(window.location.href.includes("MedicationPage.html")) {
+        getPatientInfo();
+        
+        input = document.getElementById("cameraFileInput");
+        input.addEventListener("change", function () {
+            convertToBase64(input);
+        });
+        patientName = document.querySelector(".js-patientName");
+        patientLastName = document.querySelector(".js-patientLastName");
+        patientMedication = document.querySelector(".js-medication");
+        
+
     }
 }
 
@@ -226,6 +241,45 @@ const scan = async () => {
     .catch(error => console.log('error', error));
 }
 
+const getPatientInfo = async () => {
+
+ 
+    
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/patient/" + localStorage.getItem("patientId"), {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => showPatientInfo(response))
+    .then(data => {
+        console.log(data);
+        console.log("first_name" , data.first_name);
+        console.log("last_name" , data.last_name);
+        console.log("barcode" , data.barcode);
+        console.log("medication" , data.medication);
+        setMedicationData(data.first_name, data.last_name, data.medication);
+
+    })
+    .catch(error => console.log('error', error));
+}
+    
+function setMedicationData(firstName, lastName, medication) {
+    patientName.innerHTML = "Naam: " + firstName;
+    patientLastName.innerHTML = "Achternaam: " + lastName;
+    medication.forEach(item => {
+        patientMedication.innerHTML += `<p>${item.medication_name} ${item.dosis} </p>`
+    });
+    
+
+    
+
+
+}
+
 function showPatientData(response) {
     if(response.status == 200) {
         console.log("patient data succes");
@@ -239,6 +293,18 @@ function showPatientData(response) {
     }
 }
 
+
+function showPatientInfo(response) {
+    if(response.status == 200) {
+        console.log("patient info succes");
+        return response.json();
+    } else {
+        console.log("patient info failed");
+        console.log(response.status);
+        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        errorText.style.color = 'red';
+    }
+}
 document.addEventListener('DOMContentLoaded', async function () {
     init();
 });
