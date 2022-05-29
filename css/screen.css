@@ -114,7 +114,7 @@ h1 {
 h2 {
     font-size: 24px;
     line-height: 40px;
-    margin: 0 0 24px;
+    margin: 0 0 6px;
 }
 
 h3 {
@@ -123,7 +123,7 @@ h3 {
 }
 
 h4 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 1.5;
     margin: 0;
@@ -133,8 +133,8 @@ h5,
 h6 {
     font-size: 16px;
     font-weight: 600;
-    line-height: 24px;
-    margin: 0 0 24px;
+    line-height: 1.5;
+    margin: 0;
 }
 
 p,
@@ -241,9 +241,13 @@ input::placeholder {
 
 /* size modifiers */
 
+.o-body-padding {
+    padding: 48px 0 72px 0;
+}
+
 .o-row--lg {
     padding-top: 48px;
-    padding-bottom: 24px;
+    padding-bottom: 48px;
 }
 
 .o-row--xl {
@@ -289,6 +293,9 @@ input::placeholder {
     height: 100%;
 }
 
+.o-container-with-image {
+    height: 70vh;
+}
 
 /*
     Objects: section
@@ -525,6 +532,9 @@ input::placeholder {
 
 .c-image-placeholder{
     width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
     height: 30vh;
     background-color: #8a8a8aa0;
     padding: 100px;
