@@ -24,7 +24,14 @@ const init = () => {
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
-        scan();
+        scanButton = document.querySelector(".js-scanButton");
+        scanButton.onclick = async () => { 
+            scanButton.classList.add('u-hide');
+            title.classList.remove("u-hide");
+            errorText.classList.remove("u-hide");
+            scan();
+        };
+        //scan();
     }
 }
 
