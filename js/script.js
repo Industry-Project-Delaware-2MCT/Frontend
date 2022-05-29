@@ -265,7 +265,7 @@ const getPatientInfo = async () => {
 function setMedicationData(firstName, lastName, medication) {
     patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
     medication.forEach(item => {
-        patientMedication.innerHTML += `<p>${item.medication_name} ${item.dosis} </p>`
+        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
     });
 }
 
