@@ -19,7 +19,11 @@ const init = () => {
         });
     }else if(window.location.href.includes("PatientPage.html")) {
         greeting = document.querySelector('.js-greeting');
+        input = document.getElementById("cameraFileInput");
         showPatientName();
+        input.addEventListener("change", function () {
+            convertToBase64(input);
+        });
     } else if(window.location.href.includes("NFCpage.html")) {
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
@@ -153,6 +157,22 @@ const checkInputs = () => {
     return check;
 }
 
+const convertToBase64 = (image) => {
+    var file = image.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {            
+        //split reader.result on "," and keep text after ","
+        
+        console.log( reader.result);
+        let readFile = reader.result;
+        let base64 = readFile.split(",")[1];
+        //console.log(base64);
+        getPatientData(base64);
+
+    }
+    reader.readAsDataURL(file);
+}
+
 const scan = async () => {
     try {
         const ndef = new NDEFReader();
@@ -180,6 +200,44 @@ const scan = async () => {
         title.innerHTML = "NFC niet gevonden";
     }
   };
+
+  const getPatientData = async (base64image) => {
+    var data = {
+        base64String: base64image
+    };
+
+    
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => showPatientData(response))
+    .then(data => {
+        console.log(data);
+        console.log("result" , data.result);
+    })
+    .catch(error => console.log('error', error));
+}
+
+function showPatientData(response) {
+    if(response.status == 200) {
+        console.log("patient data succes");
+        //localStorage.setItem("patientData", JSON.stringify(response.json()));
+        return response.json();
+    } else {
+        console.log("patient data failed");
+        console.log(response.status);
+        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        errorText.style.color = 'red';
+    }
+}
 
 document.addEventListener('DOMContentLoaded', async function () {
     init();
