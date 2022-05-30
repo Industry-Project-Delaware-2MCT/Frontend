@@ -25,7 +25,7 @@ const init = () => {
         cameraButton = document.querySelector('.js-cameraButton');
         cameraButton.addEventListener('click', function(e) {
 
-            localStorage.setItem("patientId", "62873ffd1b56900e34fbe028");
+            //localStorage.setItem("patientId", "62873ffd1b56900e34fbe028");
             patientPage = document.querySelector('.js-page');
             openBarcodeScanner();
 
