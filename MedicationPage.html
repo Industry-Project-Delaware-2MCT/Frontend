@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Mediscan</title>
+    <meta name="description" content="An app to help medical staff administer the right medication">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/screen.css">
+</head>
+<body>
+    <div class="c-image-placeholder">image placeholder</div>
+    <div class="o-container o-container-with-image o-layout o-flex-nowrap o-layout--column o-layout--justify-space-between o-row--lg">
+        <div class="o-row">
+            <h2>Medicatie</h2>
+            <p>Welke medicatie moet de patient ontvangen? Open de camera en scan de medicatie</p>
+        </div>
+        <div class="o-row">
+            <span class="js-errormessage"></span><br />
+            <h4>Patient</h4>
+            <div class="js-patientName">Voornaam: John<br />Naam: Doe</div>
+        </div>
+        <div class="o-row">
+            <h4>Te ontvangen medicatie</h4>
+            <div class="js-medication"></div>
+        </div>
+        <div class="o-row o-row--lg">
+            <label for="cameraFileInput" class="c-button o-layout o-layout--justify-center">
+                <span class="u-button--text js-camera">Open camera</span>
+                <input
+                    id="cameraFileInput"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                />
+                </label>
+        </div>
+    </div>
+    <img class="c-footer" src="assets/footer.svg" width="100%">
+    <script src="./js/script.js"></script>
+</body>
+</html>

@@ -19,6 +19,8 @@
 
     --color-red: #F76363;
 
+    --color-green: #5dc152;
+
     --color-front: var(--color-black);
 }
 
@@ -112,7 +114,7 @@ h1 {
 h2 {
     font-size: 24px;
     line-height: 40px;
-    margin: 0 0 24px;
+    margin: 0 0 6px;
 }
 
 h3 {
@@ -121,7 +123,7 @@ h3 {
 }
 
 h4 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 1.5;
     margin: 0;
@@ -131,8 +133,8 @@ h5,
 h6 {
     font-size: 16px;
     font-weight: 600;
-    line-height: 24px;
-    margin: 0 0 24px;
+    line-height: 1.5;
+    margin: 0;
 }
 
 p,
@@ -239,9 +241,13 @@ input::placeholder {
 
 /* size modifiers */
 
+.o-body-padding {
+    padding: 48px 0 72px 0;
+}
+
 .o-row--lg {
     padding-top: 48px;
-    padding-bottom: 24px;
+    padding-bottom: 48px;
 }
 
 .o-row--xl {
@@ -287,6 +293,9 @@ input::placeholder {
     height: 100%;
 }
 
+.o-container-with-image {
+    height: 70vh;
+}
 
 /*
     Objects: section
@@ -322,6 +331,9 @@ input::placeholder {
     contains the basic structural elements, but classes should be complemented
     with width utilities
 */
+#cameraFileInput {
+    display: none;
+}
 
 .o-layout {
     display: -webkit-flex;
@@ -329,6 +341,10 @@ input::placeholder {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+}
+
+.o-flex-nowrap {
+    flex-wrap: nowrap;
 }
 
 .o-layout__item {
@@ -523,6 +539,9 @@ input::placeholder {
 
 .c-image-placeholder{
     width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
     height: 30vh;
     background-color: #8a8a8aa0;
     padding: 100px;
@@ -532,6 +551,48 @@ input::placeholder {
 
 .c-empty_input {
     border-bottom: 1px solid var(--color-red);
+}
+
+.c-rfid {
+    background-color: #FFF;
+    position: relative;
+    width: 180px;
+    height: 180px;
+    padding: 32px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 50px rgba(0,0,0,.15);
+    border-radius: 50%;
+}
+
+.c-rfid-error {
+    box-shadow: 0 5px 50px rgba(255, 0, 0, 0.2);
+}
+
+.c-rfid-animate:after {
+    content: "";
+    width: 93%;
+    height: 93%;
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    box-shadow: 0px -4px 10px var(--color-dark-blue);
+    animation: round-n-round .8s linear infinite;
+}
+
+.c-rfid-animate-green:after {
+    box-shadow: 0px -4px 10px var(--color-green);
+}
+  
+@keyframes round-n-round {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
 }
 
 /*
@@ -557,6 +618,10 @@ input::placeholder {
     Utility classes to put layout on text
 */
 
+.u-hide {
+    visibility: hidden;
+}
+
 .u-button--text {
     font-weight: 400;
     color: var(--color-white);
@@ -570,6 +635,10 @@ input::placeholder {
 
 .u-pt-clear {
     padding-top: 0 !important;
+}
+
+.u-mt-xl {
+    margin-top: 56px !important;
 }
 
 .u-mb-clear {
@@ -595,6 +664,7 @@ input::placeholder {
 .u-mb-xl {
     margin-bottom: 48px !important;
 }
+
 
 /*
     Utilities: max-width

@@ -21,15 +21,22 @@
     class="o-container o-layout o-layout--justify-space-evenly o-layout--column"
   >
     <div class="o-row o-layout o-layout--justify-center o-text--center">
-      <img src="assets/rfid.png" />
-      <h2>Scanning badge</h2>
-      <div>Houd je gsm tegen je badge tot de app gedaan heeft met scannen</div>
-      <span style="color: red" class="js-error"></span>
+      <div class="o-row u-mb-lg js-rfid c-rfid">
+        <img src="assets/rfid.png" />
+      </div>
+      <h2 class="o-row js-title">Scanning badge</h2>
+      <div class="js-errortext">Houd je gsm tegen je badge tot de app gedaan heeft met scannen</div>
     </div>
     <div class="o-row">
+      
+    </div>
+    <div class="o-row">
+      <div class="c-button c-button-margin o-layout o-layout--justify-center u-hide js-scanButton" >
+        <div class="u-button--text">Start scan</div>
+      </div>
       <a
         href="index.html"
-        class="u-1-of-2 c-button c-button-red c-button-margin o-layout o-layout--justify-center"
+        class="u-1-of-2 c-button c-button-red u-mt-xl c-button-margin o-layout o-layout--justify-center"
       >
         <div class="u-button--text">Cancel</div>
       </a>
