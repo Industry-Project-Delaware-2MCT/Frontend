@@ -192,30 +192,27 @@ const setPatient = async (firstname, lastname) => {
             'Content-Type': 'application/json',
         },
     })
-    .then(response => checkPatientLogin(response))
+    .then(response => showPatientInfo(response))
     .then(data => {
         console.log(data);
         localStorage.setItem("patientId", data._id);
+        
+        getLatestPatientAdministered();
     })
     .catch(error => console.log('error', error));
 }
 
 const checkPatientLogin = (response, method) => {
-    console.log(response);
-    
+
     if(response.status == 200) {
         console.log("login succes");
-        console.log(window.location.href);
-        window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
-        
+        return response.json();
     } else {
         console.log("login failed");
         console.log(response.status);
         errorText.innerHTML = "Login niet gelukt, foute credentials";
         errorText.style.color = 'red';
     }
-
-    return response.json();
 
 }
 /*==========================
@@ -543,7 +540,7 @@ const getDataFromBarcode = async (barcode) => {
         console.log(data);
         localStorage.setItem("patientId", data._id);
         
-        getLatestPatientAdministered()
+        getLatestPatientAdministered();
     })
     .catch(error => console.log('error', error));
 }
