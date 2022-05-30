@@ -304,7 +304,7 @@ function showLatestAdministered(time_administered) {
     options = { hour:'numeric',minute:'numeric'};
     let time = date.toLocaleString('nl',options);
 
-    let confirmAction = confirm("Deze patient zijn laatste toediening:\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
+    let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
     if (confirmAction) {
         window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
     }
