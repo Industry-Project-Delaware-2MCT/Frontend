@@ -478,15 +478,6 @@ const getDataFromBarcode = async (barcode) => {
     .catch(error => console.log('error', error));
 }
 
-function getQueryString() {
-    if (location.search==='') return null;
-    var params = {}
-    location.search.substr(1).split('&').map(function(param) {
-        var pairs = param.split('=');
-        params[pairs[0]] = decodeURIComponent(pairs[1]);
-    });
-    return params;
-}
 
 document.addEventListener('DOMContentLoaded', async function () {
     init();
