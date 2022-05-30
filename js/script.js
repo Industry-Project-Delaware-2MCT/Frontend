@@ -296,13 +296,15 @@ const getPatientInfo = async () => {
 }
 
 function showLatestAdministered(time_administered) {
-    //convert unix date to human readable date
+
     let date = new Date(time_administered * 1000);
-    let dateString = date.toLocaleString();
-    console.log(dateString)
+    
+    var options = { year:'numeric',month:'long',day:'numeric',weekday: "long"};
+    let fulldate = date.toLocaleString('nl',options);
+    options = { hour:'numeric',minute:'numeric'};
+    let time = date.toLocaleString('nl',options);
 
-
-    let confirmAction = confirm("Deze patient zijn laatste toediening:\n" + dateString + "\nWilt u doorgaan?");
+    let confirmAction = confirm("Deze patient zijn laatste toediening:\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
     if (confirmAction) {
         window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
     }
