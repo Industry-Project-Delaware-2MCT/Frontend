@@ -43,6 +43,8 @@ const init = () => {
         patientMedication = document.querySelector(".js-medication");
         
 
+    }else if(window.location.href.includes("")) {
+        window.location.href = window.location.origin + "/Frontend/index.html";
     }
 }
 
