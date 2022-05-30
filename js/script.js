@@ -22,9 +22,8 @@ const init = () => {
         showPatientName();
         cameraButton = document.querySelector('.js-cameraButton');
         cameraButton.addEventListener('click', function(e) {
-            localStorage.setItem("patientId", "628740081b56900e34fbe029");
-            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
-            
+            localStorage.setItem("patientId", "62873ffd1b56900e34fbe028");
+            getLatestPatientAdministered();            
         });
     } else if(window.location.href.includes("NFCpage.html")) {
         errorText = document.querySelector(".js-errortext");
@@ -291,7 +290,47 @@ const getPatientInfo = async () => {
     .then(data => {
         console.log(data);
         setMedicationData(data.first_name, data.last_name, data.medication);
+        
+    })
+    .catch(error => console.log('error', error));
+}
 
+function showLatestAdministered(time_administered) {
+
+    let date = new Date(time_administered * 1000);
+    
+    var options = { year:'numeric',month:'long',day:'numeric',weekday: "long"};
+    let fulldate = date.toLocaleString('nl',options);
+    options = { hour:'numeric',minute:'numeric'};
+    let time = date.toLocaleString('nl',options);
+
+    let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
+    if (confirmAction) {
+        window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+    }
+}  
+
+const getLatestPatientAdministered = async () => {
+
+ 
+    
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/administered/patient/last/" + localStorage.getItem("patientId"), {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => showPatientInfo(response))
+    .then(data => {
+        console.log(data);
+        if(data == null) {
+            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+            return
+        }
+        showLatestAdministered(data.time_administered);
     })
     .catch(error => console.log('error', error));
 }
