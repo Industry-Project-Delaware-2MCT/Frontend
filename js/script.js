@@ -426,8 +426,7 @@ function openBarcodeScanner() {
                 result.boxes.filter(function (box) {
                     return box !== result.box;
                 }).forEach(function (box) {
-                    Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-                    console.log(box);
+                    //Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
                 });
             }
             if (result.box) {
@@ -441,10 +440,36 @@ function openBarcodeScanner() {
     });
 
     Quagga.onDetected(function(result) {
+
+
         console.log(result.codeResult.code);
+        getDataFromBarcode(result.codeResult.code);
+        Quagga.stop();
     });
 
 
+}
+
+const getDataFromBarcode = async (barcode) => {
+
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/patient/barcode/" + barcode, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => showPatientInfo(response))
+    .then(data => {
+        console.log(data);
+        localStorage.setItem("patientId", data._id);
+        
+        getLatestPatientAdministered()
+    })
+    .catch(error => console.log('error', error));
 }
 
 function getQueryString() {
