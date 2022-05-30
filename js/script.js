@@ -22,6 +22,7 @@ const init = () => {
         controlLogin();
         greeting = document.querySelector('.js-greeting');
         showPatientName();
+        errorMessage = document.querySelector(".js-errormessage");
         cameraButton = document.querySelector('.js-cameraButton');
         cameraButton.addEventListener('click', function(e) {
             patientPage = document.querySelector('.js-page');
@@ -351,8 +352,8 @@ function showPatientInfo(response) {
     } else {
         console.log("patient info failed");
         console.log(response.status);
-        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
-        errorText.style.color = 'red';
+        errorMessage.innerHTML = "De barcode klopt niet. Probeer alstublieft opnieuw";
+        errorMessage.style.color = 'red';
     }
 }
 
