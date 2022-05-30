@@ -24,13 +24,8 @@ const init = () => {
         showPatientName();
         cameraButton = document.querySelector('.js-cameraButton');
         cameraButton.addEventListener('click', function(e) {
-
-            //localStorage.setItem("patientId", "62873ffd1b56900e34fbe028");
             patientPage = document.querySelector('.js-page');
             openBarcodeScanner();
-
-            //getLatestPatientAdministered(); 
-
         });
     } else if(window.location.href.includes("NFCpage.html")) {
         errorText = document.querySelector(".js-errortext");
@@ -50,6 +45,19 @@ const init = () => {
         patientName = document.querySelector(".js-patientName");
         patientMedication = document.querySelector(".js-medication");
         
+
+    }else if(window.location.href.includes("PatientInfoPage.html")) {
+        patientLoginForm = document.querySelector('.js-patientlogin');
+        firstName = document.querySelector('.js-firstname');
+	    lastName = document.querySelector('.js-lastname'); 
+        firstNameErrormessage = document.querySelector('.js-firstNameErrormessage');
+        lastNameErrormessage = document.querySelector('.js-lastNameErrormessage');
+        errorText = document.querySelector(".js-errormessage");
+        patientLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            patientLogin();
+        });
+
 
     }else if(window.location.href.includes("")) {
         window.location.href = window.location.origin + "/Frontend/index.html";
@@ -160,7 +168,54 @@ const checkLogin = (response, method) => {
     return response.json();
 
 }
+/*==========================
+PATIENT LOGIN
+===========================*/
+const patientLogin = async () => {
+    
+    if(checkInputs()) {
+        setPatient(firstName.value, lastName.value);
+    }
+};
 
+const setPatient = async (firstname, lastname) => {
+  
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/patient/name/"+ firstname +"/"+ lastname, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => checkPatientLogin(response))
+    .then(data => {
+        console.log(data);
+        localStorage.setItem("patientId", data._id);
+    })
+    .catch(error => console.log('error', error));
+}
+
+const checkPatientLogin = (response, method) => {
+    console.log(response);
+    
+    if(response.status == 200) {
+        console.log("login succes");
+        console.log(window.location.href);
+        window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+        
+    } else {
+        console.log("login failed");
+        console.log(response.status);
+        errorText.innerHTML = "Login niet gelukt, foute credentials";
+        errorText.style.color = 'red';
+    }
+
+    return response.json();
+
+}
 /*==========================
 PATIENT INFORMATION
 ===========================*/
