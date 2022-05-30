@@ -26,7 +26,7 @@ const init = () => {
             localStorage.setItem("patientId", "62873ffd1b56900e34fbe028");
             openBarcodeScanner();
 
-            getLatestPatientAdministered(); 
+            //getLatestPatientAdministered(); 
 
         });
     } else if(window.location.href.includes("NFCpage.html")) {
@@ -71,8 +71,6 @@ const Login = async () => {
         authenticate(firstName.value, lastName.value);
     }
 };
-
-
 
 const authenticate = async (firstname, lastname) => {
     var data = {
@@ -122,8 +120,6 @@ const authenticateByNFC = async (nfcSerialNumber) => {
     })
     .catch(error => console.log('error', error));
 }
-
-
 
 const checkLogin = (response, method) => {
     console.log(response);
@@ -179,8 +175,6 @@ const getPatientData = async (base64image) => {
     var data = {
         base64String: base64image
     };
-
-    
 
     console.log("fetching");
 
