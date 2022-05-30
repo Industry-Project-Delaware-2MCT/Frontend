@@ -24,8 +24,13 @@ const init = () => {
         showPatientName();
         cameraButton = document.querySelector('.js-cameraButton');
         cameraButton.addEventListener('click', function(e) {
+
             localStorage.setItem("patientId", "62873ffd1b56900e34fbe028");
-            getLatestPatientAdministered();            
+            patientPage = document.querySelector('.js-page');
+            openBarcodeScanner();
+
+            //getLatestPatientAdministered(); 
+
         });
     } else if(window.location.href.includes("NFCpage.html")) {
         errorText = document.querySelector(".js-errortext");
@@ -51,6 +56,22 @@ const init = () => {
     }
 }
 
+
+/*==========================
+API call to warmup the server
+===========================*/
+
+const warmup = async () => {
+    console.log("fetching");
+    //'Hello World' api call to warm up the server (= start up server after being idle for a while)
+    await fetch("https://industryprojectapi.azurewebsites.net/")
+}
+
+/*
+==========================
+USER AUTHENTICATION
+==========================
+*/
 const controlLogin = async () => {
     if(localStorage.getItem("nurseId") == null) {
         window.location.href = window.location.origin + "/Frontend/index.html";
@@ -65,19 +86,11 @@ const Login = async () => {
     }
 };
 
-const warmup = async () => {
-    console.log("fetching");
-    //'Hello World' api call to warm up the server (= start up server after being idle for a while)
-    await fetch("https://industryprojectapi.azurewebsites.net/")
-}
-
 const authenticate = async (firstname, lastname) => {
     var data = {
         firstname: firstname,
         lastname: lastname
     };
-
-    
 
     console.log("fetching");
 
@@ -122,8 +135,6 @@ const authenticateByNFC = async (nfcSerialNumber) => {
     .catch(error => console.log('error', error));
 }
 
-
-
 const checkLogin = (response, method) => {
     console.log(response);
     
@@ -150,14 +161,149 @@ const checkLogin = (response, method) => {
 
 }
 
-
+/*==========================
+PATIENT INFORMATION
+===========================*/
 
 const showPatientName = () => {
     nurseName = localStorage.getItem("firstName");
     greeting.innerHTML = "Hey " + nurseName;
     console.log(nurseName);
 }
+const convertToBase64 = (image) => {
+    var file = image.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {            
+        //split reader.result on "," and keep text after ","
+        
+        //console.log( reader.result);
+        let readFile = reader.result;
+        let base64 = readFile.split(",")[1];
+        //console.log(base64);
+        getPatientData(base64);
 
+    }
+    reader.readAsDataURL(file);
+}
+const getPatientData = async (base64image) => {
+    var data = {
+        base64String: base64image
+    };
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => showPatientData(response))
+    .then(data => {
+        console.log(data);
+        console.log("result" , data.result);
+    })
+    .catch(error => console.log('error', error));
+}
+
+const getPatientInfo = async () => {
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/patient/" + localStorage.getItem("patientId"), {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => showPatientInfo(response))
+    .then(data => {
+        console.log(data);
+        setMedicationData(data.first_name, data.last_name, data.medication);
+        
+    })
+    .catch(error => console.log('error', error));
+}
+
+function showLatestAdministered(time_administered) {
+
+    let date = new Date(time_administered * 1000);
+    
+    var options = { year:'numeric',month:'long',day:'numeric',weekday: "long"};
+    let fulldate = date.toLocaleString('nl',options);
+    options = { hour:'numeric',minute:'numeric'};
+    let time = date.toLocaleString('nl',options);
+
+    let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
+    if (confirmAction) {
+        window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+    }else{
+        window.location.href = window.location.origin + "/Frontend/PatientPage.html";
+    }
+}  
+
+const getLatestPatientAdministered = async () => {
+    
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/administered/patient/last/" + localStorage.getItem("patientId"), {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => showPatientInfo(response))
+    .then(data => {
+        console.log(data);
+        if(data == null) {
+            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+            return
+        }
+        showLatestAdministered(data.time_administered);
+    })
+    .catch(error => console.log('error', error));
+}
+    
+function setMedicationData(firstName, lastName, medication) {
+    patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
+    medication.forEach(item => {
+        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
+    });
+}
+
+function showPatientData(response) {
+    if(response.status == 200) {
+        console.log("patient data succes");
+        //localStorage.setItem("patientData", JSON.stringify(response.json()));
+        return response.json();
+    } else {
+        console.log("patient data failed");
+        console.log(response.status);
+        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        errorText.style.color = 'red';
+    }
+}
+
+
+function showPatientInfo(response) {
+    if(response.status == 200) {
+        console.log("patient info succes");
+        return response.json();
+    } else {
+        console.log("patient info failed");
+        console.log(response.status);
+        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        errorText.style.color = 'red';
+    }
+}
+
+/*==========================
+INPUT VALIDATION
+===========================*/
 
 const removeWrongInput = () => {
     firstName.classList.remove('c-empty_input');
@@ -186,22 +332,11 @@ const checkInputs = () => {
     return check;
 }
 
-const convertToBase64 = (image) => {
-    var file = image.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function() {            
-        //split reader.result on "," and keep text after ","
-        
-        //console.log( reader.result);
-        let readFile = reader.result;
-        let base64 = readFile.split(",")[1];
-        //console.log(base64);
-        getPatientData(base64);
 
-    }
-    reader.readAsDataURL(file);
-}
 
+/*==========================
+NFC FUNCTIONALITY
+===========================*/
 const checkNFCPermissions = async () => {
     try{
         const ndef = new NDEFReader();
@@ -258,126 +393,105 @@ const scan = async () => {
         title.innerHTML = "NFC staat niet aan";
     }
   };
+/*==========================
+BARCODE FUNCTIONALITY
+===========================*/
 
-  const getPatientData = async (base64image) => {
-    var data = {
-        base64String: base64image
-    };
-
-    
-
-    console.log("fetching");
-
-    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
-            'Content-Type': 'application/json',
+function openBarcodeScanner() {
+    console.log("opening scanner");
+    patientPage.classList.add("u-hide");
+    Quagga.init({
+        numOfWorkers: 4,
+        frequency: 10,
+        locate: true,
+        inputStream : {
+            name : "Live",
+            type : "LiveStream",
+            target: document.querySelector('#camera'),
+            constraints: {
+                width: { min: 640, ideal: 1280, max: 1920 },
+                height: { min: 480, ideal: 720, max: 1080 },
+                facingMode: "environment", // or user
+                frameRate: 10,
+            }
         },
-        body: JSON.stringify(data),
-    })
-    .then(response => showPatientData(response))
-    .then(data => {
-        console.log(data);
-        console.log("result" , data.result);
-    })
-    .catch(error => console.log('error', error));
-}
-
-const getPatientInfo = async () => {
-
- 
-    
-    console.log("fetching");
-
-    fetch("https://industryprojectapi.azurewebsites.net/api/patient/" + localStorage.getItem("patientId"), {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
-            'Content-Type': 'application/json',
+        decoder : {
+            readers : ["code_128_reader"]
         },
-    })
-    .then(response => showPatientInfo(response))
-    .then(data => {
-        console.log(data);
-        setMedicationData(data.first_name, data.last_name, data.medication);
-        
-    })
-    .catch(error => console.log('error', error));
-}
-
-function showLatestAdministered(time_administered) {
-
-    let date = new Date(time_administered * 1000);
-    
-    var options = { year:'numeric',month:'long',day:'numeric',weekday: "long"};
-    let fulldate = date.toLocaleString('nl',options);
-    options = { hour:'numeric',minute:'numeric'};
-    let time = date.toLocaleString('nl',options);
-
-    let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
-    if (confirmAction) {
-        window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
-    }
-}  
-
-const getLatestPatientAdministered = async () => {
-
- 
-    
-    console.log("fetching");
-
-    fetch("https://industryprojectapi.azurewebsites.net/api/administered/patient/last/" + localStorage.getItem("patientId"), {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => showPatientInfo(response))
-    .then(data => {
-        console.log(data);
-        if(data == null) {
-            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+        locator: {
+            patchSize: "medium", // x-small, small, medium, large, x-large
+        }
+    }, function(err) {
+        if (err) {
+            console.log(err);
             return
         }
-        showLatestAdministered(data.time_administered);
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+    });
+
+    Quagga.onProcessed(function(result) {
+        var drawingCtx = Quagga.canvas.ctx.overlay,
+            drawingCanvas = Quagga.canvas.dom.overlay;
+
+        if (result) {
+            if (result.boxes) {
+                
+                drawingCtx.clearRect(0, 0, parseInt(screen.width), parseInt(screen.width));
+                result.boxes.filter(function (box) {
+                    return box !== result.box;
+                }).forEach(function (box) {
+                    //Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+                });
+            }
+            if (result.box) {
+                Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+            }
+
+            if (result.codeResult && result.codeResult.code) {
+                Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+            }
+        }
+    });
+
+    Quagga.onDetected(function(result) {
+
+        patientPage.classList.remove("u-hide");
+        canvas = document.querySelector('#camera');
+        canvas.classList.add('u-hide');
+        
+        console.log(result.codeResult.code);
+        getDataFromBarcode(result.codeResult.code);
+        Quagga.stop();
+
+    });
+
+
+}
+
+const getDataFromBarcode = async (barcode) => {
+
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/patient/barcode/" + barcode, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => showPatientInfo(response))
+    .then(data => {
+        console.log(data);
+        localStorage.setItem("patientId", data._id);
+        
+        getLatestPatientAdministered()
     })
     .catch(error => console.log('error', error));
 }
-    
-function setMedicationData(firstName, lastName, medication) {
-    patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
-    medication.forEach(item => {
-        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
-    });
-}
-
-function showPatientData(response) {
-    if(response.status == 200) {
-        console.log("patient data succes");
-        //localStorage.setItem("patientData", JSON.stringify(response.json()));
-        return response.json();
-    } else {
-        console.log("patient data failed");
-        console.log(response.status);
-        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
-        errorText.style.color = 'red';
-    }
-}
 
 
-function showPatientInfo(response) {
-    if(response.status == 200) {
-        console.log("patient info succes");
-        return response.json();
-    } else {
-        console.log("patient info failed");
-        console.log(response.status);
-        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
-        errorText.style.color = 'red';
-    }
-}
 document.addEventListener('DOMContentLoaded', async function () {
     init();
 });
