@@ -294,7 +294,7 @@ input::placeholder {
 }
 
 .o-container-with-image {
-    height: 70vh;
+    height: 75vh;
 }
 
 /*
@@ -586,10 +586,13 @@ canvas{
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
-    height: 30vh;
+    height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* border: 2px solid red; */
 }
-
-
 
 .c-empty_input {
     border-bottom: 1px solid var(--color-red);
