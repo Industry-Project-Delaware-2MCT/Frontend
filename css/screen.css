@@ -257,13 +257,13 @@ input::placeholder {
 
 .o-row--lg {
     padding-top: 24px;
-    padding-bottom: 24px;
+    padding-bottom: 36px;
 }
 
 @media (min-height: 700px) {
     .o-row--lg {
         padding-top: 36px;
-        padding-bottom: 36px;
+        padding-bottom: 48px;
     }
 }
 
