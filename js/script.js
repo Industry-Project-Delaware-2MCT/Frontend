@@ -326,7 +326,11 @@ const getLatestPatientAdministered = async () => {
     .then(response => showPatientInfo(response))
     .then(data => {
         console.log(data);
-        return showLatestAdministered(data.time_administered);
+        if(data == null) {
+            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+            return
+        }
+        showLatestAdministered(data.time_administered);
     })
     .catch(error => console.log('error', error));
 }
