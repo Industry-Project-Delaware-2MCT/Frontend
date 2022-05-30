@@ -771,6 +771,30 @@ canvas{
     flex-basis: calc((100% / 2) - 10px) !important;
 }
 
+.u-1-of-2-bp {
+    flex-basis: calc(100%) !important;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+@media (min-width: 383px) {
+    .u-1-of-2-bp {
+        flex-basis: calc((100% / 2) - 10px) !important;
+    }
+}
+
+.u-1-of-2-bp2 {
+    flex-basis: calc(100%) !important;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+@media (min-width: 413px) {
+    .u-1-of-2-bp2 {
+        flex-basis: calc((100% / 2) - 10px) !important;
+    }
+}
+
 .u-1-of-3 {
     flex-basis: calc(100% / 3) !important;
 }
