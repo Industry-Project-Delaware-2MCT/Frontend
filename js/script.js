@@ -48,6 +48,7 @@ const init = () => {
         
 
     }else if(window.location.href.includes("PatientInfoPage.html")) {
+        controlLogin();
         patientLoginForm = document.querySelector('.js-patientlogin');
         firstName = document.querySelector('.js-firstname');
 	    lastName = document.querySelector('.js-lastname'); 
