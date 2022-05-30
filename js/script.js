@@ -227,6 +227,8 @@ function showLatestAdministered(time_administered) {
     let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
     if (confirmAction) {
         window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+    }else{
+        window.location.href = window.location.origin + "/Frontend/PatientPage.html";
     }
 }  
 
