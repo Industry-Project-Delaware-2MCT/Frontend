@@ -443,10 +443,14 @@ function openBarcodeScanner() {
 
     Quagga.onDetected(function(result) {
 
-
+        patientPage.classList.remove("u-hide");
+        canvas = document.querySelector('#camera');
+        canvas.classList.add('u-hide');
+        
         console.log(result.codeResult.code);
         getDataFromBarcode(result.codeResult.code);
         Quagga.stop();
+
     });
 
 
