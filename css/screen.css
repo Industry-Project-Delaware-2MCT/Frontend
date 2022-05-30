@@ -554,6 +554,7 @@ canvas{
     padding: 10px 25px 10px 25px;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
     border: none;
+    line-height: 1.5 !important;
 }
 
 .c-button-red {
