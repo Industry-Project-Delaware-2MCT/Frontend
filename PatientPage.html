@@ -12,20 +12,26 @@
     <link rel="stylesheet" href="css/screen.css">
 </head>
 <body>
-    <div class="c-image-placeholder">image placeholder</div>
+    <div id="camera" width="100%" height="100%">   
+
+    </div>
+    <div class="js-page">   
+        <div class="c-image-placeholder">image placeholder</div>
     <div class="o-container o-container-with-image o-flex-nowrap o-layout o-layout--column o-layout--justify-space-between o-row--lg">
         <div class="o-row">
             <h2 class="js-greeting">Hey "firstname"</h2>
             <p>Welke patient moet medicatie ontvangen? Open de camera en scan de barcode op de armband.</p>
         </div>
+        
         <div class="o-row o-row--lg">
             <a class="u-1-of-2 c-button o-layout o-layout--justify-center js-cameraButton">
-                <div id="camera" class="u-button--text">Open Camera</div>
+                <div class="u-button--text">Open Camera</div>
             </a>
         </div>  
     </div>
     <img class="c-footer" src="assets/footer.svg" width="100%">
-
+    </div>
+    
     <script src="https://serratus.github.io/quaggaJS/examples/js/quagga.min.js" type="text/javascript"></script>
     <script src="./js/script.js"></script>
 </body>

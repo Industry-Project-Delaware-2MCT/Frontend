@@ -24,6 +24,7 @@ const init = () => {
         cameraButton.addEventListener('click', function(e) {
 
             localStorage.setItem("patientId", "62873ffd1b56900e34fbe028");
+            patientPage = document.querySelector('.js-page');
             openBarcodeScanner();
 
             //getLatestPatientAdministered(); 
@@ -383,6 +384,7 @@ BARCODE FUNCTIONALITY
 
 function openBarcodeScanner() {
     console.log("opening scanner");
+    patientPage.classList.add("u-hide");
     Quagga.init({
         numOfWorkers: 4,
         frequency: 10,
@@ -419,14 +421,15 @@ function openBarcodeScanner() {
 
         if (result) {
             if (result.boxes) {
-                drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                
+                drawingCtx.clearRect(0, 0, parseInt(screen.width), parseInt(screen.width));
                 result.boxes.filter(function (box) {
                     return box !== result.box;
                 }).forEach(function (box) {
                     Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+                    console.log(box);
                 });
             }
-
             if (result.box) {
                 Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
             }
