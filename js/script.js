@@ -4,6 +4,7 @@ const init = () => {
     console.log("init");
     
     if(window.location.href.includes("index.html")) {
+        localStorage.clear();
         warmup();
     }
     else if(window.location.href.includes("LoginPage.html")) {
@@ -18,6 +19,7 @@ const init = () => {
             Login();
         });
     }else if(window.location.href.includes("PatientPage.html")) {
+        controlLogin();
         greeting = document.querySelector('.js-greeting');
         showPatientName();
         cameraButton = document.querySelector('.js-cameraButton');
@@ -37,6 +39,7 @@ const init = () => {
         scanButton = document.querySelector(".js-scanButton");
         checkNFCPermissions();
     }else if(window.location.href.includes("MedicationPage.html")) {
+        controlLogin();
         getPatientInfo();
         
         input = document.getElementById("cameraFileInput");
@@ -48,8 +51,11 @@ const init = () => {
         patientMedication = document.querySelector(".js-medication");
         
 
+    }else if(window.location.href.includes("")) {
+        window.location.href = window.location.origin + "/Frontend/index.html";
     }
 }
+
 
 /*==========================
 API call to warmup the server
@@ -66,6 +72,13 @@ const warmup = async () => {
 USER AUTHENTICATION
 ==========================
 */
+const controlLogin = async () => {
+    if(localStorage.getItem("nurseId") == null) {
+        window.location.href = window.location.origin + "/Frontend/index.html";
+    }
+    console.log("Logged in");
+}
+
 const Login = async () => {
     
     if(checkInputs()) {
@@ -92,7 +105,7 @@ const authenticate = async (firstname, lastname) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("firstName", data.first_name);
-        localStorage.setItem("nfcSerial", data.nfc_serialnumber);
+        localStorage.setItem("nurseId", data._id);
         localStorage.setItem("apiToken", data.api_token);
     })
     .catch(error => console.log('error', error));
@@ -116,7 +129,7 @@ const authenticateByNFC = async (nfcSerialNumber) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("firstName", data.first_name);
-        localStorage.setItem("nfcSerial", data.nfc_serialnumber);
+        localStorage.setItem("nurseId", data._id);
         localStorage.setItem("apiToken", data.api_token);
     })
     .catch(error => console.log('error', error));
