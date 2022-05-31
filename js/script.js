@@ -196,6 +196,7 @@ const setPatient = async (firstname, lastname) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("patientId", data._id);
+        getLatestPatientAdministered()
     })
     .catch(error => console.log('error', error));
 }
@@ -205,8 +206,8 @@ const checkPatientLogin = (response, method) => {
     
     if(response.status == 200) {
         console.log("login succes");
-        console.log(window.location.href);
-        window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+        //console.log(window.location.href);
+        //window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
         
     } else {
         console.log("login failed");
