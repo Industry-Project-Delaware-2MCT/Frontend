@@ -245,16 +245,35 @@ input::placeholder {
     padding: 48px 0 72px 0;
 }
 
-.o-row--lg {
-    padding-top: 48px;
-    padding-bottom: 48px;
-}
-
 .o-row--xl {
     padding-top: 72px;
     padding-bottom: 48px;
 }
 
+.o-row--md {
+    padding-top: 48px;
+    padding-bottom: 24px;
+}
+
+.o-row--lg {
+    padding-top: 24px;
+    padding-bottom: 36px;
+}
+
+@media (min-height: 700px) {
+    .o-row--lg {
+        padding-top: 36px;
+        padding-bottom: 48px;
+    }
+}
+
+@media (min-height: 800px) {
+    .o-row--lg {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+}
+    
 @media (min-width: 768px) {
     .o-row {
         padding-left: 48px;
@@ -264,11 +283,6 @@ input::placeholder {
     .o-row--md {
         padding-top: 48px;
         padding-bottom: 24px;
-    }
-
-    .o-row--lg {
-        padding-top: 72px;
-        padding-bottom: 48px;
     }
 }
 
@@ -294,7 +308,7 @@ input::placeholder {
 }
 
 .o-container-with-image {
-    height: 70vh;
+    height: 75vh;
 }
 
 /*
@@ -586,12 +600,19 @@ canvas{
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
-    height: 30vh;
-    background-color: #8a8a8aa0;
-    padding: 100px;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: clip;
+    /* border: 2px solid red; */
 }
 
-
+@media (min-height: 750px) {
+    .c-image-placeholder{
+        height: 25vh;
+    }
+}
 
 .c-empty_input {
     border-bottom: 1px solid var(--color-red);
@@ -646,10 +667,11 @@ canvas{
 */
 
 .c-footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     z-index: -1;
+    pointer-events: none;
 }
 
 /*------------------------------------*\
@@ -753,6 +775,43 @@ canvas{
 
 .u-1-of-2 {
     flex-basis: calc((100% / 2) - 10px) !important;
+}
+
+.u-1-of-2-bp {
+    flex-basis: calc(100%) !important;
+}
+
+.u-top-button-bp {
+    margin-bottom: 12px;
+}
+
+@media (min-width: 383px) {
+    .u-1-of-2-bp {
+        flex-basis: calc((100% / 2) - 10px) !important;
+    }
+    
+    .u-top-button-bp {
+        margin-bottom: 0px;
+    }
+}
+
+.u-1-of-2-bp2 {
+    flex-basis: calc(100%) !important;
+    margin-top: 12px;
+}
+
+.u-top-button-bp2 {
+    margin-bottom: 12px;
+}
+
+@media (min-width: 413px) {
+    .u-1-of-2-bp2 {
+        flex-basis: calc((100% / 2) - 10px) !important;
+    }
+
+    .u-top-button-bp2 {
+        margin-bottom: 0px;
+    }
 }
 
 .u-1-of-3 {
