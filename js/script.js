@@ -257,6 +257,7 @@ const getPatientData = async (base64image) => {
     .then(response => showPatientData(response))
     .then(data => {
         console.log(data);
+        alert(data);
         console.log("result" , data.result);
     })
     .catch(error => console.log('error', error));
@@ -538,7 +539,6 @@ const getDataFromBarcode = async (barcode) => {
     .then(response => showPatientInfo(response))
     .then(data => {
         console.log(data);
-        alert(data);
         localStorage.setItem("patientId", data._id);  
         getLatestPatientAdministered();
     })
