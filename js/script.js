@@ -196,8 +196,8 @@ const setPatient = async (firstname, lastname) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("patientId", data._id);
-        
         getLatestPatientAdministered();
+
     })
     .catch(error => console.log('error', error));
 }
