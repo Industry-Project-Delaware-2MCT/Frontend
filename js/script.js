@@ -337,7 +337,6 @@ function showPatientData(response) {
     } else {
         console.log("patient data failed");
         console.log(response.status);
-        alert(response.status);
         errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
         errorText.style.color = 'red';
     }
@@ -539,8 +538,8 @@ const getDataFromBarcode = async (barcode) => {
     .then(response => showPatientInfo(response))
     .then(data => {
         console.log(data);
-        localStorage.setItem("patientId", data._id);
-        
+        alert(data);
+        localStorage.setItem("patientId", data._id);  
         getLatestPatientAdministered();
     })
     .catch(error => console.log('error', error));
