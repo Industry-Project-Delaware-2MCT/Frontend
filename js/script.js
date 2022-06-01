@@ -337,6 +337,7 @@ function showPatientData(response) {
     } else {
         console.log("patient data failed");
         console.log(response.status);
+        alert(response.status);
         errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
         errorText.style.color = 'red';
     }
