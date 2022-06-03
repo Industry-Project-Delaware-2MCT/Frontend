@@ -2,6 +2,33 @@
 #FONTS
 \*------------------------------------*/
 
+/*import Gilroy-Bold, Gilroy-Medium, Gilroy-regular in woff and woff2 format*/
+  @font-face
+  {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Bold.woff2') format('woff2'),
+         url('../fonts/Gilroy-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: bold;
+  }
+  
+  @font-face
+  {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Medium.woff2') format('woff2'),
+         url('../fonts/Gilroy-Medium.woff') format('woff');
+    font-weight: medium;
+    font-style: medium;
+  }
+  
+  @font-face
+  {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Regular.woff2') format('woff2'),
+         url('../fonts/Gilroy-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
 /* Fonts are loaded via Google fonts */
 
 /*------------------------------------*\
@@ -14,8 +41,8 @@
     --color-gray: #747474;
     --color-black: #000;
 
-    --color-blue: #27AEDB;
-    --color-dark-blue: #0880A8;
+    --color-blue: #4157FF;
+    --color-dark-blue: #1E1C61;
 
     --color-red: #F76363;
 
@@ -39,7 +66,7 @@ html {
     height : 100%;
     font-size: 16px;
     line-height: 1.5;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Gilroy', sans-serif;
     color: var(--color-front);
     overflow: hidden;
     box-sizing: border-box;
@@ -106,9 +133,10 @@ h2{
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 36px;
     line-height: 48px;
     margin: 0 0 16px;;
+    color: var(--color-dark-blue);
 }
 
 h2 {
@@ -359,6 +387,11 @@ input::placeholder {
     bottom: 0;
 }
 
+.o-subtitle{
+    color: var(--color-dark-blue);
+    font-size: 16px;
+}
+
 
 video{
   /* Make video to at least 100% wide and tall */
@@ -564,7 +597,7 @@ canvas{
     text-decoration: none;
     color: var(--color-white);
     background-color: var(--color-blue);
-    border-radius: 5px;
+    border-radius: 25px;
     padding: 10px 25px 10px 25px;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
     border: none;
@@ -730,6 +763,11 @@ canvas{
 .u-mb-xl {
     margin-bottom: 48px !important;
 }
+
+.u-mb-xxl {
+    margin-bottom: 64px !important;
+}
+
 
 
 /*
