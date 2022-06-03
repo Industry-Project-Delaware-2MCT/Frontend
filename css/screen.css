@@ -43,6 +43,7 @@
 
     --color-blue: #4157FF;
     --color-dark-blue: #1E1C61;
+    --color-light-blue: #4C93FF;
 
     --color-red: #F76363;
 
@@ -135,14 +136,15 @@ h2{
 h1 {
     font-size: 36px;
     line-height: 48px;
-    margin: 0 0 16px;;
+    margin: 0 0 16px;
     color: var(--color-dark-blue);
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 32px;
     line-height: 40px;
     margin: 0 0 6px;
+    color: var(--color-dark-blue);
 }
 
 h3 {
@@ -163,6 +165,8 @@ h6 {
     font-weight: 600;
     line-height: 1.5;
     margin: 0;
+    
+    color: var(--color-dark-blue);
 }
 
 p,
@@ -336,7 +340,7 @@ input::placeholder {
 }
 
 .o-container-with-image {
-    height: 75vh;
+    /*height: 75vh;*/
 }
 
 /*
@@ -545,6 +549,7 @@ canvas{
 }
 
 
+
 /*
     Objects: List
     ---
@@ -611,15 +616,29 @@ canvas{
 .c-button-margin {
     margin: 0 5px;
 }
+.c-backbutton{
+    background-color: var(--color-white);
+    color: var(--color-white);
+    border-radius: 5px;
+    padding: 8px 12px 8px 12px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+    border: none;
+    line-height: 1.5 !important;
+    
+}
 
 .c-input {
     box-sizing: border-box;
     width: 100%;
     height: 40px;
     border: none;
-    border-bottom: 1px solid var(--color-dark-blue);
     background-color: rgba(0, 0, 0, 0);
     padding: 10px;
+}
+.c-input--wrapper{
+    
+    border-bottom: 1px solid var(--color-dark-blue);
+
 }
 
 .c-input:focus {
@@ -629,11 +648,9 @@ canvas{
 
 
 .c-image-placeholder{
-    width: 100%;
-    max-width: 500px;
+    max-width: 290px;
     margin-left: auto;
     margin-right: auto;
-    height: 20vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -641,10 +658,26 @@ canvas{
     /* border: 2px solid red; */
 }
 
+.c-steps{
+    background-color: var(--color-blue);
+    border-radius: 25px;
+    padding: 0px 5px 0px 5px;
+    height: 24px;
+    width: 72px;
+}
+.c-steps > *{
+    background-color: var(--color-light-blue);
+    
+    border-radius: 5px;
+    height: 8px;
+    width: 8px;
+
+}
+
 @media (min-height: 750px) {
-    .c-image-placeholder{
+    /*.c-image-placeholder{
         height: 25vh;
-    }
+    }*/
 }
 
 .c-empty_input {
