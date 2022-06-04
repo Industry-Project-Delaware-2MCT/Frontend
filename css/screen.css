@@ -153,10 +153,10 @@ h3 {
 }
 
 h4 {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 600;
     line-height: 1.5;
-    margin: 0;
+    color: var(--color-dark-blue);
 }
 
 h5,
@@ -168,6 +168,7 @@ h6 {
     
     color: var(--color-dark-blue);
 }
+
 
 p,
 ol,
@@ -270,6 +271,19 @@ input::placeholder {
     padding: 0 48px 0;
     display: flow-root;
 }
+.o-header{
+    background-color: var(--color-blue);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-radius: 0 0 25px 25px;
+    
+
+}
+.o-header > h2,p{
+    color: var(--color-white);
+}
+
+
 
 /* size modifiers */
 
@@ -665,6 +679,11 @@ canvas{
     height: 24px;
     width: 72px;
 }
+
+.o-header  .c-steps{
+    background-color: var(--color-light-blue);
+}
+
 .c-steps > *{
     background-color: var(--color-light-blue);
     
@@ -673,6 +692,18 @@ canvas{
     width: 8px;
 
 }
+
+.o-header  .c-steps > *{
+    background-color: var(--color-white);
+}
+
+.o-header .c-steps > .c-steps--current{
+    background-color: var(--color-dark-blue);
+}
+.c-steps > .c-steps--current{
+    background-color: var(--color-white);
+}
+
 
 @media (min-height: 750px) {
     /*.c-image-placeholder{
