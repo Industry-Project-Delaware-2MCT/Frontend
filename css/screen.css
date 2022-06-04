@@ -629,11 +629,8 @@ canvas{
 \*------------------------------------*/
 
 .c-navigation {
-    padding-top: 24px;
+    padding-top: 12px;
     padding-bottom: 12px;
-    height: 30%;
-    min-height: 210px;
-    position: relative;
 }
 
 .c-button {
@@ -706,6 +703,12 @@ canvas{
     width: 72px;
     margin-top: 4px;
     margin-bottom: 4px;
+}
+
+.c-header {
+    height: 30%;
+    min-height: 210px;
+    position: relative;
 }
 
 .c-header  .c-steps{
