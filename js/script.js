@@ -475,8 +475,6 @@ function openBarcodeScanner() {
             type : "LiveStream",
             target: document.querySelector('#camera'),
             constraints: {
-                width: { min: 320, ideal: 1280, max: 1920 },
-                height: { min: 480, ideal: 720, max: 1080 },
                 facingMode: "environment", // or user
                 frameRate: 10,
             }
