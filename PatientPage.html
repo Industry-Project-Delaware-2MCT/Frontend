@@ -14,16 +14,17 @@
 <body>
     
     <div class="js-page">   
-        <div class="o-container o-row o-layout o-layout--align-center">
+        <div class="o-container o-layout o-layout--justify-space-around o-flex-nowrap o-layout--align-center">
             <img class="c-backbutton" src="assets/arrow.svg" >
-            <div class="o-layout o-layout--justify-center u-mb-md">
-                <div class="c-steps o-layout o-layout--align-center o-layout--justify-space-around">
+            <div class="o-layout o-layout--justify-center u-mb-md o-layout--align-center" >
+                <div class="c-steps o-layout o-layout--align-center o-layout--justify-space-around" >
                     <div></div>
                     <div  class="c-steps--current"></div>
                     <div></div>
                     <div></div>
                 </div>
             </div>
+            <p class="u-hide">.</p>
     
         </div>
         <div class="c-image-placeholder">
@@ -48,11 +49,14 @@
         </div>
         
     </div>
-    <div class="o-barcode-popup u-hide js-barcodePopup o-layout o-layout--justify-space-around">   
+    <div class="o-container o-barcode-popup u-hide js-barcodePopup ">   
          
-        <p class="o-barcode--button js-barcode-cancel">Cancel</p>
-        <p>Scan barcode<p>
-        <p class="u-hide">.</p>
+        <div class="o-container o-layout o-layout--justify-space-around o-barcode-header">
+            <p class=" o-barcode--button js-barcode-cancel">Cancel</p>
+            <p>Scan barcode<p>
+            <p class="u-hide">.</p>
+        </div>
+        
         <div id="camera"></div>
         
     </div>
