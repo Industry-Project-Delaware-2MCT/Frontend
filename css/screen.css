@@ -271,16 +271,20 @@ input::placeholder {
     padding: 0 48px 0;
     display: flow-root;
 }
-.o-header{
+
+.c-header{
     background-color: var(--color-blue);
     padding-top: 3rem;
     padding-bottom: 3rem;
     border-radius: 0 0 25px 25px;
-    
-
 }
-.o-header > h2,p{
+
+.c-header > h2,p{
     color: var(--color-white);
+}
+
+.c-header > h2{
+    margin-top: 36px !important;
 }
 
 .o-barcode-popup{
@@ -628,6 +632,11 @@ canvas{
 #COMPONENTS
 \*------------------------------------*/
 
+.c-navigation {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 .c-button {
     text-decoration: none;
     color: var(--color-white);
@@ -646,11 +655,13 @@ canvas{
 .c-button-margin {
     margin: 0 5px;
 }
+
 .c-backbutton{
+    position: absolute;
     background-color: var(--color-white);
-    color: var(--color-white);
     border-radius: 5px;
     padding: 8px 12px 8px 12px;
+    margin-left: -24px;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
     border: none;
     line-height: 1.5 !important;
@@ -694,9 +705,11 @@ canvas{
     padding: 0px 5px 0px 5px;
     height: 24px;
     width: 72px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
-.o-header  .c-steps{
+.c-header  .c-steps{
     background-color: var(--color-light-blue);
 }
 
@@ -709,11 +722,11 @@ canvas{
 
 }
 
-.o-header  .c-steps > *{
+.c-header  .c-steps > *{
     background-color: var(--color-white);
 }
 
-.o-header .c-steps > .c-steps--current{
+.c-header .c-steps > .c-steps--current{
     background-color: var(--color-dark-blue);
 }
 .c-steps > .c-steps--current{
