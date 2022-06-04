@@ -26,6 +26,9 @@ const init = () => {
         cameraButton = document.querySelector('.js-cameraButton');
         cameraButton.addEventListener('click', function(e) {
             patientPage = document.querySelector('.js-page');
+            barcodePopup = document.querySelector('.js-barcodePopup');
+            cancelButton = document.querySelector('.js-barcode-cancel');
+            
             openBarcodeScanner();
         });
     } else if(window.location.href.includes("NFCpage.html")) {
@@ -453,7 +456,16 @@ BARCODE FUNCTIONALITY
 
 function openBarcodeScanner() {
     console.log("opening scanner");
-    patientPage.classList.add("u-hide");
+    patientPage.classList.add("o-blur");
+    patientPage.style.zIndex = "-1";
+    barcodePopup.classList.remove("u-hide");
+
+    cancelButton.addEventListener('click', function(e) {
+        barcodePopup.classList.add("u-hide");
+        patientPage.classList.remove("o-blur");
+        patientPage.style.zIndex = "1";
+        Quagga.stop();
+    });
     Quagga.init({
         numOfWorkers: 4,
         frequency: 10,
@@ -463,7 +475,7 @@ function openBarcodeScanner() {
             type : "LiveStream",
             target: document.querySelector('#camera'),
             constraints: {
-                width: { min: 640, ideal: 1280, max: 1920 },
+                width: { min: 320, ideal: 1280, max: 1920 },
                 height: { min: 480, ideal: 720, max: 1080 },
                 facingMode: "environment", // or user
                 frameRate: 10,
