@@ -432,7 +432,7 @@ input::placeholder {
 
 video{
   /* Make video to at least 100% wide and tall */
-  width: 460px;
+  width: 55vh;
 
 
   /* Center the video */
