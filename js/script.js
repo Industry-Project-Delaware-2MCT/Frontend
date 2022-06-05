@@ -53,6 +53,7 @@ const init = () => {
     }else if(window.location.href.includes("PatientInfoPage.html")) {
         controlLogin();
         patientLoginForm = document.querySelector('.js-patientlogin');
+        patientPage = document.querySelector('.js-page');
         firstName = document.querySelector('.js-firstname');
 	    lastName = document.querySelector('.js-lastname'); 
         firstNameErrormessage = document.querySelector('.js-firstNameErrormessage');
@@ -264,12 +265,35 @@ function showLatestAdministered(time_administered) {
     options = { hour:'numeric',minute:'numeric'};
     let time = date.toLocaleString('nl',options);
 
-    let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
+    patientPage.classList.add('o-blur');
+    Swal.fire({
+        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">23 mei 2022 9:00u</span>',
+        html: '<p class="o-medication--popup o-medication--popup-subtitle">Wilt u doorgaan?</p>',
+        showCancelButton: true,
+        cancelButtonText: 'Neen',
+        confirmButtonColor: '#FFFFFF',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ja',
+        background: '#4157FF',
+        buttonsStyling: false,
+          customClass: {
+              confirmButton: 'swal-confirm', //insert class here
+            cancelButton: 'swal-cancel'
+          }
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+        }else{
+            window.location.href = window.location.origin + "/Frontend/PatientPage.html";
+        }
+      })
+
+    /*let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
     if (confirmAction) {
         window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
     }else{
         window.location.href = window.location.origin + "/Frontend/PatientPage.html";
-    }
+    }*/
 }  
 
 const getLatestPatientAdministered = async () => {
@@ -545,9 +569,14 @@ function openBarcodeScanner() {
         patientPage.classList.remove("u-hide");
         canvas = document.querySelector('#camera');
         canvas.classList.add('u-hide');
+        barcodePopup.classList.add("u-hide");
+        patientPage.style.zIndex = "1";
         
         console.log(result.codeResult.code);
         getDataFromBarcode(result.codeResult.code);
+
+       
+
         Quagga.stop();
 
     });
