@@ -20,7 +20,7 @@
     ],
     "start_url": "/Frontend/index.html?source=pwa",
     "background_color": "#4157FF",
-    "display": "browser",
+    "display": "standalone",
     "scope": "/Frontend/",
     "theme_color": "#4157FF",
     "description": "App to scan medication and dose to replace four-eye principle"
