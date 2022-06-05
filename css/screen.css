@@ -771,7 +771,7 @@ Small button reset object
     position: absolute;
     z-index: -1;
     border-radius: 50%;
-    box-shadow: 0px -4px 10px var(--color-dark-blue);
+    box-shadow: 0px -4px 10px var(--color-blue);
     animation: round-n-round .8s linear infinite;
 }
 
