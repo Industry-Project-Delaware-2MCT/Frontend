@@ -305,6 +305,7 @@ input::placeholder {
 }
 
 
+
 /* size modifiers */
 
 .o-body-padding {
@@ -442,6 +443,7 @@ canvas{
     transform: translate(-50%,0);
     overflow: hidden;
 }
+
 .o-blur{
     filter: blur(8px);
     -webkit-filter: blur(8px);
@@ -632,7 +634,19 @@ Small button reset object
     padding: 10px 25px 10px 25px;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
     border: none;
+    outline: none;
     line-height: 1.5 !important;
+}
+
+.c-button:active {
+    background-color: var(--color-light-blue);
+    transition-timing-function: ease-in-out;
+    transition: 0.2s;
+}
+
+.c-button > * {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .c-button-red {
@@ -660,15 +674,32 @@ Small button reset object
 }
 
 .c-input--wrapper{  
-    border-bottom: 1px solid var(--color-gray);   
+    border-bottom: 1px solid var(--color-gray);
+    transition-timing-function: ease-in-out;
+    transition: 0.2s;
 }
 
 .c-input--wrapper:focus-within{
-    border-bottom: 2px solid var(--color-blue);
+    border-bottom: 1px solid var(--color-blue);
+}
+
+.c-input--wrapper:focus-within .c-profile-icon path{
+    fill: var(--color-blue);
 }
 
 .c-input:focus{
     outline: none;
+}
+
+.c-profile-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.c-profile-icon path {
+    fill: var(--color-gray);
+    transition-timing-function: ease-in-out;
+    transition: 0.2s;
 }
 
 .c-empty_input {
@@ -797,6 +828,23 @@ Small button reset object
 }
 }
 
+.donut {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 0.3rem solid var(--color-white);
+    border-top-color: var(--color-light-blue);
+    animation: 1.5s spin infinite linear;
+  
+    margin-left: 1rem;
+    
+}
+  
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 /*
     Component: Footer
     ---
@@ -837,6 +885,9 @@ Small button reset object
 .u-hide {
     visibility: hidden;
 }
+.u-display-none{
+    display: none;
+}
 
 .u-button--text {
     font-weight: 400;
@@ -859,6 +910,10 @@ Small button reset object
 
 .u-mt-xl {
     margin-top: 56px !important;
+}
+
+.u-mt-12 {
+    margin-top: 12px;
 }
 
 .u-mb-clear {
@@ -944,7 +999,7 @@ Small button reset object
     margin-bottom: 12px;
 }
 
-@media (min-width: 410px) {
+@media (min-width: 430px) {
     .u-1-of-2-bp {
         flex-basis: calc((100% / 2) - 5px) !important;
     }
@@ -952,27 +1007,6 @@ Small button reset object
     .u-top-button-bp {
         margin-bottom: 0px;
     }
-}
-
-.u-1-of-2-bp2 {
-    flex-basis: calc(100%) !important;
-    margin-top: 12px;
-}
-
-.u-top-button-bp2 {
-    margin-bottom: 12px;
-}
-
-@media (min-width: 430px) {
-    .u-1-of-2-bp2 {
-        flex-basis: calc((100% / 2) - 5px) !important;
-    }
-
-    .u-top-button-bp2 {
-        margin-bottom: 0px;
-    }
-    
-    
 }
 
 .u-1-of-3 {
