@@ -53,6 +53,7 @@ const init = () => {
     }else if(window.location.href.includes("PatientInfoPage.html")) {
         controlLogin();
         patientLoginForm = document.querySelector('.js-patientlogin');
+        patientPage = document.querySelector('.js-page');
         firstName = document.querySelector('.js-firstname');
 	    lastName = document.querySelector('.js-lastname'); 
         firstNameErrormessage = document.querySelector('.js-firstNameErrormessage');
@@ -264,6 +265,7 @@ function showLatestAdministered(time_administered) {
     options = { hour:'numeric',minute:'numeric'};
     let time = date.toLocaleString('nl',options);
 
+    patientPage.classList.add('o-blur');
     Swal.fire({
         title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">23 mei 2022 9:00u</span>',
         html: '<p class="o-medication--popup o-medication--popup-subtitle">Wilt u doorgaan?</p>',
@@ -568,7 +570,6 @@ function openBarcodeScanner() {
         canvas = document.querySelector('#camera');
         canvas.classList.add('u-hide');
         barcodePopup.classList.add("u-hide");
-        patientPage.classList.remove("o-blur");
         patientPage.style.zIndex = "1";
         
         console.log(result.codeResult.code);
