@@ -4,14 +4,15 @@
     "prefer_related_applications": true,
     "icons": [
         {
-            "src": "/assets/pill_favicon_512.png",
+            "src": "/Frontend/assets/pill_favicon_512.png",
             
             "type": "image/png",
             "sizes": "512x512",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
-            "src": "/assets/pill_favicon_192.png",
+            
+            "src": "/Frontend/assets/pill_favicon_192.png",
             "type": "image/png",
             "sizes": "192x192"
         }
