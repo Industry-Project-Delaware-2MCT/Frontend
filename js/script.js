@@ -232,7 +232,7 @@ const showPatientName = () => {
 function setMedicationData(firstName, lastName, medication) {
     patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
     medication.forEach(item => {
-        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
+        patientMedication.innerHTML += `<div>${item.medication_name} ${item.dosis}</div>`
     });
 }
 
@@ -251,6 +251,7 @@ const getPatientInfo = async () => {
     .then(data => {
         console.log(data);
         setMedicationData(data.first_name, data.last_name, data.medication);
+        localStorage.setItem("medication", JSON.stringify(data.medication));
         
     })
     .catch(error => console.log('error', error));
@@ -342,6 +343,7 @@ MEDICATION INFO
 ===========================*/
 
 const convertToBase64 = (image) => {
+    errorText.innerHTML = "";
     var file = image.files[0];
     var reader = new FileReader();
     reader.onloadend = function() {            
@@ -356,11 +358,23 @@ const convertToBase64 = (image) => {
     }
     reader.readAsDataURL(file);
 }
-const getMedicationData = async (base64image) => {
-    var data = {
-        base64String: base64image
-    };
 
+const getMedicationData = async (base64image) => {
+    var medication = JSON.parse(localStorage.getItem("medication"));
+    
+    var data = {
+        base64String: base64image,
+        active_substance: medication[0].medication_name,
+    };
+    
+    // !delete this when done
+    var data = {
+        base64String: "https://industryblobstorage.blob.core.windows.net/medicationimages/Testimg2",
+        // base64String: "https://industryblobstorage.blob.core.windows.net/medicationimages/TestFailImg",
+        active_substance: medication[0].medication_name
+    };
+    // !
+    
     camera = document.querySelector(".js-camera");
     loadingIcon = document.querySelector(".js-loading-icon");
     cameraIcon = document.querySelector(".js-camera-icon");
@@ -371,7 +385,8 @@ const getMedicationData = async (base64image) => {
 
     console.log("fetching");
 
-    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
+    // !change back to "https://industryprojectapi.azurewebsites.net/api/analyze/image" when done
+    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/blobimage", {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
@@ -386,19 +401,30 @@ const getMedicationData = async (base64image) => {
         loadingIcon.classList.add('u-display-none');
         cameraIcon.classList.remove('u-display-none');
         input.disabled = false;
-        console.log("result" , data.result);
+        if (!data.succes) {
+            console.log("Wrong medication scanned");
+            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + "probeer alstublieft opnieuw";
+            errorText.style.color = 'red';
+        } else {
+            console.log("succes");
+            errorText.innerHTML = "Scan gelukt!";
+            errorText.style.color = 'green';
+        }
     })
     .catch(error => console.log('error', error));
 }
 
 function showMedicationData(response) {
     if(response.status == 200) {
-        console.log("patient data succes");
+        console.log("ocr succes");
         return response.json();
+    } else if (response.status == 404) {
+        console.log("No medication found");
+        errorText.innerHTML = "Geen medicatie herkent of gevonden";
+        errorText.style.color = 'red';
     } else {
-        console.log("patient data failed");
-        console.log(response.status);
-        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        console.log("medication data failed");
+        errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
         errorText.style.color = 'red';
     }
 }

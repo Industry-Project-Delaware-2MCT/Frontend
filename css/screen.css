@@ -958,6 +958,10 @@ Small button reset object
     margin-top: 12px;
 }
 
+.u-mt-24 {
+    margin-top: 24px;
+}
+
 .u-mb-clear {
     margin-bottom: 0 !important;
 }
