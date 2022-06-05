@@ -634,7 +634,14 @@ Small button reset object
     padding: 10px 25px 10px 25px;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
     border: none;
+    outline: none;
     line-height: 1.5 !important;
+}
+
+.c-button:active {
+    background-color: var(--color-light-blue);
+    transition-timing-function: ease-in-out;
+    transition: 0.2s;
 }
 
 .c-button > * {
