@@ -363,8 +363,9 @@ INPUT VALIDATION
 ===========================*/
 
 const removeWrongInput = () => {
-    firstName.classList.remove('c-empty_input');
-    lastName.classList.remove('c-empty_input');
+    errorText.innerHTML = "";
+    firstName.parentElement.classList.remove('c-empty_input');
+    lastName.parentElement.classList.remove('c-empty_input');
     firstNameErrormessage.innerHTML = ""
     lastNameErrormessage.innerHTML = ""
 }
@@ -377,13 +378,13 @@ const checkInputs = () => {
     if (firstName.value.length == 0){
         check = false;
         firstNameErrormessage.innerHTML = "Voornaam mag niet leeg zijn"
-        firstName.classList.add('c-empty_input');
+        firstName.parentElement.classList.add('c-empty_input');
     }
 
     if(lastName.value.length == 0) {
         check = false;
         lastNameErrormessage.innerHTML = "Achternaam mag niet leeg zijn"
-        lastName.classList.add('c-empty_input');
+        lastName.parentElement.classList.add('c-empty_input');
     }
     
     return check;

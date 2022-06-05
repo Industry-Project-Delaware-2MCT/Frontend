@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/screen.css">
 
 </head>
-<body class="o-container">
+<body class="o-container o-layout o-layout--column o-flex-nowrap">
     <div class="o-row c-navigation">
         <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg">
         <div class="o-layout o-layout--align-center o-layout--justify-center">
@@ -23,10 +23,10 @@
             </div>
         </div>
     </div>
-    <div class="c-image-placeholder">
+    <div class="c-image-placeholder o-layout o-layout--justify-center">
         <img src="assets/Doctor_Monochromatic.png" alt="image van dokter">
     </div>
-    <form class="js-login o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--lg">
+    <form class="js-login o-flex-grow o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--md">
         <div class="o-row">
             <h2>Verpleegkundige</h2>
             <p class="o-subtitle">Voor je kan beginnen met scannen moet je even je identiteit verifiëren.</p>
@@ -36,14 +36,14 @@
             <span style="color:red;" class="js-firstNameErrormessage"></span>
             <h5>Voornaam<span style="color:red;">*</span></h5>
             <div class="o-layout o-flex-nowrap c-input--wrapper">
-                <img src="assets/Profile.svg" alt="profile">
+                <img class="c-profile-icon" src="assets/Profile.svg" alt="profile">
                 <input class="c-input js-firstname" type="text" placeholder="John"/>
             </div>
             <br />
             <span style="color:red;" class="js-lastNameErrormessage"></span>
             <h5>Achternaam<span style="color:red;">*</span></h5>
             <div class="o-layout o-flex-nowrap c-input--wrapper">
-                <img src="assets/Profile.svg" alt="profile">
+                <img class="c-profile-icon" src="assets/Profile.svg" alt="profile">
                 <input class="c-input js-lastname" type="text" placeholder="Doe"/>
             </div>
             

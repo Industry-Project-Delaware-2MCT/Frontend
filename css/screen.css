@@ -244,7 +244,7 @@ select {
 }
 
 input::placeholder {
-    color: gray;
+    color: var(--color-gray);
 }
 
 /*------------------------------------*\
@@ -316,7 +316,7 @@ input::placeholder {
 }
 
 .o-row--md {
-    padding-top: 48px;
+    padding-top: 12px;
     padding-bottom: 24px;
 }
 
@@ -455,6 +455,10 @@ canvas{
 
 .o-flex-nowrap {
     flex-wrap: nowrap;
+}
+
+.o-flex-grow {
+    flex-grow: 1;
 }
 
 .o-layout__item {
@@ -655,28 +659,43 @@ Small button reset object
     width: 100%;
     height: 40px;
     border: none;
-    background-color: rgba(0, 0, 0, 0);
     padding: 10px;
 }
-.c-input--wrapper{
-    
-    border-bottom: 1px solid var(--color-dark-blue);
-    
+
+.c-input--wrapper{  
+    border-bottom: 1px solid var(--color-gray);   
+}
+
+.c-input--wrapper:focus-within{
+    border-bottom: 2px solid var(--color-blue);
+}
+
+.c-input:focus{
+    outline: none;
+}
+
+.c-empty_input {
+    border-bottom: 1px solid var(--color-red);
 }
 
 .c-input:focus {
     outline: none;
-    border-bottom: 2px solid var(--color-dark-blue);
 }
 
 
 .c-image-placeholder{
-    max-width: 290px;
+    height: 30vh;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: clip;
+    /* border: 2px solid red; */
+}
+
+.c-image-placeholder img{
+    height: 100%;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
     overflow: clip;
     /* border: 2px solid red; */
 }
@@ -735,17 +754,7 @@ Small button reset object
     background-color: var(--color-white);
 }
 
-
-@media (min-height: 750px) {
     /*.c-image-placeholder{
-        height: 25vh;
-    }*/
-}
-
-.c-empty_input {
-    border-bottom: 1px solid var(--color-red);
-}
-
 .c-rfid {
     background-color: #FFF;
     position: relative;
