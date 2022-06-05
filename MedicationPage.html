@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/screen.css">
 </head>
-<body class="o-container">
+<body class="o-container o-layout o-layout--column o-flex-nowrap">
     <div class="o-row c-header c-navigation">
         <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg">
         <img class="c-footer-ellipse" src="assets/ellipse.svg" width="100%">
@@ -25,25 +25,27 @@
         <h2>Medicatie</h2>
         <p>Welke medicatie moet de patient ontvangen?</p>
     </div>
-    <div class="o-row">
-        <span class="js-errormessage"></span><br />
-        <h4>Patient</h4>
-        <div class="js-patientName">Voornaam: John<br />Naam: Doe</div>
-    </div>
-    <div class="o-row">
-        <h4>Te scannen medicatie</h4>
-        <div class="js-medication"></div>
-    </div>
-    <div class="o-row o-row--md">
-        <label for="cameraFileInput" class="c-button o-layout o-layout--justify-center">
-            <span class="u-button--text js-camera">Open camera</span>
-            <input
-                id="cameraFileInput"
-                type="file"
-                accept="image/*"
-                capture="environment"
-            />
-            </label>
+    <div class="o-flex-grow o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--md">
+        <div class="o-row">
+            <span class="js-errormessage"></span><br />
+            <h4>Patient</h4>
+            <div class="js-patientName">Voornaam: John<br />Naam: Doe</div>
+        </div>
+        <div class="o-row">
+            <h4>Te scannen medicatie</h4>
+            <div class="js-medication"></div>
+        </div>
+        <div class="o-row o-row--md">
+            <label for="cameraFileInput" class="c-button o-layout o-layout--justify-center">
+                <span class="u-button--text js-camera">Open camera</span>
+                <input
+                    id="cameraFileInput"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                />
+                </label>
+        </div>
     </div>
     <script src="./js/script.js"></script>
 </body>
