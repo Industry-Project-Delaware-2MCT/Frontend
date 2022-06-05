@@ -18,7 +18,7 @@
         }
       
     ],
-    "start_url": "/index.html?source=pwa",
+    "start_url": "/Frontend/index.html?source=pwa",
     "background_color": "#4157FF",
     "display": "standalone",
     "scope": "/Frontend/",
