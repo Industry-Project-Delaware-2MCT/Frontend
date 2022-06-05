@@ -265,10 +265,11 @@ function showLatestAdministered(time_administered) {
     let fulldate = date.toLocaleString('nl',options);
     options = { hour:'numeric',minute:'numeric'};
     let time = date.toLocaleString('nl',options);
+    let datetime = fulldate + " " + time;
 
     patientPage.classList.add('o-blur');
     Swal.fire({
-        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">23 mei 2022 9:00u</span>',
+        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">' + datetime +'</span>',
         html: '<p class="o-medication--popup o-medication--popup-subtitle">Wilt u doorgaan?</p>',
         showCancelButton: true,
         cancelButtonText: 'Neen',
@@ -408,10 +409,13 @@ const getMedicationData = async (base64image) => {
             errorText.style.color = 'red';
         } else {
             console.log("succes");
+            localStorage.setItem("succes", data.succes);
             medication = document.querySelector(".js-firstmedication");
             medication.innerHTML = checkmark + medication.innerHTML;
             errorText.innerHTML = "Scan gelukt!";
             errorText.style.color = 'green';
+            document.querySelector(".js-complete").classList.remove("u-display-none");
+            cameraIcon.parentElement.classList.add("u-display-none");
         }
     })
     .catch(error => console.log('error', error));
@@ -430,6 +434,33 @@ function showMedicationData(response) {
         errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
         errorText.style.color = 'red';
     }
+}
+
+function complete() {
+    if(localStorage.getItem("succes")) {
+        console.log("afronden");
+        var data = {
+            patient_id: localStorage.getItem("patientId"),
+            nurse_id: localStorage.getItem("nurseId")
+        };
+
+        fetch("https://industryprojectapi.azurewebsites.net/api/administered", {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.log('error', error));       
+    } else {
+        errorText.innerHTML = "Scan was niet successvol, u kunt niet afronden";
+        errorText.style.color = 'red';
+    }  
 }
 
 /*==========================
