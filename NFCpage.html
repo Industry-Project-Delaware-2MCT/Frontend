@@ -18,30 +18,38 @@
     <link rel="stylesheet" href="css/screen.css" />
     <link rel="icon" type="image/png" href="../Frontend/assets/pill_favicon.png">
   </head>
-  <body
-    class="o-container o-layout o-layout--justify-space-evenly o-layout--column"
-  >
-    <div class="o-row o-layout o-layout--justify-center o-text--center">
-      <div class="o-row u-mb-lg js-rfid c-rfid">
-        <img src="assets/rfid.png" />
+  <body class="o-container o-layout o-layout--column o-flex-nowrap">
+    <div class="o-row c-navigation">
+      <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg">
+      <div class="o-layout o-layout--align-center o-layout--justify-center">
+          <div class="c-steps o-layout o-layout--align-center o-layout--justify-space-around">
+              <div class="c-steps--current"></div>
+              <div></div>
+              <div></div>
+          </div>
       </div>
-      <h2 class="o-row js-title">Scanning badge</h2>
-      <div class="js-errortext">Houd je gsm tegen je badge tot de app gedaan heeft met scannen</div>
     </div>
-    <div class="o-row">
-      
-    </div>
-    <div class="o-row">
-      <div class="c-button c-button-margin o-layout o-layout--justify-center u-hide js-scanButton" >
-        <div class="u-button--text">Start scan</div>
+    <div class="o-layout o-flex-grow o-layout--justify-space-evenly o-layout--column">
+
+      <div class="o-row o-layout o-layout--justify-center o-text--center">
+        <div class="o-row u-mb-lg js-rfid c-rfid">
+          <img src="assets/rfid.png" />
+        </div>
+        <h2 class="o-row js-title">Scanning badge</h2>
+        <div class="js-errortext">Houd je gsm tegen je badge tot de app gedaan heeft met scannen</div>
       </div>
-      <a
+      <div class="o-row">
+        <div class="c-button c-button-margin o-layout o-layout--justify-center u-hide js-scanButton" >
+          <div class="u-button--text">Start scan</div>
+        </div>
+        <a
         href="index.html"
         class="c-button u-mt-xl c-button-margin o-layout o-layout--justify-center"
-      >
+        >
         <div class="u-button--text">Cancel</div>
       </a>
     </div>
+  </div>
 
     <script src="./js/script.js"></script>
   </body>
