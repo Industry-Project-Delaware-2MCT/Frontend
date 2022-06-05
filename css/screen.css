@@ -641,10 +641,6 @@ Small button reset object
     background-color: var(--color-red);
 }
 
-.c-button-margin {
-    margin: 0 5px;
-}
-
 .c-backbutton{
     position: absolute;
     background-color: var(--color-white);
@@ -666,15 +662,32 @@ Small button reset object
 }
 
 .c-input--wrapper{  
-    border-bottom: 1px solid var(--color-gray);   
+    border-bottom: 1px solid var(--color-gray);
+    transition-timing-function: ease-in-out;
+    transition: 0.2s;
 }
 
 .c-input--wrapper:focus-within{
-    border-bottom: 2px solid var(--color-blue);
+    border-bottom: 1px solid var(--color-blue);
+}
+
+.c-input--wrapper:focus-within .c-profile-icon path{
+    fill: var(--color-blue);
 }
 
 .c-input:focus{
     outline: none;
+}
+
+.c-profile-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.c-profile-icon path {
+    fill: var(--color-gray);
+    transition-timing-function: ease-in-out;
+    transition: 0.2s;
 }
 
 .c-empty_input {
@@ -972,7 +985,7 @@ Small button reset object
 
 @media (min-width: 410px) {
     .u-1-of-2-bp {
-        flex-basis: calc((100% / 2) - 10px) !important;
+        flex-basis: calc((100% / 2) - 5px) !important;
     }
     
     .u-top-button-bp {
@@ -989,14 +1002,9 @@ Small button reset object
     margin-bottom: 12px;
 }
 
-.c-button-margin-bp2 {
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
 @media (min-width: 430px) {
     .u-1-of-2-bp2 {
-        flex-basis: calc((100% / 2) - 10px) !important;
+        flex-basis: calc((100% / 2) - 5px) !important;
     }
 
     .u-top-button-bp2 {

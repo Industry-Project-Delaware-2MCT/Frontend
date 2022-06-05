@@ -179,11 +179,11 @@ PATIENT LOGIN
 const patientLogin = async () => {
     
     if(checkInputs()) {
-        setPatient(firstName.value, lastName.value);
+        getPatient(firstName.value, lastName.value);
     }
 };
 
-const setPatient = async (firstname, lastname) => {
+const getPatient = async (firstname, lastname) => {
   
 
     console.log("fetching");
@@ -237,12 +237,12 @@ const convertToBase64 = (image) => {
         let readFile = reader.result;
         let base64 = readFile.split(",")[1];
         //console.log(base64);
-        getPatientData(base64);
+        getMedicationData(base64);
 
     }
     reader.readAsDataURL(file);
 }
-const getPatientData = async (base64image) => {
+const getMedicationData = async (base64image) => {
     var data = {
         base64String: base64image
     };
@@ -263,7 +263,7 @@ const getPatientData = async (base64image) => {
         },
         body: JSON.stringify(data),
     })
-    .then(response => showPatientData(response))
+    .then(response => showMedicationData(response))
     .then(data => {
         console.log(data);
         camera.innerHTML = 'Open camera';
@@ -341,7 +341,7 @@ function setMedicationData(firstName, lastName, medication) {
     });
 }
 
-function showPatientData(response) {
+function showMedicationData(response) {
     if(response.status == 200) {
         console.log("patient data succes");
         //localStorage.setItem("patientData", JSON.stringify(response.json()));
