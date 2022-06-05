@@ -12,10 +12,14 @@ const init = () => {
     console.log("init");
     
     if(window.location.href.includes("index.html")) {
+        checkConnection();
         localStorage.clear();
         warmup();
+        console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
+
     }
     else if(window.location.href.includes("LoginPage.html")) {
+        checkConnection();
         firstName = document.querySelector('.js-firstname');
 	    lastName = document.querySelector('.js-lastname'); 
         firstNameErrormessage = document.querySelector('.js-firstNameErrormessage');
@@ -27,6 +31,7 @@ const init = () => {
             Login();
         });
     }else if(window.location.href.includes("PatientPage.html")) {
+        checkConnection();
         controlLogin();
         greeting = document.querySelector('.js-greeting');
         showPatientName();
@@ -40,12 +45,14 @@ const init = () => {
             openBarcodeScanner();
         });
     } else if(window.location.href.includes("NFCpage.html")) {
+        checkConnection();
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
         scanButton = document.querySelector(".js-scanButton");
         checkNFCPermissions();
     }else if(window.location.href.includes("MedicationPage.html")) {
+        checkConnection();
         controlLogin();
         getPatientInfo();
         
@@ -59,6 +66,7 @@ const init = () => {
         
 
     }else if(window.location.href.includes("PatientInfoPage.html")) {
+        checkConnection();
         controlLogin();
         patientLoginForm = document.querySelector('.js-patientlogin');
         patientPage = document.querySelector('.js-page');
@@ -73,6 +81,13 @@ const init = () => {
         });
 
 
+    }else if(window.location.href.includes("noNetwork.html")) {
+        checkConnection();
+        networkbutton = document.querySelector('.js-checkConnection');
+        networkbutton.addEventListener('click', function(e) {
+            window.location.reload();
+        });
+    
     }else if(window.location.href.includes("")) {
         window.location.href = window.location.origin + "/Frontend/index.html";
     }
@@ -87,6 +102,25 @@ const warmup = async () => {
     console.log("fetching");
     //'Hello World' api call to warm up the server (= start up server after being idle for a while)
     await fetch("https://industryprojectapi.azurewebsites.net/")
+}
+
+/*==========================
+Check network connection
+===========================*/
+
+const checkConnection = async () => {
+    if(window.navigator.onLine) {
+        if(window.location.href.includes("noNetwork.html")){
+            window.location.href = window.location.origin + "/Frontend/index.html";
+        }else{
+            return
+        }
+        
+    }else{
+        console.log("no connection");
+        window.location.href = window.location.origin + "/Frontend/noNetwork.html";
+    }
+    
 }
 
 /*
