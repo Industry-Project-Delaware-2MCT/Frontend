@@ -305,6 +305,7 @@ input::placeholder {
 }
 
 
+
 /* size modifiers */
 
 .o-body-padding {
@@ -442,6 +443,7 @@ canvas{
     transform: translate(-50%,0);
     overflow: hidden;
 }
+
 .o-blur{
     filter: blur(8px);
     -webkit-filter: blur(8px);
@@ -801,6 +803,23 @@ Small button reset object
 }
 }
 
+.donut {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 0.3rem solid var(--color-white);
+    border-top-color: var(--color-light-blue);
+    animation: 1.5s spin infinite linear;
+  
+    margin-left: 1rem;
+    
+}
+  
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 /*
     Component: Footer
     ---
@@ -840,6 +859,9 @@ Small button reset object
 
 .u-hide {
     visibility: hidden;
+}
+.u-display-none{
+    display: none;
 }
 
 .u-button--text {

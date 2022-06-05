@@ -247,6 +247,12 @@ const getPatientData = async (base64image) => {
         base64String: base64image
     };
 
+    camera = document.querySelector(".js-camera");
+    loadingIcon = document.querySelector(".js-loading-icon");
+    camera.innerHTML = 'Verwerken...';
+    loadingIcon.classList.remove('u-display-none');
+    input.disabled = true;
+
     console.log("fetching");
 
     fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
@@ -260,6 +266,9 @@ const getPatientData = async (base64image) => {
     .then(response => showPatientData(response))
     .then(data => {
         console.log(data);
+        camera.innerHTML = 'Open camera';
+        loadingIcon.classList.add('u-display-none');
+        input.disabled = false;
         console.log("result" , data.result);
     })
     .catch(error => console.log('error', error));

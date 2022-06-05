@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/screen.css">
 </head>
 <body class="o-container o-layout o-layout--column o-flex-nowrap">
-    <div class="o-row c-header c-navigation">
+    <div class="o-row c-header c-navigation js-page">
         <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg">
         <img class="c-footer-ellipse" src="assets/ellipse.svg" width="100%">
         <div class="o-layout o-layout--align-center o-layout--justify-center">
@@ -25,7 +25,7 @@
         <h2>Medicatie</h2>
         <p>Welke medicatie moet de patient ontvangen?</p>
     </div>
-    <div class="o-flex-grow o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--md">
+    <div class="o-flex-grow o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--md js-page">
         <div class="o-row">
             <span class="js-errormessage"></span><br />
             <h4>Patient</h4>
@@ -37,7 +37,7 @@
         </div>
         <div class="o-row o-row--md">
             <label for="cameraFileInput" class="c-button o-layout o-layout--justify-center">
-                <span class="u-button--text js-camera">Open camera</span>
+                <span class="u-button--text js-camera">Open camera</span><div class="donut js-loading-icon u-display-none"></div>
                 <input
                     id="cameraFileInput"
                     type="file"
@@ -45,8 +45,10 @@
                     capture="environment"
                 />
                 </label>
+                
         </div>
     </div>
+
     <script src="./js/script.js"></script>
 </body>
 </html>
