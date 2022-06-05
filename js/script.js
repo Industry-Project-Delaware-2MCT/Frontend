@@ -353,8 +353,13 @@ function showPatientInfo(response) {
     } else {
         console.log("patient info failed");
         console.log(response.status);
-        errorMessage.innerHTML = "De barcode klopt niet. Probeer alstublieft opnieuw";
-        errorMessage.style.color = 'red';
+        if(window.location.href.includes("PatientPage.html")) {
+            errorMessage.innerHTML = "De barcode klopt niet. Probeer alstublieft opnieuw";
+            errorMessage.style.color = 'red';
+        } else {
+            errorText.innerHTML = "Login niet gelukt, foute credentials";
+            errorText.style.color = 'red';
+        }
     }
 }
 
