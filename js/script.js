@@ -120,7 +120,6 @@ const checkConnection = async () => {
         console.log("no connection");
         window.location.href = window.location.origin + "/Frontend/noNetwork.html";
     }
-    
 }
 
 /*
