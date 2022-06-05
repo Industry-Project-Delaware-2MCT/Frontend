@@ -249,8 +249,10 @@ const getMedicationData = async (base64image) => {
 
     camera = document.querySelector(".js-camera");
     loadingIcon = document.querySelector(".js-loading-icon");
+    cameraIcon = document.querySelector(".js-camera-icon");
     camera.innerHTML = 'Verwerken...';
     loadingIcon.classList.remove('u-display-none');
+    cameraIcon.classList.add('u-display-none');
     input.disabled = true;
 
     console.log("fetching");
@@ -268,6 +270,7 @@ const getMedicationData = async (base64image) => {
         console.log(data);
         camera.innerHTML = 'Open camera';
         loadingIcon.classList.add('u-display-none');
+        cameraIcon.classList.remove('u-display-none');
         input.disabled = false;
         console.log("result" , data.result);
     })

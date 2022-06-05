@@ -637,6 +637,11 @@ Small button reset object
     line-height: 1.5 !important;
 }
 
+.c-button > * {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .c-button-red {
     background-color: var(--color-red);
 }
@@ -900,6 +905,10 @@ Small button reset object
     margin-top: 56px !important;
 }
 
+.u-mt-12 {
+    margin-top: 12px;
+}
+
 .u-mb-clear {
     margin-bottom: 0 !important;
 }
@@ -983,7 +992,7 @@ Small button reset object
     margin-bottom: 12px;
 }
 
-@media (min-width: 410px) {
+@media (min-width: 430px) {
     .u-1-of-2-bp {
         flex-basis: calc((100% / 2) - 5px) !important;
     }
@@ -991,27 +1000,6 @@ Small button reset object
     .u-top-button-bp {
         margin-bottom: 0px;
     }
-}
-
-.u-1-of-2-bp2 {
-    flex-basis: calc(100%) !important;
-    margin-top: 12px;
-}
-
-.u-top-button-bp2 {
-    margin-bottom: 12px;
-}
-
-@media (min-width: 430px) {
-    .u-1-of-2-bp2 {
-        flex-basis: calc((100% / 2) - 5px) !important;
-    }
-
-    .u-top-button-bp2 {
-        margin-bottom: 0px;
-    }
-    
-    
 }
 
 .u-1-of-3 {
