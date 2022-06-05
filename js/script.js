@@ -567,9 +567,15 @@ function openBarcodeScanner() {
         patientPage.classList.remove("u-hide");
         canvas = document.querySelector('#camera');
         canvas.classList.add('u-hide');
+        barcodePopup.classList.add("u-hide");
+        patientPage.classList.remove("o-blur");
+        patientPage.style.zIndex = "1";
         
         console.log(result.codeResult.code);
         getDataFromBarcode(result.codeResult.code);
+
+       
+
         Quagga.stop();
 
     });
