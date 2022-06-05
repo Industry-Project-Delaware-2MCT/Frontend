@@ -42,6 +42,7 @@
     --color-black: #000;
 
     --color-blue: #4157FF;
+    --color-blue2: #3D50E7;
     --color-dark-blue: #1E1C61;
     --color-light-blue: #4C93FF;
 
@@ -272,21 +273,6 @@ input::placeholder {
     display: flow-root;
 }
 
-.c-header{
-    background-color: var(--color-blue);
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    border-radius: 0 0 25px 25px;
-}
-
-.c-header > h2,p{
-    color: var(--color-white);
-}
-
-.c-header > h2{
-    margin-top: 48px !important;
-}
-
 .o-barcode-popup{
     background-color: var(--color-white);
     position: absolute;
@@ -352,13 +338,13 @@ input::placeholder {
         padding-bottom: 48px;
     }
 }
-    
+
 @media (min-width: 768px) {
     .o-row {
         padding-left: 48px;
         padding-right: 48px;
     }
-
+    
     .o-row--md {
         padding-top: 48px;
         padding-bottom: 24px;
@@ -373,9 +359,9 @@ input::placeholder {
 }
 
 /*
-    Objects: Container
-    ---
-    Creates a horizontal container that sets de global max-width
+Objects: Container
+---
+Creates a horizontal container that sets de global max-width
 */
 
 .o-container {
@@ -387,9 +373,9 @@ input::placeholder {
 }
 
 /*
-    Objects: section
-    ---
-    Creates vertical whitespace between adjacent sections inside a row
+Objects: section
+---
+Creates vertical whitespace between adjacent sections inside a row
 */
 
 .o-section {
@@ -414,11 +400,11 @@ input::placeholder {
 }
 
 /*
-    Objects: Layout
-    ---
-    The layout object provides us with a column-style layout system. This object
-    contains the basic structural elements, but classes should be complemented
-    with width utilities
+Objects: Layout
+---
+The layout object provides us with a column-style layout system. This object
+contains the basic structural elements, but classes should be complemented
+with width utilities
 */
 #cameraFileInput {
     display: none;
@@ -431,29 +417,29 @@ input::placeholder {
 
 
 video{
-  /* Make video to at least 100% wide and tall */
-  width: 80vw;
-
-
-  /* Center the video */
-  position: absolute;
-  z-index: 2;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%,0);
-  overflow: hidden;
+    /* Make video to at least 100% wide and tall */
+    width: 80vw;
+    
+    
+    /* Center the video */
+    position: absolute;
+    z-index: 2;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+    overflow: hidden;
 }
 canvas{
-  /* Make video to at least 100% wide and tall */
-  width: 80vw;
-
-  /* Center the video */
-  position: absolute;
-  z-index: 3;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%,0);
-  overflow: hidden;
+    /* Make video to at least 100% wide and tall */
+    width: 80vw;
+    
+    /* Center the video */
+    position: absolute;
+    z-index: 3;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+    overflow: hidden;
 }
 .o-blur{
     filter: blur(8px);
@@ -581,9 +567,9 @@ canvas{
 
 
 /*
-    Objects: List
-    ---
-    Small reusable object to remove default list styling from lists
+Objects: List
+---
+Small reusable object to remove default list styling from lists
 */
 
 .o-list {
@@ -596,9 +582,9 @@ canvas{
 }
 
 /*
-    Object: Button reset
-    ---
-    Small button reset object
+Object: Button reset
+---
+Small button reset object
 */
 
 .o-button-reset {
@@ -608,18 +594,18 @@ canvas{
     width: auto;
     overflow: visible;
     background: transparent;
-
+    
     /* inherit font & color from ancestor */
     color: inherit;
     font: inherit;
-
+    
     /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
     line-height: normal;
-
+    
     /* Corrects font smoothing for webkit */
     -webkit-font-smoothing: inherit;
     -moz-osx-font-smoothing: inherit;
-
+    
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
 }
@@ -675,7 +661,7 @@ canvas{
 .c-input--wrapper{
     
     border-bottom: 1px solid var(--color-dark-blue);
-
+    
 }
 
 .c-input:focus {
@@ -695,8 +681,22 @@ canvas{
     /* border: 2px solid red; */
 }
 
+.c-header{
+    background-color: var(--color-blue);
+    border-radius: 0 0 25px 25px;
+}
+
+.c-header > h2,p{
+    color: var(--color-white);
+}
+
+.c-header > h2{
+    margin-top: 48px !important;
+}
+
 .c-steps{
     background-color: var(--color-blue);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
     border-radius: 25px;
     padding: 0px 5px 0px 5px;
     height: 24px;
