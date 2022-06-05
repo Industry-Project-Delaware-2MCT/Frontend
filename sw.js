@@ -7,7 +7,8 @@ const staticAssets = [
   '../Frontend/noNetwork.html',
   '../Frontend/css/screen.css',
   '../Frontend/css/normalize.css',
-  '../Frontend/js/script.js'
+  '../Frontend/js/script.js',
+  '../Frontend/assets/no-wifi.png'
 ];
 
 self.addEventListener('install', async e => {
