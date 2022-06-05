@@ -264,12 +264,34 @@ function showLatestAdministered(time_administered) {
     options = { hour:'numeric',minute:'numeric'};
     let time = date.toLocaleString('nl',options);
 
-    let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
+    Swal.fire({
+        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">23 mei 2022 9:00u</span>',
+        html: '<p class="o-medication--popup o-medication--popup-subtitle">Wilt u doorgaan?</p>',
+        showCancelButton: true,
+        cancelButtonText: 'Neen',
+        confirmButtonColor: '#FFFFFF',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ja',
+        background: '#4157FF',
+        buttonsStyling: false,
+          customClass: {
+              confirmButton: 'swal-confirm', //insert class here
+            cancelButton: 'swal-cancel'
+          }
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
+        }else{
+            window.location.href = window.location.origin + "/Frontend/PatientPage.html";
+        }
+      })
+
+    /*let confirmAction = confirm("Deze patient zijn laatste toediening was op\n" + fulldate + " om " + time + "\nWilt u doorgaan?");
     if (confirmAction) {
         window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
     }else{
         window.location.href = window.location.origin + "/Frontend/PatientPage.html";
-    }
+    }*/
 }  
 
 const getLatestPatientAdministered = async () => {

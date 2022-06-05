@@ -864,6 +864,48 @@ Small button reset object
     width: 45%;
     height: 65%;
 }
+/*------------------------------------
+    Component: Swal2 popup
+--------------------------------------*/
+
+  .o-medication--popup{
+    color: white;
+    font-size: 20px;
+    
+  }
+  .swal2-actions{
+    margin: 0
+  }
+  .sawl2-popup{
+    border-radius:20px;
+  }
+  .o-medication--popup-date{
+    color: #4157FF;
+    background-color: white;
+    padding: 10px;
+    border-radius: 25px;
+    font-size: 16px;
+  }
+  .o-medication--popup-subtitle{
+    font-size: 16px;
+    
+  }
+  .swal-confirm{
+    background-color: white;
+    color: #4157FF;
+    padding: 10px 15px 10px 15px;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .swal-cancel{
+    background-color: #4157FF;
+    color: #FFFFFF;
+    padding: 10px 15px 10px 15px;
+    border: white solid 2px;
+    border-radius: 10px;
+    margin-left: 10px;
+  }
 
 /*------------------------------------*\
   #UTILITIES
