@@ -446,7 +446,6 @@ canvas{
 
 .o-blur{
     filter: blur(4px);
-    filter: 
     -webkit-filter: blur(4px);
 }
 .o-layout {
