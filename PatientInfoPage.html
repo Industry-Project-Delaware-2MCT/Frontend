@@ -10,34 +10,47 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/screen.css">
+    <link rel="icon" type="image/png" href="../Frontend/assets/pill_favicon.png">
 
 </head>
-<body>
-    <div class="c-image-placeholder">
-        <img src="assets/background_image.png" alt="image van pillen">
+<body class="o-container o-layout o-layout--column o-flex-nowrap">
+    <div class="o-row c-navigation">
+        <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg">
+        <div class="o-layout o-layout--align-center o-layout--justify-center">
+            <div class="c-steps o-layout o-layout--align-center o-layout--justify-space-around">
+                <div></div>
+                <div class="c-steps--current"></div>
+                <div></div>
+            </div>
+        </div>
     </div>
-    <form class="js-patientlogin o-container o-container-with-image o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--lg">
+    <form class="js-patientlogin o-flex-grow o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--md">
         <div class="o-row">
-            <h2>Patient</h2>
-            <p>Lukt de barcode scannen niet? <br>Geef hier manueel de info van uw patient in.</p>
+            <h1>Patient</h1>
+            <p class="o-subtitle">Lukt de barcode scannen niet? <br>Geef manueel de info van uw patient in.</p>
         </div>
         <div class="o-row">
             <span class="js-errormessage"></span><br />
             <span style="color:red;" class="js-firstNameErrormessage"></span>
             <h5>Voornaam<span style="color:red;">*</span></h5>
-            <input class="c-input js-firstname" type="text" placeholder="John"/>
+            <div class="o-layout o-flex-nowrap c-input--wrapper">
+                <img src="assets/Profile.svg" alt="profile">
+                <input class="c-input js-firstname" type="text" placeholder="John"/>
+            </div>
             <br />
             <br />
             <span style="color:red;" class="js-lastNameErrormessage"></span>
             <h5>Achternaam<span style="color:red;">*</span></h5>
-            <input class="c-input js-lastname" type="text" placeholder="Doe"/>
+            <div class="o-layout o-flex-nowrap c-input--wrapper">
+                <img src="assets/Profile.svg" alt="profile">
+                <input class="c-input js-lastname" type="text" placeholder="Doe"/>
+            </div>
+            
         </div>
         <div class="o-row o-row--md">
             <input type="submit" value="Identificeer" class="c-button o-layout o-layout--justify-center" />
         </div>  
     </form>
-    
-    <img class="c-footer" src="assets/footer.svg" width="100%">
     
     <script src="./js/script.js"></script>
 </body>

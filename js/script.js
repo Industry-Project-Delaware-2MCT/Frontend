@@ -26,6 +26,9 @@ const init = () => {
         cameraButton = document.querySelector('.js-cameraButton');
         cameraButton.addEventListener('click', function(e) {
             patientPage = document.querySelector('.js-page');
+            barcodePopup = document.querySelector('.js-barcodePopup');
+            cancelButton = document.querySelector('.js-barcode-cancel');
+            
             openBarcodeScanner();
         });
     } else if(window.location.href.includes("NFCpage.html")) {
@@ -176,11 +179,11 @@ PATIENT LOGIN
 const patientLogin = async () => {
     
     if(checkInputs()) {
-        setPatient(firstName.value, lastName.value);
+        getPatient(firstName.value, lastName.value);
     }
 };
 
-const setPatient = async (firstname, lastname) => {
+const getPatient = async (firstname, lastname) => {
   
 
     console.log("fetching");
@@ -234,12 +237,12 @@ const convertToBase64 = (image) => {
         let readFile = reader.result;
         let base64 = readFile.split(",")[1];
         //console.log(base64);
-        getPatientData(base64);
+        getMedicationData(base64);
 
     }
     reader.readAsDataURL(file);
 }
-const getPatientData = async (base64image) => {
+const getMedicationData = async (base64image) => {
     var data = {
         base64String: base64image
     };
@@ -254,7 +257,7 @@ const getPatientData = async (base64image) => {
         },
         body: JSON.stringify(data),
     })
-    .then(response => showPatientData(response))
+    .then(response => showMedicationData(response))
     .then(data => {
         console.log(data);
         console.log("result" , data.result);
@@ -329,7 +332,7 @@ function setMedicationData(firstName, lastName, medication) {
     });
 }
 
-function showPatientData(response) {
+function showMedicationData(response) {
     if(response.status == 200) {
         console.log("patient data succes");
         //localStorage.setItem("patientData", JSON.stringify(response.json()));
@@ -350,8 +353,13 @@ function showPatientInfo(response) {
     } else {
         console.log("patient info failed");
         console.log(response.status);
-        errorMessage.innerHTML = "De barcode klopt niet. Probeer alstublieft opnieuw";
-        errorMessage.style.color = 'red';
+        if(window.location.href.includes("PatientPage.html")) {
+            errorMessage.innerHTML = "De barcode klopt niet. Probeer alstublieft opnieuw";
+            errorMessage.style.color = 'red';
+        } else {
+            errorText.innerHTML = "Login niet gelukt, foute credentials";
+            errorText.style.color = 'red';
+        }
     }
 }
 
@@ -360,8 +368,9 @@ INPUT VALIDATION
 ===========================*/
 
 const removeWrongInput = () => {
-    firstName.classList.remove('c-empty_input');
-    lastName.classList.remove('c-empty_input');
+    errorText.innerHTML = "";
+    firstName.parentElement.classList.remove('c-empty_input');
+    lastName.parentElement.classList.remove('c-empty_input');
     firstNameErrormessage.innerHTML = ""
     lastNameErrormessage.innerHTML = ""
 }
@@ -374,13 +383,13 @@ const checkInputs = () => {
     if (firstName.value.length == 0){
         check = false;
         firstNameErrormessage.innerHTML = "Voornaam mag niet leeg zijn"
-        firstName.classList.add('c-empty_input');
+        firstName.parentElement.classList.add('c-empty_input');
     }
 
     if(lastName.value.length == 0) {
         check = false;
         lastNameErrormessage.innerHTML = "Achternaam mag niet leeg zijn"
-        lastName.classList.add('c-empty_input');
+        lastName.parentElement.classList.add('c-empty_input');
     }
     
     return check;
@@ -453,7 +462,16 @@ BARCODE FUNCTIONALITY
 
 function openBarcodeScanner() {
     console.log("opening scanner");
-    patientPage.classList.add("u-hide");
+    patientPage.classList.add("o-blur");
+    patientPage.style.zIndex = "-1";
+    barcodePopup.classList.remove("u-hide");
+
+    cancelButton.addEventListener('click', function(e) {
+        barcodePopup.classList.add("u-hide");
+        patientPage.classList.remove("o-blur");
+        patientPage.style.zIndex = "1";
+        Quagga.stop();
+    });
     Quagga.init({
         numOfWorkers: 4,
         frequency: 10,
@@ -463,8 +481,6 @@ function openBarcodeScanner() {
             type : "LiveStream",
             target: document.querySelector('#camera'),
             constraints: {
-                width: { min: 640, ideal: 1280, max: 1920 },
-                height: { min: 480, ideal: 720, max: 1080 },
                 facingMode: "environment", // or user
                 frameRate: 10,
             }

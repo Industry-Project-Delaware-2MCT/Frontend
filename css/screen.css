@@ -2,6 +2,33 @@
 #FONTS
 \*------------------------------------*/
 
+/*import Gilroy-Bold, Gilroy-Medium, Gilroy-regular in woff and woff2 format*/
+  @font-face
+  {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Bold.woff2') format('woff2'),
+         url('../fonts/Gilroy-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: bold;
+  }
+  
+  @font-face
+  {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Medium.woff2') format('woff2'),
+         url('../fonts/Gilroy-Medium.woff') format('woff');
+    font-weight: medium;
+    font-style: medium;
+  }
+  
+  @font-face
+  {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Regular.woff2') format('woff2'),
+         url('../fonts/Gilroy-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
 /* Fonts are loaded via Google fonts */
 
 /*------------------------------------*\
@@ -14,8 +41,10 @@
     --color-gray: #747474;
     --color-black: #000;
 
-    --color-blue: #27AEDB;
-    --color-dark-blue: #0880A8;
+    --color-blue: #4157FF;
+    --color-blue2: #313FB0;
+    --color-dark-blue: #1E1C61;
+    --color-light-blue: #4C93FF;
 
     --color-red: #F76363;
 
@@ -39,7 +68,7 @@ html {
     height : 100%;
     font-size: 16px;
     line-height: 1.5;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Gilroy', sans-serif;
     color: var(--color-front);
     overflow: hidden;
     box-sizing: border-box;
@@ -106,15 +135,17 @@ h2{
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 36px;
     line-height: 48px;
-    margin: 0 0 16px;;
+    margin: 0 0 16px;
+    color: var(--color-dark-blue);
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 32px;
     line-height: 40px;
     margin: 0 0 6px;
+    color: var(--color-dark-blue);
 }
 
 h3 {
@@ -123,10 +154,11 @@ h3 {
 }
 
 h4 {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 600;
     line-height: 1.5;
     margin: 0;
+    color: var(--color-dark-blue);
 }
 
 h5,
@@ -135,7 +167,10 @@ h6 {
     font-weight: 600;
     line-height: 1.5;
     margin: 0;
+    
+    color: var(--color-dark-blue);
 }
+
 
 p,
 ol,
@@ -210,7 +245,7 @@ select {
 }
 
 input::placeholder {
-    color: gray;
+    color: var(--color-gray);
 }
 
 /*------------------------------------*\
@@ -239,6 +274,37 @@ input::placeholder {
     display: flow-root;
 }
 
+.o-barcode-popup{
+    background-color: var(--color-white);
+    position: absolute;
+    z-index: 1;
+    top: 40%;
+    padding-top: 10px;
+    border-radius: 25px 25px 0 0;
+    box-shadow: -1px -5px 15px 5px  rgba(0, 0, 0, 0.2);
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+.o-barcode-header{
+    z-index: 4;
+    position: absolute;
+    top: 2.5%;
+}
+
+.o-barcode-header > p {
+    color: var(--color-black);
+    font-weight: bold;
+    
+}
+.o-barcode-header > .o-barcode--button{
+    color: var(--color-light-blue);
+}
+.o-barcode--button:hover{
+    cursor: pointer;
+}
+
+
 /* size modifiers */
 
 .o-body-padding {
@@ -251,7 +317,7 @@ input::placeholder {
 }
 
 .o-row--md {
-    padding-top: 48px;
+    padding-top: 12px;
     padding-bottom: 24px;
 }
 
@@ -273,13 +339,13 @@ input::placeholder {
         padding-bottom: 48px;
     }
 }
-    
+
 @media (min-width: 768px) {
     .o-row {
         padding-left: 48px;
         padding-right: 48px;
     }
-
+    
     .o-row--md {
         padding-top: 48px;
         padding-bottom: 24px;
@@ -294,9 +360,9 @@ input::placeholder {
 }
 
 /*
-    Objects: Container
-    ---
-    Creates a horizontal container that sets de global max-width
+Objects: Container
+---
+Creates a horizontal container that sets de global max-width
 */
 
 .o-container {
@@ -307,14 +373,10 @@ input::placeholder {
     height: 100%;
 }
 
-.o-container-with-image {
-    height: 75vh;
-}
-
 /*
-    Objects: section
-    ---
-    Creates vertical whitespace between adjacent sections inside a row
+Objects: section
+---
+Creates vertical whitespace between adjacent sections inside a row
 */
 
 .o-section {
@@ -339,58 +401,50 @@ input::placeholder {
 }
 
 /*
-    Objects: Layout
-    ---
-    The layout object provides us with a column-style layout system. This object
-    contains the basic structural elements, but classes should be complemented
-    with width utilities
+Objects: Layout
+---
+The layout object provides us with a column-style layout system. This object
+contains the basic structural elements, but classes should be complemented
+with width utilities
 */
 #cameraFileInput {
     display: none;
 }
 
-#camera{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+.o-subtitle{
+    color: var(--color-dark-blue);
+    font-size: 16px;
 }
 
 
 video{
-  /* Make video to at least 100% wide and tall */
-  min-width: 100%; 
-  min-height: 100%; 
-
-  /* Setting width & height to auto prevents the browser from stretching or squishing the video */
-  width: auto;
-  height: auto;
-
-  /* Center the video */
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,0);
+    /* Make video to at least 100% wide and tall */
+    width: 80vw;
+    
+    
+    /* Center the video */
+    position: absolute;
+    z-index: 2;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+    overflow: hidden;
 }
 canvas{
-      /* Make video to at least 100% wide and tall */
-  min-width: 100%; 
-  min-height: 100%; 
-
-  /* Setting width & height to auto prevents the browser from stretching or squishing the video */
-  width: auto;
-  height: auto;
-
-  /* Center the video */
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,0);
+    /* Make video to at least 100% wide and tall */
+    width: 80vw;
+    
+    /* Center the video */
+    position: absolute;
+    z-index: 3;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+    overflow: hidden;
+}
+.o-blur{
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
 }
 .o-layout {
     display: -webkit-flex;
@@ -402,6 +456,10 @@ canvas{
 
 .o-flex-nowrap {
     flex-wrap: nowrap;
+}
+
+.o-flex-grow {
+    flex-grow: 1;
 }
 
 .o-layout__item {
@@ -512,10 +570,11 @@ canvas{
 }
 
 
+
 /*
-    Objects: List
-    ---
-    Small reusable object to remove default list styling from lists
+Objects: List
+---
+Small reusable object to remove default list styling from lists
 */
 
 .o-list {
@@ -528,9 +587,9 @@ canvas{
 }
 
 /*
-    Object: Button reset
-    ---
-    Small button reset object
+Object: Button reset
+---
+Small button reset object
 */
 
 .o-button-reset {
@@ -540,18 +599,18 @@ canvas{
     width: auto;
     overflow: visible;
     background: transparent;
-
+    
     /* inherit font & color from ancestor */
     color: inherit;
     font: inherit;
-
+    
     /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
     line-height: normal;
-
+    
     /* Corrects font smoothing for webkit */
     -webkit-font-smoothing: inherit;
     -moz-osx-font-smoothing: inherit;
-
+    
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
 }
@@ -560,11 +619,16 @@ canvas{
 #COMPONENTS
 \*------------------------------------*/
 
+.c-navigation {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 .c-button {
     text-decoration: none;
     color: var(--color-white);
     background-color: var(--color-blue);
-    border-radius: 5px;
+    border-radius: 25px;
     padding: 10px 25px 10px 25px;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
     border: none;
@@ -575,8 +639,16 @@ canvas{
     background-color: var(--color-red);
 }
 
-.c-button-margin {
-    margin: 0 5px;
+.c-backbutton{
+    position: absolute;
+    background-color: var(--color-white);
+    border-radius: 5px;
+    padding: 8px 12px 8px 12px;
+    margin-left: -24px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+    border: none;
+    line-height: 1.5 !important;
+    
 }
 
 .c-input {
@@ -584,38 +656,103 @@ canvas{
     width: 100%;
     height: 40px;
     border: none;
-    border-bottom: 1px solid var(--color-dark-blue);
-    background-color: rgba(0, 0, 0, 0);
     padding: 10px;
 }
 
-.c-input:focus {
+.c-input--wrapper{  
+    border-bottom: 1px solid var(--color-gray);   
+}
+
+.c-input--wrapper:focus-within{
+    border-bottom: 2px solid var(--color-blue);
+}
+
+.c-input:focus{
     outline: none;
-    border-bottom: 2px solid var(--color-dark-blue);
-}
-
-
-.c-image-placeholder{
-    width: 100%;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 20vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: clip;
-    /* border: 2px solid red; */
-}
-
-@media (min-height: 750px) {
-    .c-image-placeholder{
-        height: 25vh;
-    }
 }
 
 .c-empty_input {
     border-bottom: 1px solid var(--color-red);
+}
+
+.c-input:focus {
+    outline: none;
+}
+
+
+.c-image-placeholder{
+    height: 30vh;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: clip;
+    /* border: 2px solid red; */
+}
+
+.c-image-placeholder--patientpage {
+    height: 40vh;
+}
+
+.c-image-placeholder img{
+    height: 100%;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: clip;
+    /* border: 2px solid red; */
+}
+
+.c-header{
+    background: linear-gradient(var(--color-blue), var(--color-blue2));
+    border-radius: 0 0 25px 25px;
+}
+
+.c-header > h2,p{
+    color: var(--color-white);
+}
+
+.c-header > h2{
+    margin-top: 48px !important;
+}
+
+.c-steps{
+    background-color: var(--color-blue);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    padding: 0px 5px 0px 5px;
+    height: 24px;
+    width: 72px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.c-header {
+    height: 30%;
+    min-height: 210px;
+    position: relative;
+}
+
+.c-header  .c-steps{
+    background-color: var(--color-light-blue);
+}
+
+.c-steps > *{
+    background-color: var(--color-light-blue);
+    
+    border-radius: 5px;
+    height: 8px;
+    width: 8px;
+
+}
+
+.c-header  .c-steps > *{
+    background-color: var(--color-white);
+}
+
+.c-header .c-steps > .c-steps--current{
+    background-color: var(--color-dark-blue);
+}
+.c-steps > .c-steps--current{
+    background-color: var(--color-white);
 }
 
 .c-rfid {
@@ -643,7 +780,7 @@ canvas{
     position: absolute;
     z-index: -1;
     border-radius: 50%;
-    box-shadow: 0px -4px 10px var(--color-dark-blue);
+    box-shadow: 0px -4px 10px var(--color-blue);
     animation: round-n-round .8s linear infinite;
 }
 
@@ -669,9 +806,22 @@ canvas{
 .c-footer {
     position: fixed;
     bottom: 0;
-    right: 0;
-    z-index: -1;
+    left: 0;
     pointer-events: none;
+    z-index: -1;
+    height: 60%;
+    width: auto;
+    max-width: 1000px;
+    max-height: 530px;
+}
+
+.c-footer-ellipse {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    width: 45%;
+    height: 65%;
 }
 
 /*------------------------------------*\
@@ -691,6 +841,10 @@ canvas{
 .u-button--text {
     font-weight: 400;
     color: var(--color-white);
+}
+
+.u-pt-7 {
+    padding-top: 7vh;
 }
 
 /*
@@ -730,6 +884,11 @@ canvas{
 .u-mb-xl {
     margin-bottom: 48px !important;
 }
+
+.u-mb-xxl {
+    margin-bottom: 64px !important;
+}
+
 
 
 /*
@@ -785,9 +944,9 @@ canvas{
     margin-bottom: 12px;
 }
 
-@media (min-width: 383px) {
+@media (min-width: 410px) {
     .u-1-of-2-bp {
-        flex-basis: calc((100% / 2) - 10px) !important;
+        flex-basis: calc((100% / 2) - 5px) !important;
     }
     
     .u-top-button-bp {
@@ -804,14 +963,16 @@ canvas{
     margin-bottom: 12px;
 }
 
-@media (min-width: 413px) {
+@media (min-width: 430px) {
     .u-1-of-2-bp2 {
-        flex-basis: calc((100% / 2) - 10px) !important;
+        flex-basis: calc((100% / 2) - 5px) !important;
     }
 
     .u-top-button-bp2 {
         margin-bottom: 0px;
     }
+    
+    
 }
 
 .u-1-of-3 {

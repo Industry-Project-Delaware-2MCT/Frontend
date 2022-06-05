@@ -10,33 +10,52 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/screen.css">
+    <link rel="icon" type="image/png" href="../Frontend/assets/pill_favicon.png">
 </head>
-<body>
-    <div id="camera" width="100%" height="100%">   
-
-    </div>
-    <div class="js-page">   
-        <div class="c-image-placeholder">
-            <img src="assets/background_image.png" alt="image van pillen">
+<body class="o-container">
+    <div class="js-page o-container o-layout o-layout--column o-flex-nowrap">   
+        <div class="o-row c-navigation">
+            <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg">
+            <div class="o-layout o-layout--align-center o-layout--justify-center">
+                <div class="c-steps o-layout o-layout--align-center o-layout--justify-space-around">
+                    <div></div>
+                    <div class="c-steps--current"></div>
+                    <div></div>
+                </div>
+            </div>
         </div>
-        <div class="o-container o-container-with-image o-flex-nowrap o-layout o-layout--column o-layout--justify-space-between o-row--lg">
+        <div class="c-image-placeholder c-image-placeholder--patientpage">
+            <img src="assets/Nurse_Monochromatic.png" alt="image van nurse">
+        </div>
+        <div class="o-flex-grow o-flex-nowrap o-layout o-layout--justify-space-between o-layout--column o-row--md">
             <div class="o-row">
                 <h2 class="js-greeting">Hey</h2>
-                <p>Welke patient moet medicatie ontvangen? Open de camera en scan de barcode op de armband. <br>Of geef de patient info manueel in.</p>
+                <p class="o-subtitle">Welke patient moet medicatie ontvangen?</p>
                 <span class="js-errormessage"></span><br/>
             </div>
-            <div class="o-row o-row--md o-layout o-layout--align-center">
+            <div class="o-row o-row--md o-layout o-layout--align-center o-layout--justify-space-between">
                 
-                <a class="u-1-of-2-bp2 u-top-button-bp2 c-button c-button-margin o-layout o-layout--justify-center js-cameraButton">
+                <a class="u-1-of-2-bp2 u-top-button-bp2 c-button o-layout o-layout--justify-center js-cameraButton">
                     <div class="u-button--text">Scan Barcode</div>
                 </a>
-                <a href="PatientInfoPage.html" class="u-1-of-2-bp2 c-button c-button-margin o-layout o-layout--justify-center">
+                <a href="PatientInfoPage.html" class="u-1-of-2-bp2 c-button o-layout o-layout--justify-center">
                     <div class="u-button--text">Identificeer</div>
                 </a>
-            </div>   
+            </div>          
         </div>
     </div>
-    <img class="c-footer" src="assets/footer.svg" width="100%">
+    <div class="o-container o-barcode-popup u-hide js-barcodePopup ">   
+         
+        <div class="o-container o-layout o-layout--justify-space-around o-barcode-header">
+            <p class=" o-barcode--button js-barcode-cancel">Cancel</p>
+            <p>Scan barcode<p>
+            <p class="u-hide">.</p>
+        </div>
+        
+        <div id="camera"></div>
+        
+    </div>
+    
     
     <script src="https://serratus.github.io/quaggaJS/examples/js/quagga.min.js" type="text/javascript"></script>
     <script src="./js/script.js"></script>
