@@ -4,6 +4,7 @@ const staticAssets = [
   '../Frontend/index.html',
   '../Frontend/LoginPage.html',
   '../Frontend/NFCpage.html',
+  '../Frontend/noNetwork.html',
   '../Frontend/css/screen.css',
   '../Frontend/css/normalize.css',
   '../Frontend/js/script.js'
