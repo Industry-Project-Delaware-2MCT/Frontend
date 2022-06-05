@@ -227,54 +227,12 @@ const showPatientName = () => {
     greeting.innerHTML = "Hey " + nurseName;
     console.log(nurseName);
 }
-const convertToBase64 = (image) => {
-    var file = image.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function() {            
-        //split reader.result on "," and keep text after ","
-        
-        //console.log( reader.result);
-        let readFile = reader.result;
-        let base64 = readFile.split(",")[1];
-        //console.log(base64);
-        getMedicationData(base64);
 
-    }
-    reader.readAsDataURL(file);
-}
-const getMedicationData = async (base64image) => {
-    var data = {
-        base64String: base64image
-    };
-
-    camera = document.querySelector(".js-camera");
-    loadingIcon = document.querySelector(".js-loading-icon");
-    cameraIcon = document.querySelector(".js-camera-icon");
-    camera.innerHTML = 'Verwerken...';
-    loadingIcon.classList.remove('u-display-none');
-    cameraIcon.classList.add('u-display-none');
-    input.disabled = true;
-
-    console.log("fetching");
-
-    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => showMedicationData(response))
-    .then(data => {
-        console.log(data);
-        camera.innerHTML = 'Open camera';
-        loadingIcon.classList.add('u-display-none');
-        cameraIcon.classList.remove('u-display-none');
-        input.disabled = false;
-        console.log("result" , data.result);
-    })
-    .catch(error => console.log('error', error));
+function setMedicationData(firstName, lastName, medication) {
+    patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
+    medication.forEach(item => {
+        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
+    });
 }
 
 const getPatientInfo = async () => {
@@ -336,27 +294,6 @@ const getLatestPatientAdministered = async () => {
     })
     .catch(error => console.log('error', error));
 }
-    
-function setMedicationData(firstName, lastName, medication) {
-    patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
-    medication.forEach(item => {
-        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
-    });
-}
-
-function showMedicationData(response) {
-    if(response.status == 200) {
-        console.log("patient data succes");
-        //localStorage.setItem("patientData", JSON.stringify(response.json()));
-        return response.json();
-    } else {
-        console.log("patient data failed");
-        console.log(response.status);
-        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
-        errorText.style.color = 'red';
-    }
-}
-
 
 function showPatientInfo(response) {
     if(response.status == 200) {
@@ -372,6 +309,73 @@ function showPatientInfo(response) {
             errorText.innerHTML = "Login niet gelukt, foute credentials";
             errorText.style.color = 'red';
         }
+    }
+}
+
+
+/*==========================
+MEDICATION INFO
+===========================*/
+
+const convertToBase64 = (image) => {
+    var file = image.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {            
+        //split reader.result on "," and keep text after ","
+        
+        //console.log( reader.result);
+        let readFile = reader.result;
+        let base64 = readFile.split(",")[1];
+        //console.log(base64);
+        getMedicationData(base64);
+
+    }
+    reader.readAsDataURL(file);
+}
+const getMedicationData = async (base64image) => {
+    var data = {
+        base64String: base64image
+    };
+
+    camera = document.querySelector(".js-camera");
+    loadingIcon = document.querySelector(".js-loading-icon");
+    cameraIcon = document.querySelector(".js-camera-icon");
+    camera.innerHTML = 'Verwerken...';
+    loadingIcon.classList.remove('u-display-none');
+    cameraIcon.classList.add('u-display-none');
+    input.disabled = true;
+
+    console.log("fetching");
+
+    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => showMedicationData(response))
+    .then(data => {
+        console.log(data);
+        camera.innerHTML = 'Open camera';
+        loadingIcon.classList.add('u-display-none');
+        cameraIcon.classList.remove('u-display-none');
+        input.disabled = false;
+        console.log("result" , data.result);
+    })
+    .catch(error => console.log('error', error));
+}
+
+function showMedicationData(response) {
+    if(response.status == 200) {
+        console.log("patient data succes");
+        return response.json();
+    } else {
+        console.log("patient data failed");
+        console.log(response.status);
+        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        errorText.style.color = 'red';
     }
 }
 
