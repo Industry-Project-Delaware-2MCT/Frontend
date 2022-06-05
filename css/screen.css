@@ -691,6 +691,10 @@ Small button reset object
     /* border: 2px solid red; */
 }
 
+.c-image-placeholder--patientpage {
+    height: 40vh;
+}
+
 .c-image-placeholder img{
     height: 100%;
     width: auto;
@@ -962,7 +966,12 @@ Small button reset object
     margin-bottom: 12px;
 }
 
-@media (min-width: 413px) {
+.c-button-margin-bp2 {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+@media (min-width: 430px) {
     .u-1-of-2-bp2 {
         flex-basis: calc((100% / 2) - 10px) !important;
     }
@@ -970,6 +979,8 @@ Small button reset object
     .u-top-button-bp2 {
         margin-bottom: 0px;
     }
+    
+    
 }
 
 .u-1-of-3 {
