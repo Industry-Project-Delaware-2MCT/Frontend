@@ -7,18 +7,21 @@ const staticAssets = [
   '../Frontend/noNetwork.html',
   '../Frontend/css/screen.css',
   '../Frontend/css/normalize.css',
-  '../Frontend/js/script.js',
-  '../Frontend/assets/no-wifi.png'
+  '../Frontend/assets/no-wifi.png',
+  '../Frontend/assets/home_ilustration_extended.png'
 ];
 
-self.addEventListener('install', async e => {
-  const cache = await caches.open(cacheName);
-  await cache.addAll(staticAssets);
-  return self.skipWaiting();
+self.addEventListener('install', (e) => {
+  e.waitUntil((async() => {
+    const cache = await caches.open(cacheName);
+    console.log('[Service Worker] Caching all: app shell and content');
+    await cache.addAll(staticAssets);
+  })());
+  
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['pigment'];
+  var cacheWhitelist = ['../Frontend/noNetwork.html','../Frontend/index.html','../Frontend/assets/home_ilustration_extended.png'];
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
