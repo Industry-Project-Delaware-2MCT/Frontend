@@ -101,7 +101,7 @@ API call to warmup the server
 const warmup = async () => {
     console.log("fetching");
     //'Hello World' api call to warm up the server (= start up server after being idle for a while)
-    await fetch("https://industryprojectapi.azurewebsites.net/")
+    await fetch("https://industryprojectapi.azurewebsites.net/");
 }
 
 /*==========================
@@ -142,6 +142,8 @@ const Login = async () => {
 };
 
 const authenticate = async (firstname, lastname) => {
+    checkConnection();
+    
     var data = {
         firstname: firstname,
         lastname: lastname
@@ -167,6 +169,8 @@ const authenticate = async (firstname, lastname) => {
 }
 
 const authenticateByNFC = async (nfcSerialNumber) => {
+    checkConnection();
+    
     var data = {
         nfc_serialnumber: nfcSerialNumber
     };
@@ -226,7 +230,7 @@ const patientLogin = async () => {
 };
 
 const getPatient = async (firstname, lastname) => {
-  
+    checkConnection();
 
     console.log("fetching");
 
@@ -278,6 +282,7 @@ function setMedicationData(firstName, lastName, medication) {
 }
 
 const getPatientInfo = async () => {
+    checkConnection();
 
     console.log("fetching");
 
@@ -340,7 +345,8 @@ function showLatestAdministered(time_administered) {
 }  
 
 const getLatestPatientAdministered = async () => {
-    
+    checkConnection();
+
     console.log("fetching");
 
     fetch("https://industryprojectapi.azurewebsites.net/api/administered/patient/last/" + localStorage.getItem("patientId"), {
@@ -402,6 +408,8 @@ const convertToBase64 = (image) => {
 }
 
 const getMedicationData = async (base64image) => {
+    checkConnection();
+    
     var medication = JSON.parse(localStorage.getItem("medication"));
     var checkmark = '<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>';
     
@@ -470,6 +478,8 @@ function showMedicationData(response) {
 
 function complete() {
     console.log("afronden");
+    checkConnection();
+
     if(localStorage.getItem("succes")) {
         Swal.fire({
             title: '<p class="o-medication--popup">Scan afronden?</p>',
@@ -707,7 +717,7 @@ function openBarcodeScanner() {
 }
 
 const getDataFromBarcode = async (barcode) => {
-
+    checkConnection();
 
     console.log("fetching");
 
