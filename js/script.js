@@ -437,26 +437,56 @@ function showMedicationData(response) {
 }
 
 function complete() {
+    console.log("afronden");
     if(localStorage.getItem("succes")) {
-        console.log("afronden");
-        var data = {
-            patient_id: localStorage.getItem("patientId"),
-            nurse_id: localStorage.getItem("nurseId")
-        };
+        Swal.fire({
+            title: '<p class="o-medication--popup">Scan afronden?</p>',
+            html: '<p class="o-medication--popup o-medication--popup-subtitle">Door op ja te klikken bevestigt u dat u deze medicatie toegediend hebt aan de patient</p>',
+            showCancelButton: true,
+            cancelButtonText: 'Neen',
+            confirmButtonColor: '#FFFFFF',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ja',
+            background: '#4157FF',
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: 'swal-confirm', //insert class here
+                cancelButton: 'swal-cancel'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = {
+                    patient_id: localStorage.getItem("patientId"),
+                    nurse_id: localStorage.getItem("nurseId")
+                };
+        
+                fetch("https://industryprojectapi.azurewebsites.net/api/administered", {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => {
+                    if(response.status == 201) {
+                        console.log("Administered succes");
+                        window.location.href = window.location.origin + "/Frontend/Index.html";
 
-        fetch("https://industryprojectapi.azurewebsites.net/api/administered", {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+                        
+                    } else {
+                        console.log("Administered failed");
+                        errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
+                        errorText.style.color = 'red';
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
+                    errorText.style.color = 'red';
+                });       
+            }
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => console.log('error', error));       
     } else {
         errorText.innerHTML = "Scan was niet successvol, u kunt niet afronden";
         errorText.style.color = 'red';
