@@ -162,6 +162,7 @@ const authenticate = async (firstname, lastname) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("firstName", data.first_name);
+        localStorage.setItem("lastName", data.last_name);
         localStorage.setItem("nurseId", data._id);
         localStorage.setItem("apiToken", data.api_token);
     })
@@ -188,6 +189,7 @@ const authenticateByNFC = async (nfcSerialNumber) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("firstName", data.first_name);
+        localStorage.setItem("lastName", data.last_name);
         localStorage.setItem("nurseId", data._id);
         localStorage.setItem("apiToken", data.api_token);
     })
@@ -245,6 +247,7 @@ const getPatient = async (firstname, lastname) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("patientId", data._id);
+        localStorage.setItem("patientName", data.first_name);
         getLatestPatientAdministered();
 
     })
@@ -303,9 +306,9 @@ const getPatientInfo = async () => {
     .catch(error => console.log('error', error));
 }
 
-function showLatestAdministered(time_administered) {
+function showLatestAdministered(data) {
 
-    let date = new Date(time_administered * 1000);
+    let date = new Date(data.time_administered * 1000);
     
     var options = { year:'numeric',month:'long',day:'numeric',weekday: "long"};
     let fulldate = date.toLocaleString('nl',options);
@@ -315,7 +318,7 @@ function showLatestAdministered(time_administered) {
 
     patientPage.classList.add('o-blur');
     Swal.fire({
-        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">' + datetime +'</span>',
+        title: '<p class="o-medication--popup">Laatste toediening </p> <p class="o-medication--popup o-medication--popup-subtitle">Toegediend door '+data.nurse_name+'</p><span class="o-medication--popup-date">' + datetime +'</span>',
         html: '<p class="o-medication--popup o-medication--popup-subtitle">Wilt u doorgaan?</p>',
         showCancelButton: true,
         cancelButtonText: 'Neen',
@@ -363,7 +366,7 @@ const getLatestPatientAdministered = async () => {
             window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
             return
         }
-        showLatestAdministered(data.time_administered);
+        showLatestAdministered(data);
     })
     .catch(error => console.log('error', error));
 }
@@ -453,7 +456,7 @@ const getMedicationData = async (base64image) => {
                 confirmButtonText: 'OK',
                 iconColor: "#f45252",
             });
-            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + "probeer alstublieft opnieuw";
+            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
             errorText.style.color = 'red';
         } else {
             console.log("succes");
@@ -507,7 +510,9 @@ function complete() {
             if (result.isConfirmed) {
                 var data = {
                     patient_id: localStorage.getItem("patientId"),
-                    nurse_id: localStorage.getItem("nurseId")
+                    patient_name: localStorage.getItem("patientName"),
+                    nurse_id: localStorage.getItem("nurseId"),
+                    nurse_name: localStorage.getItem("firstName") + " " + localStorage.getItem("lastName")
                 };
         
                 fetch("https://industryprojectapi.azurewebsites.net/api/administered", {
