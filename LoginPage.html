@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Mediscan</title>
     <meta name="description" content="An app to help medical staff administer the right medication">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Wiebe Cloet" />
+    <meta name="author" content="Thibaut De Tandt" />
+    <meta name="author" content="Flor Werbrouck" />
 
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
@@ -21,7 +24,7 @@
 </head>
 <body class="o-container o-layout o-layout--column o-flex-nowrap">
     <div class="o-row c-navigation">
-        <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg">
+        <img onclick="history.back()" class="c-backbutton" src="assets/arrow.svg" alt="icon for back button">
         <div class="o-layout o-layout--align-center o-layout--justify-center">
             <div class="c-steps o-layout o-layout--align-center o-layout--justify-space-around">
                 <div class="c-steps--current"></div>
@@ -40,15 +43,15 @@
         </div>
         <div class="o-row">
             <span class="js-errormessage"></span><br />
-            <span style="color:red;" class="js-firstNameErrormessage"></span>
-            <h5>Voornaam<span style="color:red;">*</span></h5>
+            <span style="color:crimson;" class="js-firstNameErrormessage"></span>
+            <h5>Voornaam<span style="color:crimson;">*</span></h5>
             <div class="o-layout o-flex-nowrap c-input--wrapper">
                 <svg class="c-profile-icon" xmlns="http://www.w3.org/2000/svg" height="36" width="36" viewBox="0 0 40 40"><path d="M24 23.95Q20.7 23.95 18.6 21.85Q16.5 19.75 16.5 16.45Q16.5 13.15 18.6 11.05Q20.7 8.95 24 8.95Q27.3 8.95 29.4 11.05Q31.5 13.15 31.5 16.45Q31.5 19.75 29.4 21.85Q27.3 23.95 24 23.95ZM8 40V35.3Q8 33.4 8.95 32.05Q9.9 30.7 11.4 30Q14.75 28.5 17.825 27.75Q20.9 27 24 27Q27.1 27 30.15 27.775Q33.2 28.55 36.55 30Q38.1 30.7 39.05 32.05Q40 33.4 40 35.3V40Z"/></svg>
                 <input class="c-input js-firstname" type="text" placeholder="John"/>
             </div>
             <br />
-            <span style="color:red;" class="js-lastNameErrormessage"></span>
-            <h5>Achternaam<span style="color:red;">*</span></h5>
+            <span style="color:crimson;" class="js-lastNameErrormessage"></span>
+            <h5>Achternaam<span style="color:crimson;">*</span></h5>
             <div class="o-layout o-flex-nowrap c-input--wrapper">
                 <svg class="c-profile-icon" xmlns="http://www.w3.org/2000/svg" height="36" width="36" viewBox="0 0 40 40"><path d="M24 23.95Q20.7 23.95 18.6 21.85Q16.5 19.75 16.5 16.45Q16.5 13.15 18.6 11.05Q20.7 8.95 24 8.95Q27.3 8.95 29.4 11.05Q31.5 13.15 31.5 16.45Q31.5 19.75 29.4 21.85Q27.3 23.95 24 23.95ZM8 40V35.3Q8 33.4 8.95 32.05Q9.9 30.7 11.4 30Q14.75 28.5 17.825 27.75Q20.9 27 24 27Q27.1 27 30.15 27.775Q33.2 28.55 36.55 30Q38.1 30.7 39.05 32.05Q40 33.4 40 35.3V40Z"/></svg>
                 <input class="c-input js-lastname" type="text" placeholder="Doe"/>

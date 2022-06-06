@@ -208,7 +208,7 @@ const checkLogin = (response, method) => {
         console.log("login failed");
         console.log(response.status);
         errorText.innerHTML = "Login niet gelukt, foute credentials";
-        errorText.style.color = 'red';
+        errorText.style.color = 'crimson';
         if(window.location.href.includes("NFCpage.html")) {
             rfid.classList.remove('c-rfid-animate-green');
         }
@@ -263,7 +263,7 @@ const checkPatientLogin = (response, method) => {
         console.log("login failed");
         console.log(response.status);
         errorText.innerHTML = "Login niet gelukt, foute credentials";
-        errorText.style.color = 'red';
+        errorText.style.color = 'crimson';
     }
 
 }
@@ -380,10 +380,10 @@ function showPatientInfo(response) {
         console.log(response.status);
         if(window.location.href.includes("PatientPage.html")) {
             errorMessage.innerHTML = "De barcode klopt niet. Probeer alstublieft opnieuw";
-            errorMessage.style.color = 'red';
+            errorMessage.style.color = 'crimson';
         } else {
             errorText.innerHTML = "Login niet gelukt, foute credentials";
-            errorText.style.color = 'red';
+            errorText.style.color = 'crimson';
         }
     }
 }
@@ -457,7 +457,7 @@ const getMedicationData = async (base64image) => {
                 iconColor: "#f45252",
             });
             errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
-            errorText.style.color = 'red';
+            errorText.style.color = 'crimson';
         } else {
             console.log("succes");
             localStorage.setItem("succes", data.succes);
@@ -479,11 +479,11 @@ function showMedicationData(response) {
     } else if (response.status == 404) {
         console.log("No medication found");
         errorText.innerHTML = "Geen medicatie herkent of gevonden";
-        errorText.style.color = 'red';
+        errorText.style.color = 'crimson';
     } else {
         console.log("medication data failed");
         errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
-        errorText.style.color = 'red';
+        errorText.style.color = 'crimson';
     }
 }
 
@@ -530,19 +530,19 @@ function complete() {
                     } else {
                         console.log("Administered failed");
                         errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
-                        errorText.style.color = 'red';
+                        errorText.style.color = 'crimson';
                     }
                 })
                 .catch(error => {
                     console.log('error', error);
                     errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
-                    errorText.style.color = 'red';
+                    errorText.style.color = 'crimson';
                 });       
             }
         })
     } else {
         errorText.innerHTML = "Scan was niet successvol, u kunt niet afronden";
-        errorText.style.color = 'red';
+        errorText.style.color = 'crimson';
     }  
 }
 
@@ -606,7 +606,7 @@ const checkNFCPermissions = async () => {
         console.log("Argh! " + error);
         rfid.classList.add('c-rfid-error');
         errorText.innerHTML = "Er is geen NFC reader gevonden, probeer opnieuw of log manueel in";     
-        errorText.style.color = 'red';
+        errorText.style.color = 'crimson';
         title.innerHTML = "NFC niet gevonden";
     }
 }
@@ -622,7 +622,7 @@ const scan = async () => {
         ndef.addEventListener("readingerror", () => {
             console.log("Argh! Cannot read data from the NFC tag. Try another one?");
             errorText.innerHTML = "Scan niet gelukt, probeer opnieuw of log manueel in";
-            errorText.style.color = 'red';
+            errorText.style.color = 'crimson';
         });
         
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
@@ -635,7 +635,7 @@ const scan = async () => {
         console.log("Argh! " + error);
         rfid.classList.add('c-rfid-error');
         errorText.innerHTML = "NFC staat niet aan, probeer opnieuw of log manueel in";     
-        errorText.style.color = 'red';
+        errorText.style.color = 'crimson';
         title.innerHTML = "NFC staat niet aan";
     }
   };
