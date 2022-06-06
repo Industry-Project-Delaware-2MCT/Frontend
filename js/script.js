@@ -273,7 +273,7 @@ const showPatientName = () => {
 function setMedicationData(firstName, lastName, medication) {
     patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
     medication.forEach(item => {
-        patientMedication.innerHTML += `${item.medication_name} ${item.dosis}<br />`
+        patientMedication.innerHTML += `<div class="js-firstmedication o-layout o-layout--align-center"><span>${item.medication_name} ${item.dosis}</span></div>`
     });
 }
 
@@ -292,6 +292,7 @@ const getPatientInfo = async () => {
     .then(data => {
         console.log(data);
         setMedicationData(data.first_name, data.last_name, data.medication);
+        localStorage.setItem("medication", JSON.stringify(data.medication));
         
     })
     .catch(error => console.log('error', error));
@@ -305,10 +306,11 @@ function showLatestAdministered(time_administered) {
     let fulldate = date.toLocaleString('nl',options);
     options = { hour:'numeric',minute:'numeric'};
     let time = date.toLocaleString('nl',options);
+    let datetime = fulldate + " " + time;
 
     patientPage.classList.add('o-blur');
     Swal.fire({
-        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">23 mei 2022 9:00u</span>',
+        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">' + datetime +'</span>',
         html: '<p class="o-medication--popup o-medication--popup-subtitle">Wilt u doorgaan?</p>',
         showCancelButton: true,
         cancelButtonText: 'Neen',
@@ -383,6 +385,7 @@ MEDICATION INFO
 ===========================*/
 
 const convertToBase64 = (image) => {
+    errorText.innerHTML = "";
     var file = image.files[0];
     var reader = new FileReader();
     reader.onloadend = function() {            
@@ -397,11 +400,16 @@ const convertToBase64 = (image) => {
     }
     reader.readAsDataURL(file);
 }
-const getMedicationData = async (base64image) => {
-    var data = {
-        base64String: base64image
-    };
 
+const getMedicationData = async (base64image) => {
+    var medication = JSON.parse(localStorage.getItem("medication"));
+    var checkmark = '<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>';
+    
+    var data = {
+        base64String: base64image,
+        active_substance: medication[0].medication_name,
+    };
+    
     camera = document.querySelector(".js-camera");
     loadingIcon = document.querySelector(".js-loading-icon");
     cameraIcon = document.querySelector(".js-camera-icon");
@@ -427,21 +435,94 @@ const getMedicationData = async (base64image) => {
         loadingIcon.classList.add('u-display-none');
         cameraIcon.classList.remove('u-display-none');
         input.disabled = false;
-        console.log("result" , data.result);
+        if (!data.succes) {
+            console.log("Wrong medication scanned");
+            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + "probeer alstublieft opnieuw";
+            errorText.style.color = 'red';
+        } else {
+            console.log("succes");
+            localStorage.setItem("succes", data.succes);
+            medication = document.querySelector(".js-firstmedication");
+            medication.innerHTML = checkmark + medication.innerHTML;
+            errorText.innerHTML = "Scan gelukt!";
+            errorText.style.color = 'green';
+            document.querySelector(".js-complete").classList.remove("u-display-none");
+            cameraIcon.parentElement.classList.add("u-display-none");
+        }
     })
     .catch(error => console.log('error', error));
 }
 
 function showMedicationData(response) {
     if(response.status == 200) {
-        console.log("patient data succes");
+        console.log("ocr succes");
         return response.json();
+    } else if (response.status == 404) {
+        console.log("No medication found");
+        errorText.innerHTML = "Geen medicatie herkent of gevonden";
+        errorText.style.color = 'red';
     } else {
-        console.log("patient data failed");
-        console.log(response.status);
-        errorText.innerHTML = "Er liep iets fout bij het ophalen van de gegevens";
+        console.log("medication data failed");
+        errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
         errorText.style.color = 'red';
     }
+}
+
+function complete() {
+    console.log("afronden");
+    if(localStorage.getItem("succes")) {
+        Swal.fire({
+            title: '<p class="o-medication--popup">Scan afronden?</p>',
+            html: '<p class="o-medication--popup o-medication--popup-subtitle">Door op ja te klikken bevestigt u dat u deze medicatie toegediend hebt aan de patient</p>',
+            showCancelButton: true,
+            cancelButtonText: 'Neen',
+            confirmButtonColor: '#FFFFFF',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ja',
+            background: '#4157FF',
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: 'swal-confirm', //insert class here
+                cancelButton: 'swal-cancel'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = {
+                    patient_id: localStorage.getItem("patientId"),
+                    nurse_id: localStorage.getItem("nurseId")
+                };
+        
+                fetch("https://industryprojectapi.azurewebsites.net/api/administered", {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => {
+                    if(response.status == 201) {
+                        console.log("Administered succes");
+                        window.location.href = window.location.origin + "/Frontend/Index.html";
+
+                        
+                    } else {
+                        console.log("Administered failed");
+                        errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
+                        errorText.style.color = 'red';
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
+                    errorText.style.color = 'red';
+                });       
+            }
+        })
+    } else {
+        errorText.innerHTML = "Scan was niet successvol, u kunt niet afronden";
+        errorText.style.color = 'red';
+    }  
 }
 
 /*==========================
