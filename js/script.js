@@ -303,9 +303,9 @@ const getPatientInfo = async () => {
     .catch(error => console.log('error', error));
 }
 
-function showLatestAdministered(time_administered) {
+function showLatestAdministered(data) {
 
-    let date = new Date(time_administered * 1000);
+    let date = new Date(data.time_administered * 1000);
     
     var options = { year:'numeric',month:'long',day:'numeric',weekday: "long"};
     let fulldate = date.toLocaleString('nl',options);
@@ -315,7 +315,7 @@ function showLatestAdministered(time_administered) {
 
     patientPage.classList.add('o-blur');
     Swal.fire({
-        title: '<p class="o-medication--popup">Laatste toediening </p> <span class="o-medication--popup-date">' + datetime +'</span>',
+        title: '<p class="o-medication--popup">Laatste toediening </p> <p class="o-medication--popup o-medication--popup-subtitle">Toegediend door '+data.nurse_name+'</p><span class="o-medication--popup-date">' + datetime +'</span>',
         html: '<p class="o-medication--popup o-medication--popup-subtitle">Wilt u doorgaan?</p>',
         showCancelButton: true,
         cancelButtonText: 'Neen',
@@ -363,7 +363,7 @@ const getLatestPatientAdministered = async () => {
             window.location.href = window.location.origin + "/Frontend/MedicationPage.html";
             return
         }
-        showLatestAdministered(data.time_administered);
+        showLatestAdministered(data);
     })
     .catch(error => console.log('error', error));
 }
