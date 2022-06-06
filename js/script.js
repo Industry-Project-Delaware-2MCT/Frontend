@@ -513,9 +513,7 @@ function complete() {
                 .then(response => {
                     if(response.status == 201) {
                         console.log("Administered succes");
-                        window.location.href = window.location.origin + "/Frontend/Index.html";
-
-                        
+                        window.location.href = window.location.origin + "/Frontend/index.html";
                     } else {
                         console.log("Administered failed");
                         errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
