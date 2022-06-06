@@ -162,6 +162,7 @@ const authenticate = async (firstname, lastname) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("firstName", data.first_name);
+        localStorage.setItem("lastName", data.last_name);
         localStorage.setItem("nurseId", data._id);
         localStorage.setItem("apiToken", data.api_token);
     })
@@ -188,6 +189,7 @@ const authenticateByNFC = async (nfcSerialNumber) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("firstName", data.first_name);
+        localStorage.setItem("lastName", data.last_name);
         localStorage.setItem("nurseId", data._id);
         localStorage.setItem("apiToken", data.api_token);
     })
@@ -245,6 +247,7 @@ const getPatient = async (firstname, lastname) => {
     .then(data => {
         console.log(data);
         localStorage.setItem("patientId", data._id);
+        localStorage.setItem("patientName", data.first_name);
         getLatestPatientAdministered();
 
     })
@@ -453,7 +456,7 @@ const getMedicationData = async (base64image) => {
                 confirmButtonText: 'OK',
                 iconColor: "#f45252",
             });
-            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + "probeer alstublieft opnieuw";
+            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
             errorText.style.color = 'red';
         } else {
             console.log("succes");
@@ -507,7 +510,9 @@ function complete() {
             if (result.isConfirmed) {
                 var data = {
                     patient_id: localStorage.getItem("patientId"),
-                    nurse_id: localStorage.getItem("nurseId")
+                    patient_name: localStorage.getItem("patientName"),
+                    nurse_id: localStorage.getItem("nurseId"),
+                    nurse_name: localStorage.getItem("firstName") + " " + localStorage.getItem("lastName")
                 };
         
                 fetch("https://industryprojectapi.azurewebsites.net/api/administered", {
