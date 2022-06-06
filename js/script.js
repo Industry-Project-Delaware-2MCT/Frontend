@@ -445,6 +445,14 @@ const getMedicationData = async (base64image) => {
         input.disabled = false;
         if (!data.succes) {
             console.log("Wrong medication scanned");
+            Swal.fire({
+                icon:'error',
+                title:'Oeps...',
+                text: "U heeft de verkeerde medicatie gescand. Gelieve deze niet toe te dienen.",
+                confirmButtonColor: "#658af0",
+                confirmButtonText: 'OK',
+                iconColor: "#f45252",
+            });
             errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + "probeer alstublieft opnieuw";
             errorText.style.color = 'red';
         } else {
