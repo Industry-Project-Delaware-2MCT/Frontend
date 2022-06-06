@@ -8,7 +8,7 @@ const staticAssets = [
   '../Frontend/css/screen.css',
   '../Frontend/css/normalize.css',
   '../Frontend/assets/no-wifi.png',
-  '../Frontend/assets/home_ilustration_extended.png'
+  '../Frontend/assets/home_ilustration_extended.webp'
 ];
 
 self.addEventListener('install', (e) => {
@@ -21,7 +21,7 @@ self.addEventListener('install', (e) => {
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['../Frontend/noNetwork.html','../Frontend/index.html','../Frontend/assets/home_ilustration_extended.png'];
+  var cacheWhitelist = ['../Frontend/noNetwork.html','../Frontend/index.html','../Frontend/assets/home_ilustration_extended.webp'];
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
