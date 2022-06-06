@@ -369,14 +369,6 @@ const getMedicationData = async (base64image) => {
         active_substance: medication[0].medication_name,
     };
     
-    // !delete this when done
-    var data = {
-        base64String: "https://industryblobstorage.blob.core.windows.net/medicationimages/Testimg2",
-        // base64String: "https://industryblobstorage.blob.core.windows.net/medicationimages/TestFailImg",
-        active_substance: medication[0].medication_name
-    };
-    // !
-    
     camera = document.querySelector(".js-camera");
     loadingIcon = document.querySelector(".js-loading-icon");
     cameraIcon = document.querySelector(".js-camera-icon");
@@ -387,8 +379,7 @@ const getMedicationData = async (base64image) => {
 
     console.log("fetching");
 
-    // !change back to "https://industryprojectapi.azurewebsites.net/api/analyze/image" when done
-    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/blobimage", {
+    fetch("https://industryprojectapi.azurewebsites.net/api/analyze/image", {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem("apiToken"),
