@@ -724,8 +724,6 @@ function openBarcodeScanner() {
         Quagga.stop();
 
     });
-
-
 }
 
 const getDataFromBarcode = async (barcode) => {
@@ -751,6 +749,7 @@ const getDataFromBarcode = async (barcode) => {
 
 
 addEventListener('beforeunload',checkConnection());
+addEventListener('popstate',checkConnection());
 
 document.addEventListener('DOMContentLoaded', async function () {
     init();
