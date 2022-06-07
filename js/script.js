@@ -6,7 +6,6 @@ if('serviceWorker' in navigator) {
     });
 }
 
-addEventListener('beforeunload',checkConnection());
 
 let nurseName = "test";
 
@@ -750,6 +749,8 @@ const getDataFromBarcode = async (barcode) => {
     .catch(error => console.log('error', error));
 }
 
+
+addEventListener('beforeunload',checkConnection());
 
 document.addEventListener('DOMContentLoaded', async function () {
     init();
