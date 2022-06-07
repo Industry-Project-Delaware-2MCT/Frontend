@@ -86,7 +86,7 @@ const init = () => {
         checkConnection();
         networkbutton = document.querySelector('.js-checkConnection');
         networkbutton.addEventListener('click', function(e) {
-            window.location.reload();
+            checkConnection();
         });
     
     }else if(window.location.href.includes("")) {

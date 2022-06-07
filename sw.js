@@ -33,13 +33,13 @@ self.addEventListener('install', (e) => {
 });*/
 
 self.addEventListener("activate", function(e) {
-  console.log("Alloy service worker activation");
+  console.log("[Service Worker]: activation");
   e.waitUntil(
       caches.keys().then(function(keyList) {
           return Promise.all(
               keyList.map(function(key) {
                   if (key !== cacheName) {
-                      console.log("Alloy old cache removed", key);
+                      console.log("[Service Worker]: old cache removed", key);
                       return caches.delete(key);
                   }
               })
