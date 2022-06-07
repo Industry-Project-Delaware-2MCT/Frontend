@@ -1,3 +1,7 @@
+/*
+Version: 1.0
+*/
+
 /*if('serviceWorker' in navigator) {
     navigator.serviceWorker
     .register('./sw.js')
