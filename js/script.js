@@ -528,7 +528,7 @@ const getMedicationData = async (base64image) => {
         cameraIcon.classList.remove('u-display-none');
         input.disabled = false;
         data.forEach(item => {
-            if (!data.succes) {
+            if (!item.succes) {
                 console.log("Wrong medication scanned");
                 Swal.fire({
                     icon:'error',
@@ -538,11 +538,11 @@ const getMedicationData = async (base64image) => {
                     confirmButtonText: 'OK',
                     iconColor: "#f45252",
                 });
-                errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
+                errorText.innerHTML = "Foute medicatie gescand: " + item.result.medicine_name + ". Probeer alstublieft opnieuw";
                 errorText.style.color = 'crimson';
             } else {
                 console.log("succes");
-                localStorage.setItem("succes", data.succes);
+                localStorage.setItem("succes", item.succes);
                 medication = document.querySelector(".js-firstmedication");
                 medication.innerHTML = checkmark + medication.innerHTML;
                 errorText.innerHTML = "Scan gelukt!";
@@ -586,13 +586,12 @@ function showMedicationData(response) {
         console.log("No medication found");
         errorText.innerHTML = "Geen medicatie herkent of gevonden";
         errorText.style.color = 'crimson';
-    } else if(response.status == 409){
-        
+    } else if(response.status == 409)  {
         console.log("Wrong medication in image");
-        errorText.innerHTML = "";
+        errorText.innerHTML = "Er is medicatie teveel gescand! pas op!";
+        errorText.style.color = 'crimson';
         return response.json();
 
-        
     }else {
         console.log("medication data failed");
         errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
