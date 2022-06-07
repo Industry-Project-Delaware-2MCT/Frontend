@@ -6,20 +6,22 @@ if('serviceWorker' in navigator) {
     });
 }
 
+addEventListener('beforeunload',checkConnection());
+
 let nurseName = "test";
 
 const init = () => {
     console.log("init");
     
     if(window.location.href.includes("index.html")) {
-        checkConnection();
+        //checkConnection();
         localStorage.clear();
         warmup();
         console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
 
     }
     else if(window.location.href.includes("LoginPage.html")) {
-        checkConnection();
+        //checkConnection();
         firstName = document.querySelector('.js-firstname');
 	    lastName = document.querySelector('.js-lastname'); 
         firstNameErrormessage = document.querySelector('.js-firstNameErrormessage');
@@ -31,7 +33,7 @@ const init = () => {
             Login();
         });
     }else if(window.location.href.includes("PatientPage.html")) {
-        checkConnection();
+        //checkConnection();
         controlLogin();
         greeting = document.querySelector('.js-greeting');
         showPatientName();
@@ -45,14 +47,14 @@ const init = () => {
             openBarcodeScanner();
         });
     } else if(window.location.href.includes("NFCpage.html")) {
-        checkConnection();
+        //checkConnection();
         errorText = document.querySelector(".js-errortext");
         title = document.querySelector(".js-title");
         rfid = document.querySelector(".js-rfid");
         scanButton = document.querySelector(".js-scanButton");
         checkNFCPermissions();
     }else if(window.location.href.includes("MedicationPage.html")) {
-        checkConnection();
+        //checkConnection();
         controlLogin();
         getPatientInfo();
         
@@ -66,7 +68,7 @@ const init = () => {
         
 
     }else if(window.location.href.includes("PatientInfoPage.html")) {
-        checkConnection();
+        //checkConnection();
         controlLogin();
         patientLoginForm = document.querySelector('.js-patientlogin');
         patientPage = document.querySelector('.js-page');
@@ -82,7 +84,7 @@ const init = () => {
 
 
     }else if(window.location.href.includes("noNetwork.html")) {
-        checkConnection();
+        //checkConnection();
         networkbutton = document.querySelector('.js-checkConnection');
         networkbutton.addEventListener('click', function(e) {
             window.location.reload();
