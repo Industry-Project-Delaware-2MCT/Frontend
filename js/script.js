@@ -546,12 +546,9 @@ const getMedicationData = async (base64image) => {
                 console.log("testing " , item)
                 medication = document.querySelectorAll(".js-scan-medication");
                 medicationNames.forEach(item => {
-                    if(medication.innerHTML.includes(item)) {
+                    if(medication.textContent.includes(item)) {
                         medication.innerHTML = checkmark + medication.innerHTML;
-                        
-    
                     }
-
                 });
                 
                 errorText.innerHTML = "Scan gelukt!";
