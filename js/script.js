@@ -1,7 +1,3 @@
-/*
-Version: 2.0
-*/
-
 /*if('serviceWorker' in navigator) {
     navigator.serviceWorker
     .register('./sw.js')
@@ -96,6 +92,12 @@ const init = () => {
         lastNameErrormessage = document.querySelector('.js-lastNameErrormessage');
         loginForm = document.querySelector('.js-login');
         errorText = document.querySelector(".js-errormessage");
+        firstName.addEventListener('input', removeImageOnInput);
+        lastName.addEventListener('input', removeImageOnInput);
+        document.onclick = function(event) {
+            let illustration = document.querySelector('.js-illustration');
+            illustration.classList.remove('u-hide');
+        }
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             Login();
@@ -622,6 +624,11 @@ function complete() {
 /*==========================
 INPUT VALIDATION
 ===========================*/
+
+const removeImageOnInput = () => {
+    let illustration = document.querySelector(".js-illustration");
+    illustration.classList.add("u-hide");
+}
 
 const removeWrongInput = () => {
     errorText.innerHTML = "";
