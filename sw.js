@@ -1,6 +1,5 @@
 const cacheName = 'mediscan-v1';
 const staticAssets = [
-  './',
   '../Frontend/noNetwork.html',
   '../Frontend/css/screen.css',
   '../Frontend/css/normalize.css',
