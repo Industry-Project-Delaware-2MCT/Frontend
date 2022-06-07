@@ -355,7 +355,7 @@ const showPatientName = () => {
 
 function setMedicationData(firstName, lastName, medication) {
     patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
-    var errormark = '<svg class="checkmark errormark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle errormark__circle" cx="26" cy="26" r="25" fill="none"></circle><path class="checkmark__check" fill="none" d="M36.7,36.6L15.3,15.4"></path><path class="checkmark__check" fill="none" d="M15.4,36.7l21.3-21.4"></path></svg>';
+    var errormark = '<svg class="errormark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="errormark__circle" cx="26" cy="26" r="25" fill="none"></circle><path class="checkmark__check" fill="none" d="M36.7,36.6L15.3,15.4"></path><path class="checkmark__check" fill="none" d="M15.4,36.7l21.3-21.4"></path></svg>';
     medication.forEach(item => {
         patientMedication.innerHTML += `<div class="js-scan-medication o-layout o-layout--align-center">${errormark} <span>${item.medication_name} ${item.dosis}</span></div>`
     });
