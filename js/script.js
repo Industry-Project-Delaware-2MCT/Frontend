@@ -544,12 +544,16 @@ const getMedicationData = async (base64image) => {
                 console.log("succes");
                 localStorage.setItem("succes", item.succes);
                 console.log("testing " , item)
-                medication = document.querySelector(".js-scan-medication");
-                if(medication.innerHTML == item.result.medicine_name) {
-                    medication.innerHTML = checkmark + medication.innerHTML;
-                    
+                medication = document.querySelectorAll(".js-scan-medication");
+                medicationNames.forEach(item => {
+                    if(medication.innerHTML.includes(item)) {
+                        medication.innerHTML = checkmark + medication.innerHTML;
+                        
+    
+                    }
 
-                }
+                });
+                
                 errorText.innerHTML = "Scan gelukt!";
                 errorText.style.color = 'green';
                 document.querySelector(".js-complete").classList.remove("u-display-none");
