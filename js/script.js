@@ -119,7 +119,10 @@ const checkConnection = async () => {
         
     }else{
         console.log("no connection");
-        window.location.href = window.location.origin + "/Frontend/noNetwork.html";
+        if(!window.location.href.includes("noNetwork.html")){
+            window.location.href = window.location.origin + "/Frontend/noNetwork.html";
+        }
+        
     }
 }
 
