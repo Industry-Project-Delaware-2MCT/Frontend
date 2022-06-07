@@ -527,28 +527,53 @@ const getMedicationData = async (base64image) => {
         loadingIcon.classList.add('u-display-none');
         cameraIcon.classList.remove('u-display-none');
         input.disabled = false;
-        if (!data.succes) {
-            console.log("Wrong medication scanned");
-            Swal.fire({
-                icon:'error',
-                title:'Oeps...',
-                text: "U heeft de verkeerde medicatie gescand. Gelieve deze niet toe te dienen.",
-                confirmButtonColor: "#658af0",
-                confirmButtonText: 'OK',
-                iconColor: "#f45252",
-            });
-            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
-            errorText.style.color = 'crimson';
-        } else {
-            console.log("succes");
-            localStorage.setItem("succes", data.succes);
-            medication = document.querySelector(".js-firstmedication");
-            medication.innerHTML = checkmark + medication.innerHTML;
-            errorText.innerHTML = "Scan gelukt!";
-            errorText.style.color = 'green';
-            document.querySelector(".js-complete").classList.remove("u-display-none");
-            cameraIcon.parentElement.classList.add("u-display-none");
-        }
+        data.forEach(item => {
+            if (!data.succes) {
+                console.log("Wrong medication scanned");
+                Swal.fire({
+                    icon:'error',
+                    title:'Oeps...',
+                    text: "U heeft de verkeerde medicatie gescand. Gelieve deze niet toe te dienen.",
+                    confirmButtonColor: "#658af0",
+                    confirmButtonText: 'OK',
+                    iconColor: "#f45252",
+                });
+                errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
+                errorText.style.color = 'crimson';
+            } else {
+                console.log("succes");
+                localStorage.setItem("succes", data.succes);
+                medication = document.querySelector(".js-firstmedication");
+                medication.innerHTML = checkmark + medication.innerHTML;
+                errorText.innerHTML = "Scan gelukt!";
+                errorText.style.color = 'green';
+                document.querySelector(".js-complete").classList.remove("u-display-none");
+                cameraIcon.parentElement.classList.add("u-display-none");
+            }
+
+        });
+        // if (!data.succes) {
+        //     console.log("Wrong medication scanned");
+        //     Swal.fire({
+        //         icon:'error',
+        //         title:'Oeps...',
+        //         text: "U heeft de verkeerde medicatie gescand. Gelieve deze niet toe te dienen.",
+        //         confirmButtonColor: "#658af0",
+        //         confirmButtonText: 'OK',
+        //         iconColor: "#f45252",
+        //     });
+        //     errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
+        //     errorText.style.color = 'crimson';
+        // } else {
+        //     console.log("succes");
+        //     localStorage.setItem("succes", data.succes);
+        //     medication = document.querySelector(".js-firstmedication");
+        //     medication.innerHTML = checkmark + medication.innerHTML;
+        //     errorText.innerHTML = "Scan gelukt!";
+        //     errorText.style.color = 'green';
+        //     document.querySelector(".js-complete").classList.remove("u-display-none");
+        //     cameraIcon.parentElement.classList.add("u-display-none");
+        // }
     })
     .catch(error => console.log('error', error));
 }
