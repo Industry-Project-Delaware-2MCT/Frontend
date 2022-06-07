@@ -15,13 +15,14 @@ Service worker code
 ===========================*/
 function invokeServiceWorkerUpdateFlow(registration) {
     // TODO implement your own UI notification element
-    notification.show("New version of the app is available. Refresh now?");
+    /*notification.show("New version of the app is available. Refresh now?");
     notification.addEventListener('click', () => {
         if (registration.waiting) {
             // let waiting Service Worker know it should became active
             registration.waiting.postMessage('SKIP_WAITING')
         }
-    })
+    })*/
+    registration.waiting.postMessage('SKIP_WAITING')
 }
 
 if ('serviceWorker' in navigator) {
