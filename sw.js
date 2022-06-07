@@ -5,6 +5,7 @@ const staticAssets = [
   '../Frontend/LoginPage.html',
   '../Frontend/NFCpage.html',
   '../Frontend/noNetwork.html',
+  '../Frontend/js/script.js',
   '../Frontend/css/screen.css',
   '../Frontend/css/normalize.css',
   '../Frontend/assets/no-wifi.png',
