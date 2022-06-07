@@ -545,9 +545,13 @@ const getMedicationData = async (base64image) => {
                 localStorage.setItem("succes", item.succes);
                 console.log("testing " , item)
                 medication = document.querySelectorAll(".js-scan-medication");
-                medicationNames.forEach(item => {
-                    if(medication.textContent.includes(item)) {
-                        medication.innerHTML = checkmark + medication.innerHTML;
+                medication.forEach(index => {
+                    test = index.textContent;
+                    console.log("test: ", test);
+                    console.log("substance:", item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", ""))
+                    if(test == item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", "") ) {
+                        console.log("found");
+                        index.innerHTML = checkmark + index.innerHTML;
                     }
                 });
                 
