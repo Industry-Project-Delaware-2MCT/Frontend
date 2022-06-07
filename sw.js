@@ -20,7 +20,7 @@ self.addEventListener('install', (e) => {
   
 });
 
-self.addEventListener('activate', function(event) {
+/*self.addEventListener('activate', function(event) {
   var cacheWhitelist = ['../Frontend/noNetwork.html','../Frontend/index.html','../Frontend/assets/home_ilustration_extended.webp'];
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
@@ -33,6 +33,23 @@ self.addEventListener('activate', function(event) {
       );
     })
   );
+});*/
+
+self.addEventListener("activate", function(e) {
+  console.log("Alloy service worker activation");
+  e.waitUntil(
+      caches.keys().then(function(keyList) {
+          return Promise.all(
+              keyList.map(function(key) {
+                  if (key !== cacheName) {
+                      console.log("Alloy old cache removed", key);
+                      return caches.delete(key);
+                  }
+              })
+          );
+      })
+  );
+  return self.clients.claim();
 });
 
 self.addEventListener('fetch', function(event) {
