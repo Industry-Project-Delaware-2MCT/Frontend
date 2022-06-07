@@ -15,7 +15,6 @@ const init = () => {
     if(window.location.href.includes("index.html")) {
         checkConnection();
         localStorage.clear();
-        window.location.reload();
         warmup();
         console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
 
