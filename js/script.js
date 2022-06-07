@@ -355,7 +355,7 @@ const showPatientName = () => {
 function setMedicationData(firstName, lastName, medication) {
     patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
     medication.forEach(item => {
-        patientMedication.innerHTML += `<div class="js-firstmedication o-layout o-layout--align-center"><span>${item.medication_name} ${item.dosis}</span></div>`
+        patientMedication.innerHTML += `<div class="js-scan-medication o-layout o-layout--align-center"><span>${item.medication_name} ${item.dosis}</span></div>`
     });
 }
 
@@ -543,8 +543,13 @@ const getMedicationData = async (base64image) => {
             } else {
                 console.log("succes");
                 localStorage.setItem("succes", item.succes);
-                medication = document.querySelector(".js-firstmedication");
-                medication.innerHTML = checkmark + medication.innerHTML;
+                console.log("testing " , item)
+                medication = document.querySelector(".js-scan-medication");
+                if(medication.innerHTML == item.result.medicine_name) {
+                    medication.innerHTML = checkmark + medication.innerHTML;
+                    
+
+                }
                 errorText.innerHTML = "Scan gelukt!";
                 errorText.style.color = 'green';
                 document.querySelector(".js-complete").classList.remove("u-display-none");
