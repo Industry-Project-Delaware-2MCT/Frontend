@@ -1,9 +1,5 @@
 const cacheName = 'mediscan-v1';
 const staticAssets = [
-  './',
-  '../Frontend/index.html',
-  '../Frontend/LoginPage.html',
-  '../Frontend/NFCpage.html',
   '../Frontend/noNetwork.html',
   '../Frontend/css/screen.css',
   '../Frontend/css/normalize.css',
@@ -20,7 +16,7 @@ self.addEventListener('install', (e) => {
   
 });
 
-self.addEventListener('activate', function(event) {
+/*self.addEventListener('activate', function(event) {
   var cacheWhitelist = ['../Frontend/noNetwork.html','../Frontend/index.html','../Frontend/assets/home_ilustration_extended.webp'];
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
@@ -33,7 +29,26 @@ self.addEventListener('activate', function(event) {
       );
     })
   );
+});*/
+
+self.addEventListener("activate", function(e) {
+  console.log("[Service Worker]: activation");
+  e.waitUntil(
+      caches.keys().then(function(keyList) {
+          return Promise.all(
+              keyList.map(function(key) {
+                  if (key !== cacheName) {
+                      console.log("[Service Worker]: old cache removed", key);
+                      return caches.delete(key);
+                  }
+              })
+          );
+      })
+  );
+  return self.clients.claim();
 });
+// get the ServiceWorkerRegistration instance
+
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
