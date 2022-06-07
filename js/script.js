@@ -494,6 +494,7 @@ const getMedicationData = async (base64image) => {
     medication.forEach(item => {
         medicationNames.push(item.name);
     });
+    console.log("medications: " +medicationNames);
     
     var data = {
         base64String: base64image,
