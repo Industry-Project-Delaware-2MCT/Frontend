@@ -69,6 +69,7 @@ if ('serviceWorker' in navigator) {
 
 self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') {
+      console.log("updated");
       self.skipWaiting();
   }
 });
