@@ -15,6 +15,7 @@ const init = () => {
     if(window.location.href.includes("index.html")) {
         checkConnection();
         localStorage.clear();
+        window.location.reload();
         warmup();
         console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
 
@@ -110,11 +111,11 @@ Check network connection
 ===========================*/
 
 const checkConnection = async () => {
+    console.log("checking connection:"+ window.navigator.onLine);
     if(window.navigator.onLine) {
+        console.log("online");
         if(window.location.href.includes("noNetwork.html")){
             window.location.href = window.location.origin + "/Frontend/index.html";
-        }else{
-            return
         }
         
     }else{
