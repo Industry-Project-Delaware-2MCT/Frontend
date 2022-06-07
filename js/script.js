@@ -547,20 +547,20 @@ const getMedicationData = async (base64image) => {
                 localStorage.setItem("succes", item.succes);
                 console.log("testing " , item)
                 medication = document.querySelectorAll(".js-scan-medication");
+                
                 medication.forEach(index => {
                     test = index.textContent;
                     console.log("test: ", test);
-                    console.log("substance:", item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", ""))
-                    if(test == item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", "") ) {
+                    console.log("substance:", " " + item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", ""))
+                    if(test == " " +item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", "") ) {
                         console.log("found");
+                        index.firstElementChild.remove();
                         index.innerHTML = checkmark + index.innerHTML;
                     }
                 });
-                
-                
             }
-
         });
+
         console.log("checkmarks: ", patientMedication.querySelectorAll(".checkmark").length);
         console.log("amount medications: ", medication.length);
 
@@ -583,7 +583,7 @@ const getMedicationData = async (base64image) => {
                 Swal.fire({
                     icon:'error',
                     title:'Oeps...',
-                    html: '<p style="color:black">Er is medicatie teveel gescand. Gelieve enkel <span style="color: green; font-weight:bold;">' + medicationNames.join(", ") + '</span>toe te dienen.<p>',
+                    html: '<p style="color:black">Er is medicatie teveel gescand. Gelieve enkel <span style="color: green; font-weight:bold;">' + medicationNames.join(", ") + '</span> toe te dienen.<p>',
                                                                                          
                     confirmButtonColor: "#658af0",
                     confirmButtonText: 'OK',
