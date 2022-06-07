@@ -586,7 +586,14 @@ function showMedicationData(response) {
         console.log("No medication found");
         errorText.innerHTML = "Geen medicatie herkent of gevonden";
         errorText.style.color = 'crimson';
-    } else {
+    } else if(response.status == 409){
+        
+        console.log("Wrong medication in image");
+        errorText.innerHTML = "";
+        return response.json();
+
+        
+    }else {
         console.log("medication data failed");
         errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
         errorText.style.color = 'crimson';
