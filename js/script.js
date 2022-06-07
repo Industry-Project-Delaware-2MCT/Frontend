@@ -73,6 +73,7 @@ self.addEventListener('message', (event) => {
 /*==========================*/
 
 let nurseName = "test";
+let isTooMuch = false;
 
 const init = () => {
     console.log("init");
@@ -354,8 +355,9 @@ const showPatientName = () => {
 
 function setMedicationData(firstName, lastName, medication) {
     patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
+    var errormark = '<svg class="checkmark errormark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle errormark__circle" cx="26" cy="26" r="25" fill="none"></circle><path class="checkmark__check" fill="none" d="M36.7,36.6L15.3,15.4"></path><path class="checkmark__check" fill="none" d="M15.4,36.7l21.3-21.4"></path></svg>';
     medication.forEach(item => {
-        patientMedication.innerHTML += `<div class="js-scan-medication o-layout o-layout--align-center"><span>${item.medication_name} ${item.dosis}</span></div>`
+        patientMedication.innerHTML += `<div class="js-scan-medication o-layout o-layout--align-center">${errormark} <span>${item.medication_name} ${item.dosis}</span></div>`
     });
 }
 
@@ -533,7 +535,7 @@ const getMedicationData = async (base64image) => {
                 Swal.fire({
                     icon:'error',
                     title:'Oeps...',
-                    text: "U heeft de verkeerde medicatie gescand. Gelieve deze niet toe te dienen.",
+                    html: '<p style="color: black">U heeft de verkeerde medicatie gescand. Gelieve <span style="color: crimson; font-weight:bold;">' + item.result.medicine_name + '</span> niet toe te dienen.<p>',
                     confirmButtonColor: "#658af0",
                     confirmButtonText: 'OK',
                     iconColor: "#f45252",
@@ -555,13 +557,46 @@ const getMedicationData = async (base64image) => {
                     }
                 });
                 
+                
+            }
+
+        });
+        console.log("checkmarks: ", patientMedication.querySelectorAll(".checkmark").length);
+        console.log("amount medications: ", medication.length);
+
+        if(isTooMuch != true) {
+            if(patientMedication.querySelectorAll(".checkmark").length == medication.length){
                 errorText.innerHTML = "Scan gelukt!";
                 errorText.style.color = 'green';
                 document.querySelector(".js-complete").classList.remove("u-display-none");
                 cameraIcon.parentElement.classList.add("u-display-none");
+    
             }
+        }else{
+            if(patientMedication.querySelectorAll(".checkmark").length == medication.length){
+                errorText.innerHTML = "Er is medicatie teveel gescand";
+                errorText.style.color = 'crimson';
+                document.querySelector(".js-complete").classList.remove("u-display-none");
+                cameraIcon.parentElement.classList.add("u-display-none");
+                
 
-        });
+                Swal.fire({
+                    icon:'error',
+                    title:'Oeps...',
+                    html: '<p style="color:black">Er is medicatie teveel gescand. Gelieve enkel <span style="color: green; font-weight:bold;">' + medicationNames.join(", ") + '</span>toe te dienen.<p>',
+                                                                                         
+                    confirmButtonColor: "#658af0",
+                    confirmButtonText: 'OK',
+                    iconColor: "#f45252",
+                });
+    
+            }
+            isTooMuch = false;
+        }
+        
+        
+        
+        
         // if (!data.succes) {
         //     console.log("Wrong medication scanned");
         //     Swal.fire({
@@ -600,6 +635,8 @@ function showMedicationData(response) {
         console.log("Wrong medication in image");
         errorText.innerHTML = "Er is medicatie teveel gescand! pas op!";
         errorText.style.color = 'crimson';
+        isTooMuch = true;
+        
         return response.json();
 
     }else {
