@@ -72,8 +72,8 @@ self.addEventListener('message', (event) => {
 
 /*==========================*/
 
-let nurseName = "test";
-let isTooMuch = false;
+let nurseName, isTooMuch = false, firstName, lastName, firstNameErrormessage, lastNameErrormessage, loginForm, errorText, greeting, errorMessage, cameraButton, patientPagepatientPage, barcodePopup, cancelButton, title, rfid, scanButton, nfc_serialnumber, input, patientName, patientMedication, patientLoginForm, patientPage, networkbutton, medicationNames, camera, loadingIcon, cameraIcon;
+
 
 const init = () => {
     console.log("init");
