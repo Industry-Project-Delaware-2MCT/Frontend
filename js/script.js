@@ -73,6 +73,7 @@ self.addEventListener('message', (event) => {
 /*==========================*/
 
 let nurseName = "test";
+let isTooMuch = false;
 
 const init = () => {
     console.log("init");
@@ -354,8 +355,9 @@ const showPatientName = () => {
 
 function setMedicationData(firstName, lastName, medication) {
     patientName.innerHTML = "Voornaam: " + firstName + "<br />Achternaam: " + lastName;
+    var errormark = '<svg class="errormark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="errormark__circle" cx="26" cy="26" r="25" fill="none"></circle><path class="checkmark__check" fill="none" d="M36.7,36.6L15.3,15.4"></path><path class="checkmark__check" fill="none" d="M15.4,36.7l21.3-21.4"></path></svg>';
     medication.forEach(item => {
-        patientMedication.innerHTML += `<div class="js-firstmedication o-layout o-layout--align-center"><span>${item.medication_name} ${item.dosis}</span></div>`
+        patientMedication.innerHTML += `<div class="js-scan-medication o-layout o-layout--align-center">${errormark} <span>${item.medication_name} ${item.dosis}</span></div>`
     });
 }
 
@@ -490,10 +492,16 @@ const getMedicationData = async (base64image) => {
     
     var medication = JSON.parse(localStorage.getItem("medication"));
     var checkmark = '<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>';
+    medicationNames = [];
+    medication.forEach(item => {
+        medicationNames.push(item.medication_name);
+    });
+    console.log("medications: ",medicationNames);
+    console.log("medication: ",medication);
     
     var data = {
         base64String: base64image,
-        active_substance: medication[0].medication_name,
+        active_substance:  medicationNames,
     };
     
     camera = document.querySelector(".js-camera");
@@ -521,28 +529,96 @@ const getMedicationData = async (base64image) => {
         loadingIcon.classList.add('u-display-none');
         cameraIcon.classList.remove('u-display-none');
         input.disabled = false;
-        if (!data.succes) {
-            console.log("Wrong medication scanned");
-            Swal.fire({
-                icon:'error',
-                title:'Oeps...',
-                text: "U heeft de verkeerde medicatie gescand. Gelieve deze niet toe te dienen.",
-                confirmButtonColor: "#658af0",
-                confirmButtonText: 'OK',
-                iconColor: "#f45252",
-            });
-            errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
-            errorText.style.color = 'crimson';
-        } else {
-            console.log("succes");
-            localStorage.setItem("succes", data.succes);
-            medication = document.querySelector(".js-firstmedication");
-            medication.innerHTML = checkmark + medication.innerHTML;
-            errorText.innerHTML = "Scan gelukt!";
-            errorText.style.color = 'green';
-            document.querySelector(".js-complete").classList.remove("u-display-none");
-            cameraIcon.parentElement.classList.add("u-display-none");
+        data.forEach(item => {
+            if (!item.succes) {
+                console.log("Wrong medication scanned");
+                Swal.fire({
+                    icon:'error',
+                    title:'Oeps...',
+                    html: '<p style="color: black">U heeft de verkeerde medicatie gescand. Gelieve <span style="color: crimson; font-weight:bold;">' + item.result.medicine_name + '</span> niet toe te dienen.<p>',
+                    confirmButtonColor: "#658af0",
+                    confirmButtonText: 'OK',
+                    iconColor: "#f45252",
+                });
+                errorText.innerHTML = "Foute medicatie gescand: " + item.result.medicine_name + ". Probeer alstublieft opnieuw";
+                errorText.style.color = 'crimson';
+            } else {
+                console.log("succes");
+                localStorage.setItem("succes", item.succes);
+                console.log("testing " , item)
+                medication = document.querySelectorAll(".js-scan-medication");
+                
+                medication.forEach(index => {
+                    test = index.textContent;
+                    console.log("test: ", test);
+                    console.log("substance:", " " + item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", ""))
+                    if(test == " " +item.result.active_substances[0].substance + " " + item.result.active_substances[0].dosis.replace(" ", "") ) {
+                        console.log("found");
+                        index.firstElementChild.remove();
+                        index.innerHTML = checkmark + index.innerHTML;
+                    }
+                });
+            }
+        });
+
+        console.log("checkmarks: ", patientMedication.querySelectorAll(".checkmark").length);
+        console.log("amount medications: ", medication.length);
+
+        if(isTooMuch != true) {
+            if(patientMedication.querySelectorAll(".checkmark").length == medication.length){
+                errorText.innerHTML = "Scan gelukt!";
+                errorText.style.color = 'green';
+                document.querySelector(".js-complete").classList.remove("u-display-none");
+                cameraIcon.parentElement.classList.add("u-display-none");
+    
+            }
+        }else{
+            if(patientMedication.querySelectorAll(".checkmark").length == medication.length){
+                errorText.innerHTML = "Er is medicatie teveel gescand";
+                errorText.style.color = 'crimson';
+                document.querySelector(".js-complete").classList.remove("u-display-none");
+                cameraIcon.parentElement.classList.add("u-display-none");
+                
+
+                Swal.fire({
+                    icon:'error',
+                    title:'Oeps...',
+                    html: '<p style="color:black">Er is medicatie teveel gescand. Gelieve enkel <span style="color: green; font-weight:bold;">' + medicationNames.join(", ") + '</span> toe te dienen.<p>',
+                                                                                         
+                    confirmButtonColor: "#658af0",
+                    confirmButtonText: 'OK',
+                    iconColor: "#f45252",
+                });
+    
+            }
+            isTooMuch = false;
         }
+        
+        
+        
+        
+        // if (!data.succes) {
+        //     console.log("Wrong medication scanned");
+        //     Swal.fire({
+        //         icon:'error',
+        //         title:'Oeps...',
+        //         text: "U heeft de verkeerde medicatie gescand. Gelieve deze niet toe te dienen.",
+        //         confirmButtonColor: "#658af0",
+        //         confirmButtonText: 'OK',
+        //         iconColor: "#f45252",
+        //     });
+        //     errorText.innerHTML = "Foute medicatie gescand: " + data.result.medicine_name + ". Probeer alstublieft opnieuw";
+        //     errorText.style.color = 'crimson';
+        // } else {
+        //     console.log("succes");
+        //     localStorage.setItem("succes", data.succes);
+        //     medication = document.querySelector(".js-firstmedication");
+        //     medication.innerHTML = checkmark + medication.innerHTML;
+        //     errorText.innerHTML = "Scan gelukt!";
+        //     errorText.style.color = 'green';
+        //     document.querySelector(".js-complete").classList.remove("u-display-none");
+        //     cameraIcon.parentElement.classList.add("u-display-none");
+        // }
     })
     .catch(error => console.log('error', error));
 }
@@ -555,7 +631,15 @@ function showMedicationData(response) {
         console.log("No medication found");
         errorText.innerHTML = "Geen medicatie herkent of gevonden";
         errorText.style.color = 'crimson';
-    } else {
+    } else if(response.status == 409)  {
+        console.log("Wrong medication in image");
+        errorText.innerHTML = "Er is medicatie teveel gescand! pas op!";
+        errorText.style.color = 'crimson';
+        isTooMuch = true;
+        
+        return response.json();
+
+    }else {
         console.log("medication data failed");
         errorText.innerHTML = "Er is iets fout gegaan, probeer het later opnieuw";
         errorText.style.color = 'crimson';
@@ -719,6 +803,8 @@ const scan = async () => {
         title.innerHTML = "NFC staat niet aan";
     }
   };
+
+
 /*==========================
 BARCODE FUNCTIONALITY
 ===========================*/
