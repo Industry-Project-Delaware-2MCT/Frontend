@@ -629,7 +629,7 @@ function showMedicationData(response) {
         return response.json();
     } else if (response.status == 404) {
         console.log("No medication found");
-        errorText.innerHTML = "Geen medicatie herkent of gevonden";
+        errorText.innerHTML = "Geen medicatie herkend of gevonden, probeer opnieuw en zorg dat de volledige medicatie in beeld is.";
         errorText.style.color = 'crimson';
     } else if(response.status == 409)  {
         console.log("Wrong medication in image");
